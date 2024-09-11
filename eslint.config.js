@@ -60,7 +60,6 @@ export default [
           custom: "ignore",
         },
       ],
-      "import/no-default-export": "error",
       "react-hooks/exhaustive-deps": [
         "off",
         {
@@ -76,7 +75,6 @@ export default [
           ignoreRegExpLiterals: true,
         },
       ],
-      
     },
   },
 ];
