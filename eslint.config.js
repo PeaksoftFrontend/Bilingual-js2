@@ -34,11 +34,16 @@ export default [
     files: ["**/*.{js,jsx}"],
     rules: {
       ...eslintConfigPrettier.rules,
+      "react/jsx-no-target-blank": "off",
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
       "no-var": "error",
       "prefer-const": "error",
       eqeqeq: "error",
       "no-unused-vars": [
-        "warn",
+        "error",
         {
           varsIgnorePattern: "^(StrictMode|App)$",
         },
@@ -47,6 +52,31 @@ export default [
       "prefer-arrow-callback": "error",
       "func-style": ["error", "expression"],
       "no-alert": "error",
+      "no-shadow": "error",
+      "react/jsx-props-no-spreading": [
+        "off",
+        {
+          html: "ignore",
+          custom: "ignore",
+        },
+      ],
+      "import/no-default-export": "error",
+      "react-hooks/exhaustive-deps": [
+        "off",
+        {
+          additionalHooks: "(useMyCustomHook|useAnotherHook)",
+        },
+      ],
+      "max-len": [
+        "error",
+        {
+          code: 100,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreRegExpLiterals: true,
+        },
+      ],
+      
     },
   },
 ];
