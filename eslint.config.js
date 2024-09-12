@@ -1,3 +1,4 @@
+/* eslint-disable import/no-default-export */
 import js from "@eslint/js";
 import globals from "globals";
 import eslintReact from "eslint-plugin-react";
@@ -5,6 +6,7 @@ import eslintReactHooks from "eslint-plugin-react-hooks";
 import eslintReactRefresh from "eslint-plugin-react-refresh";
 import prettierPlugin from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintImport from "eslint-plugin-import";
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
@@ -14,6 +16,7 @@ export default [
       react: eslintReact,
       "react-refresh": eslintReactRefresh,
       prettier: prettierPlugin,
+      import: eslintImport,
     },
   },
   {
@@ -42,10 +45,15 @@ export default [
       "no-var": "error",
       "prefer-const": "error",
       eqeqeq: "error",
+      "react/jsx-no-undef": "error",
+      "react/jsx-uses-vars": "error",
       "no-unused-vars": [
         "error",
         {
-          varsIgnorePattern: "^(StrictMode|App)$",
+          varsIgnorePattern: "^(StrictMode|App|_)$",
+          vars: "all",
+          args: "after-used",
+          ignoreRestSiblings: true,
         },
       ],
       "no-console": "warn",
@@ -53,6 +61,7 @@ export default [
       "func-style": ["error", "expression"],
       "no-alert": "error",
       "no-shadow": "error",
+      "import/no-default-export": "error",
       "react/jsx-props-no-spreading": [
         "off",
         {
