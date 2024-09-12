@@ -63,8 +63,7 @@ const typographyVariants = {
   },
 };
 
-const theme = createTheme({
-  typography: typographyVariants,
+export const theme = createTheme({
+  typography: typographyVariants
 });
 
-export default theme;
