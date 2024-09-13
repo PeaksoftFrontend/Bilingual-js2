@@ -20,39 +20,53 @@ export const Input = ({
       type={type}
       error={error}
       {...props}
-      InputLabelProps={{ shrink: true }}
       variant="outlined"
     />
   );
 };
 
-const StyledInput = styled(TextField)(({ error }) => ({
-  width: "500px",
+const StyledInput = styled(TextField)(({ error, disabled }) => ({
+  width: "100%",
   height: "52px",
   borderRadius: "10px",
 
+  "& .MuiInputLabel-root": {
+    color: "#808080",
+  },
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: error ? "#F61414" : "#3A10E5",
+  },
+  "& .MuiInputLabel-root.MuiFormLabel-filled": {
+    color: "#808080",
+  },
+
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: error ? "red" : "#c4c4c4",
+      borderColor: disabled ? "#BDBDBD" : error ? "#F61414" : "#c4c4c4",
       borderRadius: "10px",
     },
     "&:hover fieldset": {
-      borderColor: error ? "red" : "#3A10E5",
+      borderColor: disabled ? "#BDBDBD" : error ? "#F61414" : "#3A10E5",
     },
     "&.Mui-focused fieldset": {
-      borderColor: error ? "red" : "#3A10E5",
+      borderColor: error ? "#F61414" : "#3A10E5",
       borderWidth: "2px",
     },
   },
 
+  "& .MuiOutlinedInput-input": {
+    padding: "14.5px 14px",
+  },
+
   "& .Mui-disabled": {
-    backgroundColor: "#f5f5f5",
-    color: "#a1a1a1",
-    borderColor: "#e0e0e0",
+    backgroundColor: "#F7F7F7",
+    color: "#757575",
+    borderColor: "#BDBDBD",
+    cursor: "not-allowed",
   },
 
   "& .Mui-error": {
-    borderColor: "red",
+    borderColor: "#F61414",
   },
 
   "& .MuiInputBase-input::placeholder": {
