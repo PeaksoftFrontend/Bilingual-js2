@@ -2,7 +2,7 @@ import { Button as MyButton, styled } from "@mui/material";
 export const Button = ({
   children,
   onClick,
-  variant,
+  variant = "text",
   disabled,
   type = "button",
   ...props
