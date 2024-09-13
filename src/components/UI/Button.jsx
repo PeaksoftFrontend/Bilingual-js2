@@ -5,6 +5,7 @@ export const Button = ({
   variant = "text",
   disabled,
   type = "button",
+  icon,
   ...props
 }) => {
   return (
@@ -15,13 +16,24 @@ export const Button = ({
       onClick={onClick}
       {...props}
     >
-      {children}
+      {variant === "text" ? (
+        <>
+          {icon}
+          {children}
+        </>
+      ) : (
+        <>{children}</>
+      )}
     </StyledBtn>
   );
 };
 
 const StyledBtn = styled(MyButton)(({ variant }) => ({
+  fontWeight: "600",
+
   ...(variant === "text" && {
+    display: "flex",
+    gap: "10px",
     width: "164px",
     height: "42px",
     textTransform: "uppercase",
@@ -39,10 +51,11 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
       border: "1px solid #C4C4C4 ",
+      сursor: "not-allowed",
     },
   }),
 
-  ...(variant === "outlined" && {
+  ...(variant === "contained" && {
     width: "82px",
     height: "42px",
     textTransform: "uppercase",
@@ -50,6 +63,7 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
     borderRadius: "8px",
     backgroundColor: "#2AB930",
     color: "#FFFFFF",
+    border: "none",
 
     "&:hover": {
       backgroundColor: "#31CF38",
@@ -58,12 +72,13 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#08AF10",
     },
     "&:disabled": {
+      сursor: "not-allowed",
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
-      border: "1px solid #C4C4C4 ",
+      border: "2px solid #C4C4C4 ",
     },
   }),
-  ...(variant === "contained" && {
+  ...(variant === "outlined" && {
     width: "100px",
     height: "42px",
     textTransform: "uppercase",
@@ -82,6 +97,8 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#3007DA",
     },
     "&:disabled": {
+      сursor: "not-allowed",
+
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
       border: "1px solid #C4C4C4 ",
@@ -103,24 +120,10 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#3007DA",
     },
     "&:disabled": {
+      сursor: "not-allowed",
+
       backgroundColor: "#C4C4C4",
       color: "#FEFEFF",
-    },
-  }),
-  ...(variant === "LOGOUT" && {
-    width: "104px",
-    height: "42px",
-    textTransform: "uppercase",
-    fontSize: "14px",
-    borderRadius: "8px",
-    backgroundColor: "#FFFFFF",
-    color: "#4C4C4C",
-    border: "2px solid  #4C4859",
-
-    "&:hover": {
-      backgroundColor: "#3A10E5",
-      color: "#FFFFFF",
-      border: "none",
     },
   }),
 }));
