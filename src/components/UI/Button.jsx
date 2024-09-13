@@ -1,4 +1,5 @@
 import { Button as MyButton, styled } from "@mui/material";
+
 export const Button = ({
   children,
   onClick,
@@ -30,7 +31,10 @@ export const Button = ({
 
 const StyledBtn = styled(MyButton)(({ variant }) => ({
   fontWeight: "600",
-
+  "&:disabled": {
+    pointerEvents: "auto",
+    cursor: "not-allowed",
+  },
   ...(variant === "text" && {
     display: "flex",
     gap: "10px",
@@ -43,19 +47,21 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
     color: "#FFFFFF",
     "&:hover": {
       backgroundColor: "#3A10E5E5",
+      boxShadow:
+        "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
-    "&:activ": {
+    "&:active": {
       backgroundColor: "#3007DA",
     },
-    "&:disabled": {
+    "&.Mui-disabled": {
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
-      border: "1px solid #C4C4C4 ",
-      сursor: "not-allowed",
+      border: "2px solid #C4C4C4",
+      // cursor: "pointer",
     },
   }),
 
-  ...(variant === "contained" && {
+  ...(variant === "sucsses" && {
     width: "82px",
     height: "42px",
     textTransform: "uppercase",
@@ -67,17 +73,20 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
 
     "&:hover": {
       backgroundColor: "#31CF38",
+      boxShadow:
+        "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
-    "&:activ": {
+    "&:active": {
       backgroundColor: "#08AF10",
     },
-    "&:disabled": {
-      сursor: "not-allowed",
+    "&.Mui-disabled": {
+      cursor: "not-allowed !important",
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
-      border: "2px solid #C4C4C4 ",
+      border: "2px solid #C4C4C4",
     },
   }),
+
   ...(variant === "outlined" && {
     width: "100px",
     height: "42px",
@@ -92,19 +101,21 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#3A10E5",
       color: "#FEFEFF",
       border: "none",
+      boxShadow:
+        "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
-    "&:activ": {
+    "&:active": {
       backgroundColor: "#3007DA",
     },
-    "&:disabled": {
-      сursor: "not-allowed",
-
+    "&.Mui-disabled": {
+      cursor: "not-allowed !important",
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
-      border: "1px solid #C4C4C4 ",
+      border: "2px solid #C4C4C4",
     },
   }),
-  ...(variant === "NEXT" && {
+
+  ...(variant === "contained" && {
     width: "143px",
     height: "42px",
     textTransform: "uppercase",
@@ -115,13 +126,14 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
 
     "&:hover": {
       backgroundColor: "#4E28E8",
+      boxShadow:
+        "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
-    "&:activ": {
+    "&:active": {
       backgroundColor: "#3007DA",
     },
-    "&:disabled": {
-      сursor: "not-allowed",
-
+    "&.Mui-disabled": {
+      border: "2px solid #C4C4C4",
       backgroundColor: "#C4C4C4",
       color: "#FEFEFF",
     },
