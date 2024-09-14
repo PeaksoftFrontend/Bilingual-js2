@@ -64,6 +64,5 @@ const typographyVariants = {
 };
 
 export const theme = createTheme({
-  typography: typographyVariants
+  typography: typographyVariants,
 });
-
