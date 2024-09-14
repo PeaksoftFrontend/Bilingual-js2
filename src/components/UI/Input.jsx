@@ -1,4 +1,6 @@
-import { styled, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, InputAdornment, styled, TextField } from "@mui/material";
+import { useState } from "react";
 
 export const Input = ({
   label,
@@ -8,8 +10,19 @@ export const Input = ({
   disabled,
   type,
   error,
+  fullWidth,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handlePassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <StyledInput
       label={label}
@@ -17,16 +30,30 @@ export const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      type={type}
+      type={type === "password" && showPassword ? "text" : type}
       error={error}
       {...props}
       variant="outlined"
+      fullWidth
+      InputProps={{
+        endAdornment:
+          type === "password" ? (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={handleClickShowPassword}
+                onMouseDown={handlePassword}
+                edge="end"
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+      }}
     />
   );
 };
 
 const StyledInput = styled(TextField)(({ error, disabled }) => ({
-  width: "100%",
   height: "52px",
   borderRadius: "10px",
 
@@ -34,10 +61,10 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     color: "#808080",
   },
   "& .MuiInputLabel-root.Mui-focused": {
-    color: error ? "#F61414" : "#3A10E5",
+    color: error ? "#BDBDBD" : "#3A10E5",
   },
-  "& .MuiInputLabel-root.MuiFormLabel-filled": {
-    color: "#808080",
+  "& .MuiInputLabel-root.MuiFormLabel-filled:active": {
+    color: "#3A10E5",
   },
 
   "& .MuiOutlinedInput-root": {
@@ -50,12 +77,12 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     },
     "&.Mui-focused fieldset": {
       borderColor: error ? "#F61414" : "#3A10E5",
-      borderWidth: "2px",
+      borderWidth: "1px",
     },
   },
 
   "& .MuiOutlinedInput-input": {
-    padding: "14.5px 14px",
+    padding: "14.5px 20px",
   },
 
   "& .Mui-disabled": {
@@ -63,6 +90,7 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     color: "#757575",
     borderColor: "#BDBDBD",
     cursor: "not-allowed",
+    borderRadius: "10px",
   },
 
   "& .Mui-error": {
