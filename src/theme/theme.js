@@ -77,7 +77,7 @@ const colorVariants = {
     contrastText: "#FEF5E8",
   },
   gradients: {
-    purple: "#b76473",
+    purple: "#dd16ff",
   },
 };
 
