@@ -63,6 +63,25 @@ const typographyVariants = {
   },
 };
 
+const colorVariants = {
+  primary: {
+    main: "#3A10E5",
+    light: "#3752B4",
+    dark: "#23212A",
+    contrastText: "#ffffff",
+  },
+  secondary: {
+    main: "#FE9102",
+    light: "#666CA7",
+    dark: "#262626",
+    contrastText: "#FEF5E8",
+  },
+  gradients: {
+    purple: "#dd16ff",
+  },
+};
+
 export const theme = createTheme({
   typography: typographyVariants,
+  ...colorVariants,
 });
