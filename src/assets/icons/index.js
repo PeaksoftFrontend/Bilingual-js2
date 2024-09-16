@@ -1,62 +1,65 @@
-// Importing logos from the 'logo' folder
-import Logo from "./logo/logo.svg";
-import MinorLogo from "./logo/minor_logo.svg";
-import CheckSquare1 from "./icon/check-square-1.svg";
-import CheckSquare from "./icon/check-square.svg";
-import PlayPause from "./icon/Component 149.svg";
-import PlayPauseMinor from "./icon/Component 181.svg";
-import EyeOff from "./icon/eye-off.svg";
-import Eye from "./icon/eye.svg";
-import Sound from "./icon/Group 13.svg";
-import SoundBlueXL from "./icon/Group 14.svg";
-import Tick from "./icon/Group 1414.svg";
-import xIcon from "./icon/Group 1415.svg";
-import Trash from "./icon/Group 1422.svg";
-import NoteGreySmall from "./icon/Group 1423.svg";
-import xGreyIcon from "./icon/Group 1425.svg";
-import RedTrash from "./icon/Group 1426.svg";
-import Note from "./icon/Group 1427.svg";
-import Sound10 from "./icon/Group 1441.svg";
-import Sound11 from "./icon/Group 1442.svg";
-import Hover from "./icon/on hover.svg";
-import Play from "./icon/play 1.svg";
-import Usual from "./icon/usual.svg";
-import VectorIcon from "./icon/Vector.svg";
-import CheckBold from "./check_radio_switch/Component148.svg";
-import SigninCheck from "./check_radio_switch/Component182.svg";
-import SwitchOn from "./check_radio_switch/Group1382.svg";
-import SwitchOff from "./check_radio_switch/Group 1380.svg";
-import Radio from "./check_radio_switch/x.svg";
+import FullLogo from "./logo/FullLogo.svg";
+import Logo from "./logo/Logo.svg";
+import SwitchOff from "./check&radio&switch/SwitchOff.svg";
+import SwitchOn from "./check&radio&switch/SwitchOn.svg";
+import RadioOn from "./radio/RadioOn.svg";
+import RadioOff from "./radio/RadioOff.svg";
+import SignBoldFalse from "./sign&icons/SignBoldFalse.svg";
+import SignBoldTrue from "./sign&icons/SignBoldTrue.svg";
+import SignLightFalse from "./sign&icons/SignLightFalse.svg";
+import SignLightTrue from "./sign&icons/SignLightTrue.svg";
+import Alert from "./icon/Alert.svg";
+import Eye from "./icon/Eye.svg";
+import EyeDisabled from "./icon/EyeDisabled.svg";
+import Note from "./icon/Note.svg";
+import NoteOnHover from "./icon/NoteOnHover.svg";
+import PauseBold from "./icon/PauseBold.svg";
+import PauseLightSmall from "./icon/PauseLightSmall.svg";
+import PlayBold from "./icon/PlayBold.svg";
+import PlayLightSmall from "./icon/PlayLightSmall.svg";
+import Sound from "./icon/Sound.svg";
+import SoundSmall from "./icon/SoundSmall.svg";
+import SoundOnHover from "./icon/SoundOnHover.svg";
+import Tick from "./icon/Tick.svg";
+import TickXL from "./icon/TickXL.svg";
+import TickOnHover from "./icon/TickOnHover.svg";
+import Trash from "./icon/Trash.svg";
+import TrashOnHover from "./icon/TrashOnHover.svg";
+import XLarge from "./icon/XLarge.svg";
+import XSmall from "./icon/XSmall.svg";
+import EyeClose from "./eye-close.svg";
+import EyeOpen from "./eye-open.svg";
 
 export const Icons = {
-  SwitchOn,
-  Radio,
-  SwitchOff,
-  SigninCheck,
-  CheckBold,
+  FullLogo,
   Logo,
-  MinorLogo,
-  CheckSquare1,
-  CheckSquare,
-  PlayPause,
-  PlayPauseMinor,
-  EyeOff,
+  SwitchOff,
+  SwitchOn,
+  RadioOn,
+  RadioOff,
+  SignBoldFalse,
+  SignBoldTrue,
+  SignLightFalse,
+  SignLightTrue,
+  Alert,
   Eye,
-  Sound,
-  SoundBlueXL,
-  Tick,
-  xIcon,
-  Trash,
-  NoteGreySmall,
-  xGreyIcon,
-  RedTrash,
+  EyeDisabled,
   Note,
-  Sound10,
-  Sound11,
-  Hover,
-  Play,
-  Usual,
-  VectorIcon,
+  NoteOnHover,
+  PauseBold,
+  PauseLightSmall,
+  PlayBold,
+  PlayLightSmall,
+  Sound,
+  SoundSmall,
+  SoundOnHover,
+  Tick,
+  TickXL,
+  TickOnHover,
+  Trash,
+  TrashOnHover,
+  XLarge,
+  XSmall,
+  EyeClose,
+  EyeOpen,
 };
-
-export default Icons;
