@@ -1,5 +1,3 @@
-import { Icons } from "./assets/icons/index.js";
-
 export const App = () => {
   var s = "ee";
   console.log(s);
