@@ -1,48 +1,23 @@
 import { Grid, Typography, CardContent, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import ImageInfoOne from "../../assets/images/info_image_1.svg";
-import ImageInfoTwo from "../../assets/images/info_image_2.svg";
-import ImageInfoThree from "../../assets/images/info_image_3.svg";
+import { defaultCardData } from "./defaultCardData";
 
-export const InfoCards = () => {
+export const InfoCards = ({ cardData = defaultCardData }) => {
   return (
     <StyledGrid>
       <StyledGridContainer>
-        <Grid item>
-          <StyledBox>
-            <ImageInfoOne />
-            <CardContent>
-              <Typography variant="body1Bold" align="center">
-                Over 10,000 fee waivers for the Bilingual English Test are
-                offered annually.
-              </Typography>
-            </CardContent>
-          </StyledBox>
-        </Grid>
-
-        <Grid item>
-          <StyledBox>
-            <ImageInfoTwo />
-            <CardContent>
-              <Typography variant="body1Bold" align="center">
-                Students from over 200 countries and territories have
-                benefitted.
-              </Typography>
-            </CardContent>
-          </StyledBox>
-        </Grid>
-
-        <Grid item>
-          <StyledBox>
-            <ImageInfoThree />
-            <CardContent>
-              <Typography variant="body1Bold" align="center">
-                Eligible students can take the test with absolutely zero cost to
-                them.
-              </Typography>
-            </CardContent>
-          </StyledBox>
-        </Grid>
+        {cardData.map((card, index) => (
+          <Grid item key={index}>
+            <StyledBox>
+              <StyledImg src={card.imgSrc} alt="" />
+              <CardContent>
+                <Typography variant="body1Bold" align="center">
+                  {card.text}
+                </Typography>
+              </CardContent>
+            </StyledBox>
+          </Grid>
+        ))}
       </StyledGridContainer>
     </StyledGrid>
   );
@@ -69,4 +44,9 @@ const StyledBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   textAlign: "center",
+});
+
+const StyledImg = styled("img")({
+  width: "301px",
+  height: "170px",
 });
