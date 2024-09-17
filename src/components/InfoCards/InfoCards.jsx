@@ -47,6 +47,6 @@ const StyledBox = styled(Box)({
 });
 
 const StyledImg = styled("img")(({ isSpecial }) => ({
-  width: isSpecial ? "16rem" : "18.813rem", 
-  height: "11rem", 
+  width: isSpecial ? "16rem" : "18.813rem",
+  height: "11rem",
 }));
