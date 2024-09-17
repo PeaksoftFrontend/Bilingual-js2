@@ -1,6 +1,6 @@
 import { Grid, Typography, CardContent, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import { defaultCardData } from "./defaultCardData";
+import { defaultCardData } from "../../utils/constants/defaultCardData";
 
 export const InfoCards = ({ cardData = defaultCardData }) => {
   return (
@@ -47,6 +47,6 @@ const StyledBox = styled(Box)({
 });
 
 const StyledImg = styled("img")({
-  width: "301px",
-  height: "170px",
+  width: "270.96px",
+  height: "186px",
 });
