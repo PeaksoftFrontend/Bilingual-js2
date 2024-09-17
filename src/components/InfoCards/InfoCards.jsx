@@ -9,7 +9,7 @@ export const InfoCards = ({ cardData = defaultCardData }) => {
         {cardData.map((card, index) => (
           <Grid item key={index}>
             <StyledBox>
-              <StyledImg src={card.imgSrc} alt="" />
+              <StyledImg src={card.imgSrc} alt="" isSpecial={index === 1} />
               <CardContent>
                 <Typography variant="body1Bold" align="center">
                   {card.text}
@@ -46,7 +46,7 @@ const StyledBox = styled(Box)({
   textAlign: "center",
 });
 
-const StyledImg = styled("img")({
-  width: "270.96px",
-  height: "186px",
-});
+const StyledImg = styled("img")(({ isSpecial }) => ({
+  width: isSpecial ? "16rem" : "18.813rem", 
+  height: "11rem", 
+}));
