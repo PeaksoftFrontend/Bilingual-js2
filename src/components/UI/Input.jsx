@@ -1,7 +1,6 @@
 import { IconButton, InputAdornment, styled, TextField } from "@mui/material";
 import { useState } from "react";
-import EyeOpen from "../../assets/icons/eye-open.svg";
-import EyeClose from "../../assets/icons/eye-close.svg";
+import { Icons } from "../../assets/icons";
 
 export const Input = ({
   label,
@@ -37,11 +36,7 @@ export const Input = ({
           type === "password" ? (
             <InputAdornment position="end">
               <IconButton onClick={handleClickShowPassword} edge="end">
-                {showPassword ? (
-                  <img src={EyeOpen} alt="eyeOpen" width="35px" />
-                ) : (
-                  <img src={EyeClose} alt="eyeClose" width="35px" />
-                )}
+                {showPassword ? <Icons.Eye /> : <Icons.EyeClose />}
               </IconButton>
             </InputAdornment>
           ) : null,

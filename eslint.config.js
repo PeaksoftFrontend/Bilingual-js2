@@ -96,7 +96,7 @@ export default [
     },
   },
   {
-    files: ["eslint.config.js"],
+    files: ["eslint.config.js", "vite.config.js"],
     rules: {
       "import/no-default-export": "off",
     },

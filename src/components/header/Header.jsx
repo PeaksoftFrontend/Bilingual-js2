@@ -1,26 +1,35 @@
 import { styled } from "@mui/material";
 import BgImage from "../../assets/images/bgImage.png";
 import { Button } from "../UI/Button";
-import Books from "../../assets/images/books.png";
+import { Icons } from "../../assets/icons/index";
+import BooksFat from "../../assets/images/booksAndFat.png";
 
 export const Header = () => {
   return (
     <HeaderStyled $bgImg={BgImage}>
       <Container>
+        <Icons.FullLogo />
         <BtnContainer>
           <StyledBtn>to come in</StyledBtn>
           <SecondBtn>register</SecondBtn>
         </BtnContainer>
       </Container>
-      <StyledImgContainer>
+      <MainBlock>
         <TextContainer>
-          <h1>Prove your English proficiency today with</h1>
-          <h2>BILINGUAL</h2>
+          <article>
+            <h1>Prove your English proficiency today with</h1>
+            <h2>BILINGUAL</h2>
+          </article>
+          <section>
+            <p>
+              For nearly 30 years, learners have turned to Rosetta Stone to
+              build the fluency and confidence they need to speak new languages.
+            </p>
+            <Button>to begin</Button>
+          </section>
         </TextContainer>
-        <ImgBlock>
-          <img src={Books} alt="Books" />
-        </ImgBlock>
-      </StyledImgContainer>
+        <img src={BooksFat} alt="Books" />
+      </MainBlock>
     </HeaderStyled>
   );
 };
@@ -31,7 +40,6 @@ const HeaderStyled = styled("header")(({ $bgImg }) => ({
   backgroundColor: "#FCD200",
   backgroundImage: `url(${$bgImg})`,
   backgroundRepeat: "no-repeat",
-  backgroundPosition: "left bottom",
   backgroundSize: "cover",
   padding: "27px 80px",
 }));
@@ -54,31 +62,44 @@ const SecondBtn = styled(Button)({
   width: "113px",
   backgroundColor: "white",
   color: "#4C4C4C",
+  "&:hover": {
+    backgroundColor: "white",
+  },
 });
 
 const TextContainer = styled("div")({
   width: "635px",
   height: "219px",
-  fontSize: "60px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "26px",
 
-  "& h1": {
+  "& h1, h2": {
+    fontSize: "60px",
     fontFamily: "Gilroy",
     fontWeight: "700",
     color: "#43404E",
   },
   "& h2": {
-    fontWeight: "600",
+    fontWeight: "800",
     color: "#C93D7D",
+  },
+  "& section": {
+    fontSize: "20px",
+    fontWeight: "400px",
+    color: "#23212A",
+    width: "772px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "30px",
+    "& p": {
+      fontFamily: "Poppins",
+    },
   },
 });
 
-const ImgBlock = styled("div")({
-  // display: "flex",
-  // justifyContent: "flex-end",
-});
-
-const StyledImgContainer = styled("div")({
+const MainBlock = styled("div")({
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+  gap: "60px",
+  padding: "120px 0 0 0",
 });
