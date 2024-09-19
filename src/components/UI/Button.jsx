@@ -57,7 +57,6 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#FEFEFF",
       color: "#C4C4C4",
       border: "2px solid #C4C4C4",
-      // cursor: "pointer",
     },
   }),
 
