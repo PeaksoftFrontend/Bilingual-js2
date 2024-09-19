@@ -29,8 +29,10 @@ import XLarge from "./icon/XLarge.svg";
 import XSmall from "./icon/XSmall.svg";
 import EyeClose from "./eye-close.svg";
 import EyeOpen from "./eye-open.svg";
+import ErrorArrow from "./icon/ErrorArrow.svg";
 
 export const Icons = {
+  ErrorArrow,
   FullLogo,
   Logo,
   SwitchOff,

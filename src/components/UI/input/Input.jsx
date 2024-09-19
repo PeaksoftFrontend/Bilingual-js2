@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, styled, TextField } from "@mui/material";
 import { useState } from "react";
-import { Icons } from "../../assets/icons";
+import { Icons } from "../../../assets/icons";
 
 export const Input = ({
   label,
