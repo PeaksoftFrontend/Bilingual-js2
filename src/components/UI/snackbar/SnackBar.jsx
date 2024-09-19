@@ -1,6 +1,12 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Icons } from "../../assets/icons";
+import { Icons } from "../../../assets/icons";
+
+const messageStyles = {
+  fontSize: "18px",
+  fontWeight: "800",
+  color: "black",
+};
 
 const styles = {
   default: "toast-default",
@@ -10,7 +16,7 @@ const styles = {
 
 const CustomToast = ({ message, additionalMessage, severity }) => (
   <div className={`custom-toast ${styles[severity]}`}>
-    <div>{message}</div>
+    <div style={messageStyles}>{message}</div>{" "}
     {additionalMessage && (
       <div className="additional-message">{additionalMessage}</div>
     )}
