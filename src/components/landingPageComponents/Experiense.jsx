@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import learnImage from "./../assets/images/learn-image.png";
-import { data } from "../utils/constants/general";
+import { data } from "../../utils/constants/general";
 
 export const Experiense = () => {
   return (
