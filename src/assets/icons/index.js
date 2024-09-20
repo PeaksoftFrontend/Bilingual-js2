@@ -30,8 +30,10 @@ import XSmall from "./icon/XSmall.svg";
 import EyeClose from "./eye-close.svg";
 import EyeOpen from "./eye-open.svg";
 import ErrorArrow from "./icon/ErrorArrow.svg";
+import ArrowLeft from "./icon/ArrowLeft.svg";
 
 export const Icons = {
+  ArrowLeft,
   ErrorArrow,
   FullLogo,
   Logo,
