@@ -67,17 +67,31 @@ const colorVariants = {
   primary: {
     main: "#3A10E5",
     light: "#3752B4",
+    white: "#ffffff",
     dark: "#23212A",
     contrastText: "#ffffff",
+    blue: "#3A10E5",
+    background: "#D7E1F8",
+    font: "#4C4859",
   },
   secondary: {
     main: "#FE9102",
     light: "#666CA7",
     dark: "#262626",
     contrastText: "#FEF5E8",
+    error: "#F61414",
+    susses: "#2AB930",
+    grey: "#D4D0D0",
+    grinch: "#D8D9DB",
+    garnancho: "#F7F7F7",
+    ginsan: "#3A10E5",
+    blue: "#0F85F1",
+    ego: "#757575",
+    disabled: "#C4C4C4",
   },
   gradients: {
     purple: "#dd16ff",
+    blue: "blue",
   },
 };
 
