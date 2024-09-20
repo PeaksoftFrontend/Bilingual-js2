@@ -1,8 +1,8 @@
 import { Grid, Typography, CardContent, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import { defaultCardData } from "../../utils/constants/defaultCardData";
+import { defaultImageSlider } from "../../utils/constants/defaultCardData";
 
-export const InfoCards = ({ cardData = defaultCardData }) => {
+export const InfoCards = ({ cardData = defaultImageSlider }) => {
   return (
     <StyledGrid>
       <StyledGridContainer>
