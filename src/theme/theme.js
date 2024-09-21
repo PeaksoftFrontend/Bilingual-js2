@@ -91,7 +91,7 @@ const colorVariants = {
   },
   gradients: {
     purple: "#dd16ff",
-    blue: "blue",
+    blue: "#14478f",
   },
 };
 

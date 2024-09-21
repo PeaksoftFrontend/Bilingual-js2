@@ -1,4 +1,5 @@
 import { Button, styled } from "@mui/material";
+import buttonDefault from "../../assets/images/buttonDefault.png";
 
 export const LandingButton = ({
   children,
@@ -29,6 +30,7 @@ export const LandingButton = ({
   );
 };
 const StyledButton = styled(Button)(({ variant }) => ({
+  fontWeight: "600",
   "&:disabled": {
     pointerEvents: "auto",
     cursor: "not-allowed",
@@ -61,50 +63,29 @@ const StyledButton = styled(Button)(({ variant }) => ({
   }),
 
   ...(variant === "team" && {
-    background: "linear-gradient(145deg, #cb6995, #d738c7)",
-    border: "none",
-    boxShadow: "1px 1.5px #cb6995, 3px 8px #FFCCBFAD",
+    backgroundImage: `url(${buttonDefault})`,
     color: "white",
     cursor: "pointer",
-    padding: "10px 15px",
-    position: "relative",
     overflow: "hidden",
-    textAlign: "center",
     textDecoration: "none",
-    display: "inline-block",
     margin: "4px 2px",
-    textTransform: "uppercase",
     transition: "all 0.3s ease",
-    fontSize: "1.5em",
+    fontSize: "1.4em",
     width: "200px",
     height: "60px",
-    borderBlock: "0 0 5px ",
-    borderTopRightRadius: "75px",
-    borderTopLeftRadius: "75px",
-    borderBottomRightRadius: "45px",
-    borderBottomLeftRadius: "45px",
+    borderTopLeftRadius: "45px 50px",
+    borderTopRightRadius: "45px 50px",
+    borderBottomRightRadius: "34px 50px",
+    borderBottomLeftRadius: "34px 50px",
     "&:hover": {
-      background: "linear-gradient(145deg, #cc5c8e, #d72cc6)",
-      transform: "translate3D(0, .25em)",
+      backgroundImage: `url(${buttonDefault})`,
+      overflow: "hidden",
+      scale: "1.02",
+    },
+    "&:actuve": {
+      backgroundImage: `url(${buttonDefault})`,
       position: "relative",
       overflow: "hidden",
-    },
-    "&:active": {
-      background: "linear-gradient(145deg, #cc5c8e, #d72cc6)",
-      boxShadow: "3px 2.5px #cb6995, 1.5px 1px #FFCCBFAD",
-    },
-    "&::before,after": {
-      position: "absolute",
-      left: "0",
-      right: "0",
-      height: "2px",
-      backgroundColor: "#cb6995",
-    },
-    "butto::before": {
-      top: "50%",
-    },
-    "::after": {
-      top: "50%",
     },
   }),
 }));
