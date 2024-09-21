@@ -21,7 +21,7 @@ export const InfoSlider = () => {
   );
 
   const renderPagination = ({ handlePrev, handleNext, index, data }) => (
-    <StyledTrack>
+    <>
       <StyledPaginationWrapper>
         <StyledArrowButton onClick={handlePrev}>
           <Icons.ArrowBack />
@@ -35,7 +35,7 @@ export const InfoSlider = () => {
           <Icons.ArrowForward />
         </StyledArrowForwardButton>
       </StyledPaginationWrapper>
-    </StyledTrack>
+    </>
   );
 
   return (
@@ -112,8 +112,6 @@ const StyledImage = styled("img")({
   height: "100%",
   objectFit: "contain",
 });
-
-const StyledTrack = styled("div")({});
 
 const StyledPaginationWrapper = styled(Box)({
   display: "flex",
