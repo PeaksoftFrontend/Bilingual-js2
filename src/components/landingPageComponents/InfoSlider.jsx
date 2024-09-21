@@ -1,6 +1,6 @@
 import { Box, Typography, Card, IconButton } from "@mui/material";
 import { defaultImageSlider } from "../../utils/constants/defaultCardData";
-import { Slider } from "../../components/UI/Slider/Slider";
+import { Slider } from "../UI/slider/Slider";
 import { Icons } from "../../assets/icons/index";
 import { styled } from "@mui/system";
 
@@ -47,6 +47,8 @@ export const InfoSlider = () => {
         data={defaultImageSlider}
         renderSlide={renderSlide}
         renderPagination={renderPagination}
+        slidesPerView={2}
+        spaceBetween={30}
       />
     </StyledCardWrapper>
   );

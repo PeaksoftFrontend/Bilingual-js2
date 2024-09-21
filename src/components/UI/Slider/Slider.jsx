@@ -4,7 +4,13 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay, Navigation } from "swiper/modules";
 
-export const Slider = ({ data, renderSlide, renderPagination }) => {
+export const Slider = ({
+  data,
+  renderSlide,
+  renderPagination,
+  spaceBetween,
+  slidesPerView,
+}) => {
   const [index, setIndex] = useState(0);
   const swiperRef = useRef(null);
 
@@ -20,8 +26,8 @@ export const Slider = ({ data, renderSlide, renderPagination }) => {
     <div>
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        spaceBetween={30}
-        slidesPerView={2}
+        spaceBetween={spaceBetween}
+        slidesPerView={slidesPerView}
         centeredSlides={true}
         autoplay={{
           delay: 1000,
