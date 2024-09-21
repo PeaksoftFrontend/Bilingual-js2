@@ -1,6 +1,6 @@
 import { Box, Typography, Card, IconButton } from "@mui/material";
 import { defaultImageSlider } from "../../utils/constants/defaultCardData";
-import { Slider } from "../UI/slider/Slider";
+import { Slider } from "../UI/swiper/Slider";
 import { Icons } from "../../assets/icons/index";
 import { styled } from "@mui/system";
 
