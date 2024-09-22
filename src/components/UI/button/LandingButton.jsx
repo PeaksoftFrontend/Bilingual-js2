@@ -1,5 +1,5 @@
 import { Button, styled } from "@mui/material";
-import buttonDefault from "../../assets/images/buttonDefault.png";
+import buttonDefault from "../../../assets/images/buttonDefault.png";
 
 export const LandingButton = ({
   children,
