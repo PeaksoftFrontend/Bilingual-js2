@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import js from "@eslint/js";
 import globals from "globals";
 import eslintReact from "eslint-plugin-react";
@@ -94,6 +93,12 @@ export default [
           bracketSpacing: true,
         },
       ],
+    },
+  },
+  {
+    files: ["eslint.config.js", "vite.config.js"],
+    rules: {
+      "import/no-default-export": "off",
     },
   },
 ];
