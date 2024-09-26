@@ -10,7 +10,7 @@ import fourthUser from "../../assets/images/user4.png";
 import fifthUser from "../../assets/images/user5.png";
 import sixthUser from "../../assets/images/user6.png";
 //video data
-import videoo from "../../assets/video/LanaDelRey.mp4";
+import videoo from "../../assets/video/1110710_Soap-bubbles_Breathing_1280x720.mp4";
 
 export const dataVideo = [
   {
