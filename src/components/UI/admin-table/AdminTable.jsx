@@ -17,8 +17,34 @@ export const AdminTable = ({ variant, data }) => {
   const tableConfig = TABLE_VARIANTS[variant];
 
   if (!tableConfig) {
-    return <div>Invalid variant selected</div>;
+    return <div>variant NO!!!!!</div>;
   }
+
+  const getIcons = (row) => {
+    switch (variant) {
+      case "test":
+        return (
+          <ActionsContainer>
+            {row.original.icon ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+            <Icons.Note />
+            <Icons.Trash />
+          </ActionsContainer>
+        );
+      case "userInfo":
+        return (
+          <ActionsContainer>
+            {row.original.icon ? <Icons.Tick /> : <Icons.Eye />}
+            <Icons.Trash />
+          </ActionsContainer>
+        );
+      case "result":
+        return (
+          <ActionsContainer>
+            {row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />}
+          </ActionsContainer>
+        );
+    }
+  };
 
   const columns = React.useMemo(
     () => [
@@ -28,13 +54,7 @@ export const AdminTable = ({ variant, data }) => {
       })),
       {
         accessor: "actions",
-        Cell: ({ row }) => (
-          <ActionsContainer>
-            {row.original.onIcon ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
-            <Icons.Note />
-            <Icons.Trash />
-          </ActionsContainer>
-        ),
+        Cell: ({ row }) => getIcons(row),
       },
     ],
     [variant]
@@ -48,7 +68,7 @@ export const AdminTable = ({ variant, data }) => {
 
   return (
     <StyledTableContainer component={Paper}>
-      <Table {...getTableProps()}>
+      <StyledTable {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup, headerIndex) => (
             <TableRow {...headerGroup.getHeaderGroupProps()} key={headerIndex}>
@@ -77,10 +97,16 @@ export const AdminTable = ({ variant, data }) => {
             );
           })}
         </TableBody>
-      </Table>
+      </StyledTable>
     </StyledTableContainer>
   );
 };
+
+const StyledTable = styled(Table)(() => ({
+  borderSpacing: "0 16px",
+  borderCollapse: "separate",
+  background: "transparent",
+}));
 
 const StyledTableContainer = styled(TableContainer)({
   width: "100%",
@@ -89,13 +115,15 @@ const StyledTableContainer = styled(TableContainer)({
 const StyledHeaderCell = styled(TableCell)({
   fontWeight: "bold",
   fontSize: "16px",
+  borderBottom: "none",
 });
 
 const StyledRow = styled(TableRow)({
   width: "100%",
   height: "66px",
   borderRadius: "8px",
-  boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+  boxShadow:
+    "0px 4px 10px 0px rgba(0, 0, 0, 0.06),  0px -4px 10px 0px rgba(0, 0, 0, 0.06)",
 });
 
 const StyledCell = styled(TableCell)({
