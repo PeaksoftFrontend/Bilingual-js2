@@ -114,6 +114,8 @@ const StyledAccordion = styled(Accordion)(() => ({
   background: theme.secondary.dark,
   color: theme.secondary.garnancho,
   width: "74.16rem",
+  // border: "0.1px solid white  ",
+  paddingTop: "1.8rem",
 }));
 
 const StyledIcons = styled("div")(() => ({
