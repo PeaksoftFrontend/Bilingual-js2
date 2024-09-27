@@ -32,7 +32,6 @@ import EyeOpen from "./eye-open.svg";
 import ErrorArrow from "./icon/ErrorArrow.svg";
 import ArrowBack from "./icon/ArrowBack.svg";
 import ArrowForward from "./icon/ArrowForward.svg";
-
 export const Icons = {
   ArrowForward,
   ArrowBack,
