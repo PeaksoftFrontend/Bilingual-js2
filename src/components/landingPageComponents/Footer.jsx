@@ -7,10 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import { theme } from "../../theme/theme";
-import Bilingual from "../../assets/images/icon Bilingual.png";
-import Youtube from "../../assets/images/youtube.png";
-import Insta from "../../assets/images/instagram.png";
-import Facebook from "../../assets/images/facebook.png";
+import Bilingual from "../../assets/icons/icon/billingual.svg";
+import Youtube from "../../assets/icons/icon/youtube.svg";
+import Insta from "../../assets/icons/icon/instagram.svg";
+import Facebook from "../../assets/icons/icon/facebook.svg";
 import plus from "../../assets/images/plus.png";
 import krest from "../../assets/images/krest.png";
 import { FaqData } from "./FaqData";
@@ -54,11 +54,11 @@ export const Footer = () => {
           ))}
         </StyledH1>
         <StyledDiv>
-          <img src={Bilingual} alt="" />
+          <Bilingual />
           <StyledIcons>
-            <img src={Youtube} alt="YouTube" />
-            <img src={Insta} alt="Instagram" />
-            <img src={Facebook} alt="Facebook" />
+            <Youtube />
+            <Facebook />
+            <Insta />
           </StyledIcons>
         </StyledDiv>
         <StyledP>© Copyright PeakSoft. All Rights Reserved</StyledP>
@@ -89,14 +89,15 @@ const StyledDiv = styled("div")(() => ({
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
-  paddingRight: "12rem",
-  paddingLeft: "12rem",
+  paddingRight: "10rem",
+  paddingLeft: "10rem",
   paddingTop: "8rem",
 }));
 
 const StyledP = styled("div")(() => ({
   color: theme.secondary.ego,
   paddingTop: "3rem",
+  paddingBottom: "1rem",
 }));
 const StyledH3 = styled("p")(() => ({
   color: theme.secondary.garnancho,
@@ -114,8 +115,8 @@ const StyledAccordion = styled(Accordion)(() => ({
   background: theme.secondary.dark,
   color: theme.secondary.garnancho,
   width: "74.16rem",
-  // border: "0.1px solid white  ",
   paddingTop: "1.8rem",
+  borderBottom: " 1px solid grey",
 }));
 
 const StyledIcons = styled("div")(() => ({
