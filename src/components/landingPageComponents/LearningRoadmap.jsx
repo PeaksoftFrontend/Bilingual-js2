@@ -167,15 +167,7 @@ export const LearningRoadmap = () => {
           viewport={{ amount: 0.5 }}
           variants={textAnimation}
         ></StyledButton>
-        <LandingButton
-          variant="team"
-          style={{
-            fontSize: "14px",
-            margin: "4rem auto",
-          }}
-        >
-          Get Started
-        </LandingButton>
+        <StyledLandingButton variant="team">Get started</StyledLandingButton>
       </Contain>
     </Background>
   );
@@ -331,4 +323,10 @@ const Container4 = styled(motion(Grid))(() => ({
 const StyledButton = styled(motion(Grid))(() => ({
   textAlign: "center",
   marginTop: "96px",
+}));
+
+const StyledLandingButton = styled(LandingButton)(() => ({
+  fontSize: "1rem",
+  margin: "4rem 46.5%",
+
 }));
