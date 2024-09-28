@@ -107,7 +107,6 @@ export const AdminTable = ({ columns, data }) => {
   );
 };
 
-// Стили таблицы
 const StyledTable = styled(Table)(() => ({
   borderSpacing: "0 16px",
   borderCollapse: "separate",
