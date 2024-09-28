@@ -10,8 +10,10 @@ export const Slider = ({
   renderPagination,
   spaceBetween,
   slidesPerView,
+  className,
+  ...props
 }) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0); // Track active slide
   const swiperRef = useRef(null);
 
   const handleNext = () => {
@@ -23,7 +25,7 @@ export const Slider = ({
   };
 
   return (
-    <div>
+    <div className={className ? `${className}` : ""}>
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         spaceBetween={spaceBetween}
@@ -34,12 +36,15 @@ export const Slider = ({
           disableOnInteraction: false,
         }}
         navigation={true}
-        onSlideChange={(swiper) => setIndex(swiper.realIndex)}
-        loop={true}
+        onSlideChange={(swiper) => setIndex(swiper.realIndex)} // Track current slide index
+        loop={true} // Enable loop to avoid the shadow issue
         modules={[Autoplay, Navigation]}
+        {...props}
       >
-        {data.map((item) => (
-          <SwiperSlide key={item.id}>{renderSlide(item)}</SwiperSlide>
+        {data.map((item, i) => (
+          <SwiperSlide key={item.id}>
+            {renderSlide(item, i, index)} {/* Pass the active index here */}
+          </SwiperSlide>
         ))}
       </Swiper>
 
