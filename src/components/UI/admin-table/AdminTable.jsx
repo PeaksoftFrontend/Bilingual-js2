@@ -10,19 +10,25 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { TABLE_VARIANTS } from "../../../utils/constants/AdminTable";
 import { Icons } from "../../../assets/icons";
 
-export const AdminTable = ({ variant, data }) => {
-  const tableConfig = TABLE_VARIANTS[variant];
+export const AdminTable = ({ columns, data }) => {
+  const getTableType = () => {
+    if (columns.some((col) => col.accessor === "questionType")) {
+      return "TEST";
+    } else if (columns.some((col) => col.accessor === "userName")) {
+      return "USERINFO";
+    } else if (columns.some((col) => col.accessor === "question")) {
+      return "RESULT";
+    }
+    return null;
+  };
 
-  if (!tableConfig) {
-    return <div>variant NO!!!!!</div>;
-  }
+  const tableType = getTableType();
 
   const getIcons = (row) => {
-    switch (variant) {
-      case "test":
+    switch (tableType) {
+      case "TEST":
         return (
           <ActionsContainer>
             {row.original.icon ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
@@ -30,39 +36,38 @@ export const AdminTable = ({ variant, data }) => {
             <Icons.Trash />
           </ActionsContainer>
         );
-      case "userInfo":
+      case "USERINFO":
         return (
           <ActionsContainer>
             {row.original.icon ? <Icons.Tick /> : <Icons.Eye />}
             <Icons.Trash />
           </ActionsContainer>
         );
-      case "result":
+      case "RESULT":
         return (
           <ActionsContainer>
             {row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />}
           </ActionsContainer>
         );
+      default:
+        return null;
     }
   };
 
-  const columns = React.useMemo(
+  const modifiedColumns = React.useMemo(
     () => [
-      ...tableConfig.headers.map((header, index) => ({
-        Header: header,
-        accessor: tableConfig.keys[index],
-      })),
+      ...columns,
       {
         accessor: "actions",
         Cell: ({ row }) => getIcons(row),
       },
     ],
-    [variant]
+    [columns, tableType]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
-      columns,
+      columns: modifiedColumns,
       data,
     });
 
@@ -102,6 +107,7 @@ export const AdminTable = ({ variant, data }) => {
   );
 };
 
+// Стили таблицы
 const StyledTable = styled(Table)(() => ({
   borderSpacing: "0 16px",
   borderCollapse: "separate",

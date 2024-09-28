@@ -1,24 +1,79 @@
-export const TABLE_VARIANTS = {
-  test: {
-    headers: ["#", "Name", "Duration", "Question Type"],
-    keys: ["id", "name", "duration", "questionType"],
+export const TEST = [
+  {
+    Header: "#",
+    accessor: "id",
   },
-  userInfo: {
-    headers: [
-      "#",
-      "User Name",
-      "Date of Submission",
-      "Test Name",
-      "Status",
-      "Score",
-    ],
-    keys: ["id", "userName", "dateOfSubmission", "testName", "status", "score"],
+  {
+    Header: "Name",
+    accessor: "name",
   },
-  result: {
-    headers: ["#", "Question", "Score", "Status"],
-    keys: ["id", "question", "score", "status"],
+  {
+    Header: "Duration",
+    accessor: "duration",
   },
-};
+  {
+    Header: "Question Type",
+    accessor: "questionType",
+  },
+  {
+    Header: "",
+    accessor: "icon",
+  },
+];
+
+export const USERINFO = [
+  {
+    Header: "#",
+    accessor: "id",
+  },
+  {
+    Header: "User Name",
+    accessor: "userName",
+  },
+  {
+    Header: "Date of Submition",
+    accessor: "dateOfSubmition",
+  },
+  {
+    Header: "Test Name",
+    accessor: "testName",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
+  {
+    Header: "Score",
+    accessor: "score",
+  },
+  {
+    Header: "",
+    accessor: "icon",
+  },
+];
+
+export const RESULT = [
+  {
+    Header: "#",
+    accessor: "id",
+  },
+  {
+    Header: "Question",
+    accessor: "question",
+  },
+  {
+    Header: "Score",
+    accessor: "score",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
+  {
+    Header: "",
+    accessor: "icon",
+  },
+];
 
 export const testData = [
   {
@@ -48,7 +103,7 @@ export const userInfoData = [
   {
     id: 1,
     userName: "Kubanov Farid",
-    dateOfSubmission: "08:15 20.11.2021",
+    dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Not evaluated",
     score: "0",
@@ -57,7 +112,7 @@ export const userInfoData = [
   {
     id: 2,
     userName: "Kubanov Farid",
-    dateOfSubmission: "08:15 20.11.2021",
+    dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Not evaluated",
     score: "0",
@@ -66,7 +121,7 @@ export const userInfoData = [
   {
     id: 3,
     userName: "Kubanov Farid",
-    dateOfSubmission: "08:15 20.11.2021",
+    dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
     score: "0",
@@ -75,7 +130,7 @@ export const userInfoData = [
   {
     id: 4,
     userName: "Kubanov Farid",
-    dateOfSubmission: "08:15 20.11.2021",
+    dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
     score: "0",
