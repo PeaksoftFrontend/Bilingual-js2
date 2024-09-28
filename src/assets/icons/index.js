@@ -33,9 +33,11 @@ import ErrorArrow from "./icon/ErrorArrow.svg";
 import ArrowBack from "./icon/ArrowBack.svg";
 import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
+import TickGreen from "./icon/TickGreen.svg";
 
 export const Icons = {
   arrowIcon,
+  TickGreen,
   ArrowBack,
   ArrowForward,
   ErrorArrow,
