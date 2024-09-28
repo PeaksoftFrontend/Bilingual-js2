@@ -75,7 +75,7 @@ export const defaultImageSlider = [
   },
 ];
 
-export const uiData = [
+export const feedbackData = [
   {
     id: 1,
     name: "Albek Atabekov",

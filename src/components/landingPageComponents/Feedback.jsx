@@ -1,33 +1,18 @@
 import { Box, Typography, Card, IconButton, Avatar } from "@mui/material";
-import { uiData } from "../../utils/constants/defaultCardData";
+import { feedbackData } from "../../utils/constants/defaultCardData";
 import { Slider } from "../UI/swiper/Slider";
 import { Icons } from "../../assets/icons/index";
 import { styled } from "@mui/system";
 
-export const UiCards = () => {
+export const Feedback = () => {
   const renderSlide = (slide, i, activeIndex) => (
-    <StyledCard
-      key={i}
-      sx={{
-        backgroundColor: activeIndex === i ? "#676da8" : "#e6e6e6",
-        transform: activeIndex === i ? "scale(1.0009)" : "scale(0.9)",
-        transition: "transform 0.3s ease",
-      }}
-    >
+    <StyledCard key={i} isActive={activeIndex === i}>
       <AvatarImage src={slide.img} alt={slide.title} />
       <TextContainer>
-        <StyledBodyTypography
-          sx={{
-            color: activeIndex === i ? "#fff" : "#000",
-          }}
-        >
+        <StyledBodyTypography isActive={activeIndex === i}>
           {slide.feedback}
         </StyledBodyTypography>
-        <StyledTitleTypography
-          sx={{
-            color: activeIndex === i ? "#fff" : "#3b10e5",
-          }}
-        >
+        <StyledTitleTypography isActive={activeIndex === i}>
           - {slide.name}
         </StyledTitleTypography>
         <StyledIconStars>
@@ -44,9 +29,11 @@ export const UiCards = () => {
           <Icons.ArrowBack />
         </StyledArrowButton>
 
-        {data.map((_, i) => (
-          <StyledPaginationDot key={i} isActive={i === index} />
-        ))}
+        <PaginationDotsContainer>
+          {data.map((_, i) => (
+            <StyledPaginationDot key={i} isActive={i === index} />
+          ))}
+        </PaginationDotsContainer>
 
         <StyledArrowForwardButton onClick={handleNext}>
           <Icons.ArrowForward />
@@ -60,20 +47,21 @@ export const UiCards = () => {
       <TitleContainer>
         <Typography variant="h1Bold">Check out each question type</Typography>
       </TitleContainer>
-      <div style={{ width: "1170px" }}>
+      <SliderContainer>
         <Slider
-          data={uiData}
+          data={feedbackData}
           renderSlide={renderSlide}
           renderPagination={renderPagination}
           slidesPerView={3}
           spaceBetween={0}
-          autoplay={false}
-          className="app"
+          autoplay={true}
         />
-      </div>
+      </SliderContainer>
     </StyledCardWrapper>
   );
 };
+
+const pxToRem = (px) => `${px / 16}rem`;
 
 const AvatarImage = styled(Avatar)({
   width: "200px",
@@ -82,10 +70,8 @@ const AvatarImage = styled(Avatar)({
   boxShadow: "0 0.3rem 0.6rem rgba(0, 0, 0, 0.1)",
 });
 
-const pxToRem = (px) => `${px / 16}rem`;
-
 const StyledCardWrapper = styled("div")({
-  padding: `${pxToRem(50)} 0`,
+  padding: pxToRem(30),
   background: "#FEF5E8",
   display: "flex",
   overflow: "hidden",
@@ -93,10 +79,9 @@ const StyledCardWrapper = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
-  position: "relative",
 });
 
-const StyledCard = styled(Card)(({ theme }) => ({
+const StyledCard = styled(Card)(({ isActive, theme }) => ({
   display: "flex",
   flexDirection: "column",
   height: pxToRem(564),
@@ -105,6 +90,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(5),
   boxShadow: theme.shadows[3],
   marginBottom: "2rem",
+  backgroundColor: isActive ? "#676da8" : "#e6e6e6",
+  transform: isActive ? "scale(1.0009)" : "scale(0.9)",
+  transition: "transform 0.3s ease",
 }));
 
 const TextContainer = styled(Box)({
@@ -120,32 +108,31 @@ const TextContainer = styled(Box)({
   marginTop: pxToRem(50),
 });
 
-const StyledTitleTypography = styled(Typography)({
+const StyledTitleTypography = styled(Typography)(({ isActive }) => ({
   fontSize: pxToRem(17),
   fontWeight: "700",
-});
+  color: isActive ? "#fff" : "#3b10e5",
+}));
 
-const StyledBodyTypography = styled(Typography)({
-  color: "#fff",
-});
+const StyledBodyTypography = styled(Typography)(({ isActive }) => ({
+  color: isActive ? "#fff" : "#000",
+}));
 
 const StyledPaginationWrapper = styled(Box)({
   display: "flex",
+  justifyContent: "space-between",
   alignItems: "center",
-  position: "absolute",
-  justifyContent: "center",
-  bottom: "1%",
-  left: "46%",
   gap: pxToRem(16),
   marginTop: pxToRem(24),
 });
 
 const StyledArrowForwardButton = styled(IconButton)({
   transform: "scaleX(-1)",
-  position: "absolute",
+  zIndex: "10",
+  position: "relative",
+  bottom: "400px",
+  left: "50px",
   display: "flex",
-  left: "530%",
-  bottom: "800%",
   "&:hover svg circle": {
     stroke: "#4B00A2",
     fill: "#4B00A2",
@@ -157,9 +144,11 @@ const StyledArrowForwardButton = styled(IconButton)({
 });
 
 const StyledArrowButton = styled(IconButton)({
-  position: "absolute",
-  right: "549%",
-  bottom: "800%",
+  zIndex: "10",
+  position: "relative",
+  bottom: "400px",
+  right: "75px",
+  display: "flex",
   "&:hover svg circle": {
     stroke: "#4B00A2",
     fill: "#4B00A2",
@@ -182,6 +171,17 @@ const TitleContainer = styled("div")({
   marginBottom: pxToRem(48),
   color: "#4B00A2",
 });
+
 const StyledIconStars = styled("div")({
   fontSize: "10px",
+});
+
+const PaginationDotsContainer = styled(Box)({
+  display: "flex",
+  gap: "1rem",
+  alignItems: "center",
+});
+
+const SliderContainer = styled("div")({
+  width: "1170px",
 });
