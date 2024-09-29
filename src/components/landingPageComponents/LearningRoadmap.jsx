@@ -328,5 +328,4 @@ const StyledButton = styled(motion(Grid))(() => ({
 const StyledLandingButton = styled(LandingButton)(() => ({
   fontSize: "1rem",
   margin: "4rem 46.5%",
-
 }));
