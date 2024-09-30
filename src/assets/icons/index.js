@@ -38,8 +38,8 @@ import Stars from "./icon/Stars.svg";
 export const Icons = {
   Stars,
   arrowIcon,
-  ArrowBack,
   ArrowForward,
+  ArrowBack,
   ErrorArrow,
   FullLogo,
   Logo,
