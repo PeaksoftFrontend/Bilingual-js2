@@ -6,15 +6,11 @@ export const AdminHeader = () => {
   return (
     <StyledHeader>
       <Icons.FullLogo />
-      <NavContainer>
-        <StyledATag style={{ color: "#3A10E5" }} href="#">
-          tests
-        </StyledATag>
-        <StyledATag style={{ color: "#4C4859" }} href="#">
-          submitted results
-        </StyledATag>
+      <DivContainer>
+        <StyledATag href="#">tests</StyledATag>
+        <StyledSecondATag href="#">submitted results</StyledSecondATag>
         <StyledButton variant="outlined">LOG OUT</StyledButton>
-      </NavContainer>
+      </DivContainer>
     </StyledHeader>
   );
 };
@@ -29,7 +25,7 @@ const StyledHeader = styled("header")({
   padding: "26px 120px",
 });
 
-const NavContainer = styled("div")({
+const DivContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -43,12 +39,24 @@ const StyledATag = styled("a")({
   fontWeight: "700",
   lineHeight: "17.58px",
   textTransform: "uppercase",
+  color: "#3A10E5",
+});
+
+const StyledSecondATag = styled("a")({
+  textDecoration: "none",
+  fontSize: "15px",
+  fontFamily: "DIN Next Rounded LT Pro Medium",
+  fontWeight: "700",
+  lineHeight: "17.58px",
+  textTransform: "uppercase",
+  color: "#4C4859",
 });
 
 const StyledButton = styled(Button)({
   color: "#4C4C4C",
   borderColor: "#4C4859",
   boxShadow: "0px 2px 3px 0px rgba(76, 72, 89, 0.2)",
+  textWrap: "nowrap",
 
   "&:hover": {
     backgroundColor: "transparent",
