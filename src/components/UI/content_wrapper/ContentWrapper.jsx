@@ -1,5 +1,5 @@
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { styled } from "@mui/material";
+import { Box } from "@mui/material";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   width: "980px",
@@ -9,8 +9,6 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   margin: "0 auto",
   overflow: "hidden",
   boxShadow: "0rem 0.25rem 0.625rem rgba(0, 0, 0, 0.1)",
-  display: "flex",
-  flexDirection: "column",
   [theme.breakpoints.down("md")]: {
     width: "90%",
   },
