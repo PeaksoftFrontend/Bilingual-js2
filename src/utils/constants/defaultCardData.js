@@ -81,39 +81,39 @@ export const feedbackData = [
     name: "Albek Atabekov",
     feedback:
       "Great way to learn a language. Fun, interactive, and engaging. I am enjoying the course immensely and would recommend it to anyone who wishes to learn a second language",
-    img: Profile1, // Update image path
+    img: Profile1,
   },
   {
     id: 2,
     name: "Alina Begishova",
     feedback:
       "Bilingual has helped me to get a good grasp of the language in a fun and challenging way. I enjoy the dialogues and scenarios, which include helpful phrases that can be used in various situations.",
-    img: Profile2, // Update image path
+    img: Profile2,
   },
   {
     id: 3,
     name: "Minura Telegenova",
     feedback:
       "I have tried other language apps and found them boring but with Bilingual, it is easy and fun to practice every day.",
-    img: Profile3, // Update image path
+    img: Profile3,
   },
   {
     id: 4,
     name: "Albek Atabekov",
     feedback:
       "Great way to learn a language. Fun, interactive, and engaging. I am enjoying the course immensely and would recommend it to anyone who wishes to learn a second language",
-    img: Profile1, // Update image path
+    img: Profile1,
   },
   {
     id: 5,
     name: "Alina Begishova",
     feedback: "Bilingual has helped me get a good grasp...",
-    img: Profile2, // Update image path
+    img: Profile2,
   },
   {
     id: 6,
     name: "Minura Telegenova",
     feedback: "I have tried other language apps... easy to practice.",
-    img: Profile3, // Update image path
+    img: Profile3,
   },
 ];
