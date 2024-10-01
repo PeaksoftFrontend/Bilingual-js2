@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSpring, animated } from "react-spring";
-import { dataForSlider } from "../../utils/constants/general";
 import { styled } from "@mui/system";
+import { dataForSlider } from "../../utils/constants/general";
 
 export const InfinitySlider = () => {
   const sliderRef = useRef(null);
