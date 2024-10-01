@@ -46,6 +46,7 @@ const StyledName = styled("h2")`
   height: 6rem;
   color: #3752b4;
   font-size: 2.5rem;
+  font-family: Gilroy;
 `;
 const StyledFon = styled("div")`
   width: 100%;

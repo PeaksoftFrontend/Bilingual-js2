@@ -9,11 +9,25 @@ import thirdUser from "../../assets/images/user3.png";
 import fourthUser from "../../assets/images/user4.png";
 import fifthUser from "../../assets/images/user5.png";
 import sixthUser from "../../assets/images/user6.png";
+///Slider
+import adama from "../../assets/images/adama.png";
+import basf from "../../assets/images/BASF.png";
+import deklab from "../../assets/images/declab.png";
+import lidea from "../../assets/images/lidea.png";
 export const data = [
   { id: 1, img: assesibleImage, des: "Accessible anytime, anywhere" },
   { id: 2, img: searchImage, des: "Extensive business content" },
   { id: 3, img: voiceImage, des: "Leading speech recognition" },
   { id: 4, img: adminImage, des: "Unlimited live tutoring  " },
+];
+export const dataForSlider = [
+  { id: 1, logo: adama },
+  { id: 2, logo: basf },
+  { id: 3, logo: deklab },
+  { id: 4, logo: lidea },
+  { id: 5, logo: deklab },
+  { id: 6, logo: adama },
+  { id: 7, logo: basf },
 ];
 export const userData = [
   {
