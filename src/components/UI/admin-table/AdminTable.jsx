@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTable } from "react-table";
 import {
   Paper,
@@ -27,11 +27,19 @@ export const AdminTable = ({ columns, data }) => {
   const tableType = getTableType();
 
   const getIcons = (row) => {
+    const [isSwitced, setIsSwitced] = useState(row.original.icon);
+
+    const handleIconClick = () => {
+      setIsSwitced((prevState) => !prevState);
+    };
+
     switch (tableType) {
       case "TEST":
         return (
           <ActionsContainer>
-            {row.original.icon ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+            <div onClick={handleIconClick}>
+              {isSwitced ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+            </div>
             <Icons.Note />
             <Icons.Trash />
           </ActionsContainer>
@@ -94,7 +102,11 @@ export const AdminTable = ({ columns, data }) => {
             return (
               <StyledRow {...row.getRowProps()} key={rowIndex}>
                 {row.cells.map((cell, cellIndex) => (
-                  <StyledCell {...cell.getCellProps()} key={cellIndex}>
+                  <StyledCell
+                    {...cell.getCellProps()}
+                    key={cellIndex}
+                    data-column={cell.column.id}
+                  >
                     {cell.render("Cell")}
                   </StyledCell>
                 ))}
@@ -140,6 +152,13 @@ const StyledCell = styled(TableCell)({
   "&:last-of-type": {
     borderTopRightRadius: "8px",
     borderBottomRightRadius: "8px",
+  },
+
+  "&[data-column='name']": {
+    maxWidth: "150px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 });
 

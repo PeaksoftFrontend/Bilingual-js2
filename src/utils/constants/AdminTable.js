@@ -78,21 +78,21 @@ export const RESULT = [
 export const testData = [
   {
     id: 1,
-    name: "Select the real Englisg word in the list...",
+    name: "Select the real Englisg word in the list",
     duration: "1 min",
     questionType: "Select real English word",
     icon: true,
   },
   {
     id: 2,
-    name: "Select the real Englisg word in the list...",
+    name: "Select the real Englisg word in the list",
     duration: "1 min",
     questionType: "Select real English word",
     icon: true,
   },
   {
     id: 3,
-    name: "Select the real Englisg word in the list...",
+    name: "Select the real Englisg word in the list",
     duration: "1 min",
     questionType: "Select real English word",
     icon: false,
