@@ -14,6 +14,24 @@ import adama from "../../assets/images/adama.png";
 import basf from "../../assets/images/BASF.png";
 import deklab from "../../assets/images/declab.png";
 import lidea from "../../assets/images/lidea.png";
+//video data
+import videoo from "../../assets/video/1110710_Soap-bubbles_Breathing_1280x720.mp4";
+
+export const dataVideo = [
+  {
+    video: videoo,
+    title: "Test Overview",
+  },
+  {
+    video: videoo,
+    title: "Test Walkthrough",
+  },
+  {
+    video: videoo,
+    title: "Integrated Subscores",
+  },
+];
+
 export const data = [
   { id: 1, img: assesibleImage, des: "Accessible anytime, anywhere" },
   { id: 2, img: searchImage, des: "Extensive business content" },
