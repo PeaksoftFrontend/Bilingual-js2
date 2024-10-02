@@ -54,7 +54,9 @@ export const Footer = () => {
           ))}
         </StyledH1>
         <StyledDiv>
-          <Bilingual />
+          <StyledBilli>
+            <Bilingual />
+          </StyledBilli>
           <StyledIcons>
             <Youtube />
             <Facebook />
@@ -88,9 +90,7 @@ const StyledMain = styled("div")(() => ({
 const StyledDiv = styled("div")(() => ({
   width: "100%",
   display: "flex",
-  justifyContent: "space-between",
-  paddingRight: "10rem",
-  paddingLeft: "10rem",
+  justifyContent: "space-around",
   paddingTop: "8rem",
 }));
 
@@ -102,6 +102,7 @@ const StyledP = styled("div")(() => ({
 const StyledH3 = styled("p")(() => ({
   color: theme.secondary.garnancho,
   fontWeight: "bold",
+  fontSize: "16px",
 }));
 
 const StyledH1 = styled("div")(() => ({
@@ -122,13 +123,20 @@ const StyledAccordion = styled(Accordion)(() => ({
 const StyledIcons = styled("div")(() => ({
   display: "flex",
   gap: "2rem",
-  paddingRight: "3rem",
+  width: "7.625 rem",
+  paddingLeft: "24rem",
+  paddingRight: "2rem",
 }));
 
 const StyledFAQ = styled("div")(() => ({
   paddingLeft: "10.5rem",
   paddingTop: "7rem",
   paddingBottom: "2rem",
+}));
+
+const StyledBilli = styled("div")(() => ({
+  width: "14.068rem",
+  paddingRight: "23rem",
 }));
 
 const StyledAccordionSummary = styled(AccordionSummary)(() => ({
