@@ -1,23 +1,36 @@
 import { useEffect, useRef } from "react";
-import { useSpring, animated } from "react-spring";
 import { styled } from "@mui/system";
 import { dataForSlider } from "../../utils/constants/general";
+import { useSpring, animated } from "@react-spring/web";
 
 export const InfinitySlider = () => {
   const sliderRef = useRef(null);
 
   const [{ x }, api] = useSpring(() => ({
-    from: { x: 0 },
-    to: { x: -(300 / dataForSlider.length) * 3 },
-    config: { duration: 6000, easing: (t) => t },
-    loop: true,
+    x: 0,
+    config: { duration: 0 },
   }));
 
   useEffect(() => {
-    api.start();
+    const totalWidth = sliderRef.current.scrollWidth / 2;
+
+    const startInfiniteScroll = () => {
+      api.start({
+        from: { x: 0 },
+        to: { x: -totalWidth },
+        config: { duration: 10000, easing: (t) => t },
+        loop: true,
+        onRest: () => {
+          api.set({ x: 0 });
+          startInfiniteScroll();
+        },
+      });
+    };
+
+    startInfiniteScroll();
   }, [api]);
 
-  const items = [...dataForSlider, ...dataForSlider, ...dataForSlider];
+  const items = [...dataForSlider, ...dataForSlider];
 
   return (
     <StyledAllContainer>
@@ -26,7 +39,8 @@ export const InfinitySlider = () => {
         <animated.div
           style={{
             display: "flex",
-            transform: x.to((a) => `translateX(${a}%)`),
+            gap: "5rem",
+            transform: x.to((a) => `translateX(${a}px)`),
             willChange: "transform",
           }}
         >
@@ -73,6 +87,6 @@ const SliderItem = styled("div")({
 });
 
 const SliderImage = styled("img")({
-  width: "12rem",
-  height: "7.2rem",
+  width: "17rem",
+  height: "9.2rem",
 });
