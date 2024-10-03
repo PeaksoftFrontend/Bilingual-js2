@@ -33,10 +33,15 @@ import ErrorArrow from "./icon/ErrorArrow.svg";
 import ArrowBack from "./icon/ArrowBack.svg";
 import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
+import TickGreen from "./icon/TickGreen.svg";
+import Stars from "./icon/Stars.svg";
+
 export const Icons = {
+  Stars,
   arrowIcon,
-  ArrowForward,
+  TickGreen,
   ArrowBack,
+  ArrowForward,
   ErrorArrow,
   FullLogo,
   Logo,
