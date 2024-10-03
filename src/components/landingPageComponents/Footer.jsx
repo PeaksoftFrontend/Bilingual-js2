@@ -42,16 +42,18 @@ export const Footer = () => {
       </StyledFAQ>
       <StyledMain>
         <StyledH1>
-          {FaqData.map((item, index) => (
-            <AccordionItem
-              key={index}
-              question={item.question}
-              answer={item.answer}
-              isExpanded={expanded === `panel${index + 1}`}
-              onChange={handleChange(`panel${index + 1}`)}
-              panel={`panel${index + 1}`}
-            />
-          ))}
+          <StyledFAQContainer>
+            {FaqData.map((item, index) => (
+              <AccordionItem
+                key={index}
+                question={item.question}
+                answer={item.answer}
+                isExpanded={expanded === `panel${index + 1}`}
+                onChange={handleChange(`panel${index + 1}`)}
+                panel={`panel${index + 1}`}
+              />
+            ))}
+          </StyledFAQContainer>
         </StyledH1>
         <StyledDiv>
           <StyledBilli>
@@ -126,10 +128,12 @@ const StyledIcons = styled("div")(() => ({
   width: "7.625 rem",
   paddingLeft: "24rem",
   paddingRight: "2rem",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledFAQ = styled("div")(() => ({
-  paddingLeft: "10.5rem",
+  paddingLeft: "12.8%",
   paddingTop: "7rem",
   paddingBottom: "2rem",
 }));
@@ -137,6 +141,7 @@ const StyledFAQ = styled("div")(() => ({
 const StyledBilli = styled("div")(() => ({
   width: "14.068rem",
   paddingRight: "23rem",
+  paddingLeft: "3rem",
 }));
 
 const StyledAccordionSummary = styled(AccordionSummary)(() => ({
@@ -145,4 +150,10 @@ const StyledAccordionSummary = styled(AccordionSummary)(() => ({
   alignContent: "space-between",
   justifyContent: "space-between",
   color: theme.primary.white,
+}));
+
+const StyledFAQContainer = styled("div")(() => ({
+  width: "76rem",
+  overflow: "hidden",
+  padding: "0 2rem",
 }));
