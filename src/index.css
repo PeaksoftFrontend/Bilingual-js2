@@ -4,3 +4,7 @@
   font-family: "DIN Next Rounded LT Pro Light";
   box-sizing: border-box;
 }
+
+svg {
+  cursor: pointer;
+}
