@@ -6,7 +6,6 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { theme } from "../../theme/theme";
 import Bilingual from "../../assets/icons/icon/billingual.svg";
 import Youtube from "../../assets/icons/icon/youtube.svg";
 import Insta from "../../assets/icons/icon/instagram.svg";
@@ -37,48 +36,52 @@ export const Footer = () => {
 
   return (
     <StyledFooter>
-      <StyledFAQ>
-        <Typography variant={"h1Bold"}>FAQ:</Typography>
-      </StyledFAQ>
-      <StyledMain>
-        <StyledH1>
-          <StyledFAQContainer>
-            {FaqData.map((item, index) => (
-              <AccordionItem
-                key={index}
-                question={item.question}
-                answer={item.answer}
-                isExpanded={expanded === `panel${index + 1}`}
-                onChange={handleChange(`panel${index + 1}`)}
-                panel={`panel${index + 1}`}
-              />
-            ))}
-          </StyledFAQContainer>
-        </StyledH1>
-        <StyledDiv>
-          <StyledBilli>
-            <Bilingual />
-          </StyledBilli>
-          <StyledIcons>
-            <Youtube />
-            <Facebook />
-            <Insta />
-          </StyledIcons>
-        </StyledDiv>
-        <StyledP>© Copyright PeakSoft. All Rights Reserved</StyledP>
-      </StyledMain>
+      <WrapperFooter>
+        <StyledFAQ>
+          <Typography variant={"h1Bold"}>FAQ:</Typography>
+        </StyledFAQ>
+        <StyledMain>
+          <StyledH1>
+            <StyledFAQContainer>
+              {FaqData.map((item, index) => (
+                <AccordionItem
+                  key={index}
+                  question={item.question}
+                  answer={item.answer}
+                  isExpanded={expanded === `panel${index + 1}`}
+                  onChange={handleChange(`panel${index + 1}`)}
+                  panel={`panel${index + 1}`}
+                />
+              ))}
+            </StyledFAQContainer>
+          </StyledH1>
+          <StyledDiv>
+            <StyledBilli>
+              <Bilingual />
+            </StyledBilli>
+            <StyledIcons>
+              <Youtube />
+              <Facebook />
+              <Insta />
+            </StyledIcons>
+          </StyledDiv>
+          <StyledP>© Copyright PeakSoft. All Rights Reserved</StyledP>
+        </StyledMain>
+      </WrapperFooter>
     </StyledFooter>
   );
 };
 
-const StyledFooter = styled("footer")(() => ({
+const StyledFooter = styled("footer")(({ theme }) => ({
   background: theme.secondary.dark,
   width: "100%",
   display: "flex",
-  flexDirection: "column",
-  alignItems: "start",
   justifyContent: "center",
   color: theme.primary.white,
+}));
+
+const WrapperFooter = styled("div")(() => ({
+  maxWidth: "1220.97px",
 }));
 
 const StyledMain = styled("div")(() => ({
@@ -92,29 +95,30 @@ const StyledMain = styled("div")(() => ({
 const StyledDiv = styled("div")(() => ({
   width: "100%",
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "space-between",
   paddingTop: "8rem",
+  paddingLeft: "32px",
 }));
 
-const StyledP = styled("div")(() => ({
+const StyledP = styled("div")(({ theme }) => ({
   color: theme.secondary.ego,
   paddingTop: "3rem",
   paddingBottom: "1rem",
 }));
-const StyledH3 = styled("p")(() => ({
+const StyledH3 = styled("p")(({ theme }) => ({
   color: theme.secondary.garnancho,
   fontWeight: "bold",
   fontSize: "16px",
 }));
 
-const StyledH1 = styled("div")(() => ({
+const StyledH1 = styled("div")(({ theme }) => ({
   background: theme.secondary.dark,
   color: theme.secondary.garnancho,
   cursor: "pointer",
   width: "76rem",
 }));
 
-const StyledAccordion = styled(Accordion)(() => ({
+const StyledAccordion = styled(Accordion)(({ theme }) => ({
   background: theme.secondary.dark,
   color: theme.secondary.garnancho,
   width: "74.16rem",
@@ -127,13 +131,12 @@ const StyledIcons = styled("div")(() => ({
   gap: "2rem",
   width: "7.625 rem",
   paddingLeft: "24rem",
-  paddingRight: "2rem",
   alignItems: "center",
   justifyContent: "center",
 }));
 
 const StyledFAQ = styled("div")(() => ({
-  paddingLeft: "12.8%",
+  paddingLeft: "32px",
   paddingTop: "7rem",
   paddingBottom: "2rem",
 }));
@@ -141,10 +144,9 @@ const StyledFAQ = styled("div")(() => ({
 const StyledBilli = styled("div")(() => ({
   width: "14.068rem",
   paddingRight: "23rem",
-  paddingLeft: "3rem",
 }));
 
-const StyledAccordionSummary = styled(AccordionSummary)(() => ({
+const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
   display: "flex",
   width: "100%",
   alignContent: "space-between",
