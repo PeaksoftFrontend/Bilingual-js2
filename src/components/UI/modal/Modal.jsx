@@ -1,12 +1,12 @@
 import { Box, Modal as MuiModal, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
-export const Modal = ({ children, handleClose, open, role, ...props }) => {
+export const Modal = ({ children, onClose, open, role, ...props }) => {
   return (
-    <StyledModal open={open} onClose={handleClose} {...props}>
+    <StyledModal open={open} onClose={onClose} {...props}>
       <StyledBox role={role}>
         {role === "ADMIN" && (
-          <StyledIcon onClick={handleClose}>
+          <StyledIcon onClick={onClose}>
             <Icons.XSmall />
           </StyledIcon>
         )}
