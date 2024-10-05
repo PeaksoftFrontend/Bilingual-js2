@@ -31,6 +31,7 @@ export const LandingButton = ({
 };
 const StyledButton = styled(Button)(({ variant }) => ({
   fontWeight: "600",
+  cursor: "pointer",
   "&:disabled": {
     pointerEvents: "auto",
     cursor: "not-allowed",

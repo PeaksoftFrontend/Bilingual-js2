@@ -24,31 +24,34 @@ export const Header = () => {
   }, []);
 
   return (
-    <HeaderStyled $bgImg={BgImage}>
-      <Container isScroled={isScroled}>
-        <Icons.FullLogo />
-        <BtnContainer>
-          <StyledBtn>to come in</StyledBtn>
-          <SecondBtn>register</SecondBtn>
-        </BtnContainer>
-      </Container>
-      <MainBlock>
-        <TextContainer>
-          <article>
-            <h1>Prove your English proficiency today with</h1>
-            <h2>BILINGUAL</h2>
-          </article>
-          <section>
-            <p>
-              For nearly 30 years, learners have turned to Rosetta Stone to
-              build the fluency and confidence they need to speak new languages.
-            </p>
-            <StyledLandingButton variant="team">to begin</StyledLandingButton>
-          </section>
-        </TextContainer>
-        <img src={BooksFat} alt="Books" />
-      </MainBlock>
-    </HeaderStyled>
+    <div>
+      <HeaderStyled $bgImg={BgImage}>
+        <Container isScroled={isScroled}>
+          <Icons.FullLogo />
+          <BtnContainer>
+            <StyledBtn>to come in</StyledBtn>
+            <SecondBtn>register</SecondBtn>
+          </BtnContainer>
+        </Container>
+        <MainBlock>
+          <TextContainer>
+            <article>
+              <h1>Prove your English proficiency today with</h1>
+              <h2>BILINGUAL</h2>
+            </article>
+            <section>
+              <p>
+                For nearly 30 years, learners have turned to Rosetta Stone to
+                build the fluency and confidence they need to speak new
+                languages.
+              </p>
+              <StyledLandingButton variant="team">to begin</StyledLandingButton>
+            </section>
+          </TextContainer>
+          <img src={BooksFat} alt="Books" />
+        </MainBlock>
+      </HeaderStyled>
+    </div>
   );
 };
 
@@ -134,7 +137,7 @@ const TextContainer = styled("div")({
 
 const MainBlock = styled("div")({
   display: "flex",
-  gap: "96px",
+  gap: "18px",
 });
 
 const StyledLandingButton = styled(LandingButton)({
