@@ -24,6 +24,7 @@ const StyledImage = styled("img")`
   height: 11.25rem;
 `;
 const StyledName = styled("h1")`
+  font-family: Gilroy;
   width: 11.25rem;
   height: 3.25rem;
   font-size: 2.5rem;
@@ -57,10 +58,8 @@ const StyledWrapperDescription = styled("div")`
   justify-content: center;
   align-items: center;
   & > h5 {
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1.3rem;
-    text-align: left;
+    font-size: 40px;
+    font-weight: 700;
     color: #3a10e5;
   }
 `;

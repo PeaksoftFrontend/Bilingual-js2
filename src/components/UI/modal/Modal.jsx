@@ -16,15 +16,12 @@ export const Modal = ({ children, handleClose, open, role, ...props }) => {
   );
 };
 
-const StyledBox = styled(Box)(({ role }) => ({
-  width: role === "ADMIN" ? "637px" : "407px",
+const StyledBox = styled(Box)(() => ({
   height: "fit-content",
-  background:
-    role === "ADMIN"
-      ? "linear-gradient(to bottom, #FEFEFE 70%, #F0F1F1 70%)"
-      : "#FEFEFE",
+  background: "#fff",
   borderRadius: "20px",
-  padding: role === "ADMIN" ? "20px 32px 0 0" : "36px 60px",
+  padding: "22px",
+  overflow: "hidden",
 }));
 
 const StyledModal = styled(MuiModal)(() => ({
@@ -45,9 +42,7 @@ const StyledIcon = styled("div")({
   cursor: "pointer",
 });
 
-const StyledChildren = styled("div")(({ role }) => ({
+const StyledChildren = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: role === "ADMIN" ? "108px" : "0",
-  padding: role === "ADMIN" ? "40px 26px 26px 60px" : "0",
 }));
