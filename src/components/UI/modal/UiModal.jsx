@@ -1,7 +1,7 @@
 import { Box, keyframes, Modal as MuiModal, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
-export const Modal = ({ children, onClose, open, role, ...props }) => {
+export const UiModal = ({ children, onClose, open, role, ...props }) => {
   return (
     <StyledModal open={open} onClose={onClose} {...props}>
       <StyledBox role={role}>
@@ -32,11 +32,12 @@ const slideIn = keyframes`
   0%, 66% {
   opacity: 0;
   visibility: hidden;
-  translate: -50% -30%;
+  transform: translateY(100%);
   }
   100% {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
   }
 `;
 
@@ -50,10 +51,10 @@ const StyledBox = styled(Box)(() => ({
   left: "50%",
   top: "50%",
   opacity: "0",
-  transition: "0.5s",
+  transition: "0.6s",
   translate: "-50% -50%",
   visibility: "hidden",
-  animation: `${slideIn} 0.5s ease forwards`,
+  animation: `${slideIn} 0.7s ease forwards`,
 }));
 
 const StyledModal = styled(MuiModal)(() => ({
