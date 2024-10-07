@@ -17,27 +17,26 @@ export const Modal = ({ children, onClose, open, role, ...props }) => {
 };
 
 const tvTurnOn = keyframes`
-  0% {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-  100% {
-    opacity: 1;
-  }
+ 0%{
+  scale: 0 0.005;
+ }
+ 33%{
+  scale: 1 0.005;
+ }
+ 66%, 100%{
+ scale: 1 1;
+ }
 `;
 
 const slideIn = keyframes`
-  0% {
-    transform: scale(0);
-    opacity: 0;
+  0%, 66% {
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% -30%;
   }
   100% {
-    transform: scale(1);
     opacity: 1;
+    visibility: visible;
   }
 `;
 
@@ -47,6 +46,13 @@ const StyledBox = styled(Box)(() => ({
   borderRadius: "20px",
   padding: "22px",
   overflow: "hidden",
+  position: "fixed",
+  left: "50%",
+  top: "50%",
+  opacity: "0",
+  transition: "0.5s",
+  translate: "-50% -50%",
+  visibility: "hidden",
   animation: `${slideIn} 0.5s ease forwards`,
 }));
 
