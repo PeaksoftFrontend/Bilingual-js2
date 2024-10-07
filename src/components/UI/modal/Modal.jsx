@@ -1,4 +1,4 @@
-import { Box, Modal as MuiModal, styled } from "@mui/material";
+import { Box, keyframes, Modal as MuiModal, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
 export const Modal = ({ children, onClose, open, role, ...props }) => {
@@ -16,12 +16,38 @@ export const Modal = ({ children, onClose, open, role, ...props }) => {
   );
 };
 
+const tvTurnOn = keyframes`
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
 const StyledBox = styled(Box)(() => ({
   height: "fit-content",
   background: "#fff",
   borderRadius: "20px",
   padding: "22px",
   overflow: "hidden",
+  animation: `${slideIn} 0.5s ease forwards`,
 }));
 
 const StyledModal = styled(MuiModal)(() => ({
@@ -32,8 +58,9 @@ const StyledModal = styled(MuiModal)(() => ({
   top: "0",
   left: "0",
   display: "flex",
-  justifyContent: " center",
+  justifyContent: "center",
   alignItems: "center",
+  animation: `${tvTurnOn} 0.7s ease forwards`,
 }));
 
 const StyledIcon = styled("div")({
