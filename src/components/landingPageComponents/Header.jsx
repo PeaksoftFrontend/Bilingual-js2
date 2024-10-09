@@ -134,7 +134,7 @@ const TextContainer = styled("div")({
 
 const MainBlock = styled("div")({
   display: "flex",
-  gap: "96px",
+  gap: "18px",
 });
 
 const StyledLandingButton = styled(LandingButton)({

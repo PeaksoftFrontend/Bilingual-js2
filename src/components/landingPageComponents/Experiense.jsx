@@ -50,10 +50,10 @@ const StyledName = styled("h2")`
 `;
 const StyledFon = styled("div")`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   background-color: #fef5e8;
   display: flex;
-  gap: 4.375rem;
+  gap: 9rem;
   justify-content: center;
   align-items: center;
 `;

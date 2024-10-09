@@ -55,16 +55,16 @@ export const InfinitySlider = () => {
   );
 };
 
-const StyledAllContainer = styled("div")({
-  width: "100%",
-  height: "100vh",
-  backgroundColor: "#fef5e8",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "2.5rem",
-});
+const StyledAllContainer = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2.8rem;
+  background-color: #fef5e8;
+  width: 100%;
+  height: 55vh;
+`;
 
 const StyledContainerName = styled("h1")({
   fontFamily: "Gilroy",
