@@ -91,5 +91,6 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
 
   "& .MuiInputBase-input::placeholder": {
     color: "#9e9e9e",
+    paddingLeft: "16px",
   },
 }));
