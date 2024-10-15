@@ -35,8 +35,14 @@ import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
 import TickGreen from "./icon/TickGreen.svg";
 import Stars from "./icon/Stars.svg";
+import Layer from "./icon/Layer.svg";
+import Frame from "./icon/Frame.svg";
+import Google from "./icon/Google.svg";
 
 export const Icons = {
+  Google,
+  Frame,
+  Layer,
   Stars,
   arrowIcon,
   TickGreen,
