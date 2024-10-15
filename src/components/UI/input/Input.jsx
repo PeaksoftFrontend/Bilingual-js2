@@ -35,9 +35,13 @@ export const Input = ({
         endAdornment:
           type === "password" ? (
             <InputAdornment position="end">
-              <IconButton onClick={handleClickShowPassword} edge="end">
+              <NoHoverIconButton
+                type="button"
+                onClick={handleClickShowPassword}
+                edge="end"
+              >
                 {showPassword ? <Icons.Eye /> : <Icons.EyeClose />}
-              </IconButton>
+              </NoHoverIconButton>
             </InputAdornment>
           ) : null,
       }}
@@ -46,6 +50,9 @@ export const Input = ({
 };
 
 const StyledInput = styled(TextField)(({ error, disabled }) => ({
+  "& svg:hover": {
+    background: "transparent",
+  },
   height: "52px",
   borderRadius: "10px",
 
@@ -93,3 +100,12 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     color: "#9e9e9e",
   },
 }));
+const NoHoverIconButton = styled("button")({
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+  outline: "none",
+  position: "absolute",
+  right: "-50px",
+  top: "17px",
+});

@@ -1,10 +1,4 @@
-import {
-  Grid,
-  Typography,
-  styled,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Typography, styled, FormControlLabel } from "@mui/material";
 import { Input } from "../../UI/input/Input";
 import { Button } from "../../UI/button/Button";
 import { Icons } from "../../../assets/icons";
@@ -28,7 +22,7 @@ export const SignIn = () => {
   });
 
   return (
-    <Background container>
+    <Background>
       <SignUpForm onSubmit={formik.handleSubmit}>
         <Container>
           <Icons.Layer />
@@ -52,23 +46,9 @@ export const SignIn = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          <FormControlLabel
-            control={<StyledCheckbox />}
+          <FormControlLabelCheck
+            control={<CheckInput type="checkbox" />}
             label="To remember me"
-            sx={{
-              position: "relative",
-              zIndex: "10",
-              right: "12rem",
-              lineHeight: "21px",
-              marginTop: 0,
-              "& .MuiFormControlLabel-label": {
-                fontSize: "14px",
-                position: "relative",
-                zIndex: "10",
-                right: "4rem",
-                color: "#b8b8b8",
-              },
-            }}
           />
           <StyledButton variant="contained" type="submit">
             Sign Up
@@ -86,9 +66,47 @@ export const SignIn = () => {
   );
 };
 
-const Background = styled(Grid)(({ theme }) => ({
-  background: "linear-gradient(90.76deg, #6B0FA9 0.74%, #520FB6 88.41%)",
+const CheckInput = styled("input")(() => ({
+  width: "22px",
+  height: "22px",
+}));
+
+const FormControlLabelCheck = styled(FormControlLabel)(({ theme }) => ({
+  position: "relative",
+  zIndex: "10",
+  right: "12rem",
+  "&.Mui-checked": {
+    color: theme.palette.primary.main,
+  },
+  background: "transparent",
+  lineHeight: "21px",
+  "& :hover": {
+    background: "transparent",
+  },
+  marginTop: 0,
+  "& .MuiFormControlLabel-label": {
+    fontSize: "14px",
+    position: "relative",
+    zIndex: "10",
+    left: "1rem",
+    color: "#b8b8b8",
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+  "&.MuiCheckbox-root": {
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+}));
+
+const Background = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5),
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
 }));
 
 const SignUpForm = styled("form")(({ theme }) => ({
@@ -99,7 +117,7 @@ const SignUpForm = styled("form")(({ theme }) => ({
   padding: theme.spacing(4),
 }));
 
-const Container = styled(Grid)(() => ({
+const Container = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -121,22 +139,30 @@ const Title = styled(Typography)(({ theme }) => ({
 
 const StyledInput = styled(Input)(({ theme, error }) => ({
   height: "52px",
-  marginBottom: theme.spacing(2.5),
+  marginBottom: theme.spacing(4.5),
   "& .MuiInputLabel-root": {
-    color: error ? "red" : theme.palette.text.primary,
+    color: theme.palette.text.primary,
   },
   "& .MuiInputBase-root": {
     borderColor: error ? "red" : theme.palette.grey[400],
   },
   "& .MuiFormHelperText-root": {
-    textAlign: "center",
+    textAlign: "start",
     color: "red",
+  },
+  "& .MuiInputBase-input": {
+    color: theme.palette.text.primary,
+    backgroundColor: "white",
+    "&:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px white inset",
+      WebkitTextFillColor: theme.palette.text.primary,
+    },
   },
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   height: "52px",
-  marginTop: theme.spacing(1.25),
+  marginTop: theme.spacing(4.25),
   width: "100%",
 }));
 
@@ -179,16 +205,4 @@ const StyledLink = styled("span")(({ theme }) => ({
   textDecoration: "underline",
   cursor: "pointer",
   fontWeight: "bold",
-}));
-
-const StyledCheckbox = styled(Checkbox)(({ theme }) => ({
-  "&.Mui-checked": {
-    color: theme.palette.primary.main,
-  },
-  "&.MuiCheckbox-root": {
-    padding: 0,
-  },
-  "&:hover": {
-    background: "none",
-  },
 }));
