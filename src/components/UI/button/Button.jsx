@@ -87,8 +87,8 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
   }),
 
   ...(variant === "outlined" && {
-    width: "100px",
-    height: "42px",
+    width: "fit-content",
+    height: "40px",
     textTransform: "uppercase",
     fontSize: "14px",
     borderRadius: "8px",
@@ -100,8 +100,6 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#3A10E5",
       color: "#FEFEFF",
       border: "none",
-      boxShadow:
-        "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
     "&:active": {
       backgroundColor: "#3007DA",

@@ -35,8 +35,14 @@ import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
 import TickGreen from "./icon/TickGreen.svg";
 import Stars from "./icon/Stars.svg";
+import EmptyTick from "./icon/EmptyTick.svg";
+import playSmall from "./icon/PlaySmall.svg";
+import PlayCircle from "./icon/play-circle.svg";
 
 export const Icons = {
+  PlayCircle,
+  playSmall,
+  EmptyTick,
   Stars,
   arrowIcon,
   TickGreen,

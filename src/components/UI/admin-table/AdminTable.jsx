@@ -127,6 +127,7 @@ const StyledTable = styled(Table)(() => ({
 
 const StyledTableContainer = styled(TableContainer)({
   width: "100%",
+  boxShadow: "none",
 });
 
 const StyledHeaderCell = styled(TableCell)({
