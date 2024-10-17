@@ -1,22 +1,25 @@
-import ImageInfoOne from "../../assets/images/info_image_1.png";
-import ImageInfoTwo from "../../assets/images/info_image_2.png";
-import ImageInfoThree from "../../assets/images/info_image_3.png";
+// import ImageInfoOne from "../../assets/images/info_image_1.png";
+// import ImageInfoTwo from "../../assets/images/info_image_2.png";
+// import ImageInfoThree from "../../assets/images/info_image_3.png";
 import Globe from "../../assets/images/globe.png";
 import Profile1 from "../../assets/images/uiProfile1.png";
 import Profile2 from "../../assets/images/uiProfile2.png";
 import Profile3 from "../../assets/images/uiProfile3.png";
+import Airplane from "../../assets/icons/icon/airplane.svg";
+import Earth from "../../assets/icons/icon/earth.svg";
+import Pig from "../../assets/icons/icon/pig.svg";
 
 export const defaultCardData = [
   {
-    imgSrc: ImageInfoOne,
+    imgSrc: Airplane,
     text: "Over 10,000 fee waivers for the Bilingual English Test are offered annually.",
   },
   {
-    imgSrc: ImageInfoTwo,
+    imgSrc: Earth,
     text: "Students from over 200 countries and territories have benefitted.",
   },
   {
-    imgSrc: ImageInfoThree,
+    imgSrc: Pig,
     text: "Eligible students can take the test with absolutely zero cost to them.",
   },
 ];
