@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
-import { ContentWrapper } from "../../UI/content_wrapper/ContentWrapper";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { Input } from "../../../components/UI/input/Input";
+import { Button } from "../../../components/UI/button/Button";
 import { Icons } from "../../../assets/icons";
 
 export const RespondSelect = () => {

@@ -1,9 +1,13 @@
 import { styled } from "@mui/material";
-import { ContentWrapper } from "../../UI/content_wrapper/ContentWrapper";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { Input } from "../../../components/UI/input/Input";
+import { Button } from "../../../components/UI/button/Button";
+import {
+  AnswerCard,
+  QuestionCards,
+} from "../../../components/UI/select-table/SelectTable";
 
-export const HighlightSelect = () => {
+export const MainIdeaSelect = () => {
   return (
     <>
       <StyledAll>
@@ -49,35 +53,14 @@ export const HighlightSelect = () => {
                     labore et dolore magnam aliquam quaerat voluptatem.
                   </div>
                 </StyledPassage>
-
-                <StyledWrapperDescriptionSecond>
-                  <h4>
-                    Question Statement: “Describe a time you were surprised?
-                    what happened?”
-                  </h4>
-                  <StyledPassage>
-                    <h4>Correct_answer:</h4>
-                    <div>
-                      No one rejects, dislikes, or avoids pleasure itself,
-                      because it is pleasure, but because those who do not know
-                      how to pursue pleasure rationally encounter consequences
-                      that are extremely painful.
-                    </div>
-                  </StyledPassage>
-                </StyledWrapperDescriptionSecond>
-
+                <QuestionCards />
                 <StyledDescriptionSecond>
                   <h3>User’s Answer </h3>
-                  <StyledPassage>
-                    <h4>Respond: </h4>
-                    <div>
-                      "But I must explain to you how all this mistaken idea of
-                      denouncing pleasure and praising pain was born and I will
-                      give you a complete account of the system. Sed ut
-                      perspiciatis unde omnis iste natus error sit voluptatem
-                      accusantium doloremque laudantium, totam rem aperiam
-                    </div>
-                  </StyledPassage>
+                  <AnswerCard
+                    value={3}
+                    number={3}
+                    text="Table content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed"
+                  />
                 </StyledDescriptionSecond>
               </StyledWrapperDescription>
               <div>
@@ -91,6 +74,22 @@ export const HighlightSelect = () => {
     </>
   );
 };
+const StyledDescriptionSecond = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+});
+const StyledPassage = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "flex-start",
+  gap: "5px",
+});
+const StyledWrapperDescription = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "37px",
+});
 const StyledAll = styled("div")({
   padding: "40px",
 });
@@ -105,28 +104,7 @@ const StyledWrapperAllContent = styled("div")({
   flexDirection: "column",
   gap: "50px",
 });
-const StyledWrapperDescriptionSecond = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "30px",
-});
-const StyledDescriptionSecond = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-});
 
-const StyledWrapperDescription = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "37px",
-});
-const StyledPassage = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "flex-start",
-  gap: "3px",
-});
 const StyledWrapperTitle = styled("div")({
   display: "flex",
   justifyContent: "space-between",

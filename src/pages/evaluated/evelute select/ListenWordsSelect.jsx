@@ -1,11 +1,11 @@
 import { styled } from "@mui/material";
-import { ContentWrapper } from "../../UI/content_wrapper/ContentWrapper";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import {
   usersAnswerListenData,
   usersQuestionListenData,
 } from "../../../utils/constants/general";
 import { Icons } from "../../../assets/icons";
-import { Button } from "../../UI/button/Button";
+import { Button } from "../../../components/UI/button/Button";
 
 export const ListenWordsSelect = () => {
   return (

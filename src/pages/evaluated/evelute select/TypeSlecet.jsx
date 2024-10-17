@@ -1,9 +1,10 @@
 import { styled } from "@mui/material";
-import { ContentWrapper } from "../../UI/content_wrapper/ContentWrapper";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { Input } from "../../../components/UI/input/Input";
+import { Button } from "../../../components/UI/button/Button";
+import { Icons } from "../../../assets/icons";
 
-export const RecordSelect = () => {
+export const TypeSlecet = () => {
   return (
     <StyledWrapperAll>
       <ContentWrapper>
@@ -33,23 +34,26 @@ export const RecordSelect = () => {
                   Question Type: <span style={{ color: "black" }}>{null}</span>
                 </StyledTitle>
                 <StyledTitle>
-                  Mimimum number of words:{" "}
-                  <span style={{ color: "black" }}>{null}</span>
-                </StyledTitle>
-                <StyledTitle>
-                  Question Statement:{" "}
+                  Mimimum number of words:
                   <span style={{ color: "black" }}>{null}</span>
                 </StyledTitle>
               </StyledWrapperDesSecond>
             </StyledWrapperDes>
           </StyledWrapperTitle>
           <StyledContainerAns>
-            <h3>User’s Answer </h3>
-            <h4>
-              Respond:
-              <StyledTitleRespond>{null}</StyledTitleRespond>
-            </h4>
-            <h4>Number of words: {null}</h4>
+            <StyledContainer>
+              <StyledButton variant="contained">
+                <Icons.PlayCircle />
+                <StyledBtnContent>PLAY AUDIO</StyledBtnContent>
+              </StyledButton>
+              <p>Correct ansver: “Hello, how is it 2going?”</p>
+            </StyledContainer>
+
+            <StyledContainerDescription>
+              <h3>User’s Answer </h3>
+              <h4>Entered Statement: “Hello, how is it going?”</h4>
+              <h4>Number of plays: {null}</h4>
+            </StyledContainerDescription>
           </StyledContainerAns>
         </StyledAllContainer>
 
@@ -68,16 +72,6 @@ export const RecordSelect = () => {
     </StyledWrapperAll>
   );
 };
-const StyledTitleRespond = styled("h4")({
-  fontSize: "15px",
-  fontWeight: "900",
-  color: " #3752B4",
-  width: "800px",
-  height: "54px",
-  position: "relative",
-  left: "4.5rem",
-  bottom: "1.3rem",
-});
 const StyledAllContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
@@ -90,11 +84,29 @@ const StyledWrapperBtn = styled("div")({
   left: "40.2rem",
   bottom: "2rem",
 });
-
+const StyledContainerDescription = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+});
 const StyledContainerAns = styled("div")({
   display: "flex",
   flexDirection: "column",
-  gap: "13px",
+  gap: "40px",
+});
+const StyledContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "15px",
+});
+const StyledBtnContent = styled("p")({
+  fontSize: "14px",
+  fontWeight: "900",
+});
+const StyledButton = styled(Button)({
+  display: "flex",
+  justifyContent: "space-evenly",
+  gap: "10px",
 });
 
 const StyledWrapperAll = styled("div")({
@@ -112,7 +124,7 @@ const StyledInput = styled(Input)({
 const StyledWrapperTitlePosition = styled("div")({
   position: "relative",
   left: "46rem",
-  bottom: "25rem",
+  bottom: "22rem",
 });
 const StyledWrapperDesSecond = styled("div")({
   display: "flex",

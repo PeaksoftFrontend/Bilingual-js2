@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
-import { AdminHeader } from "../adminHeader/AdminHeader";
-import { SubmitesRes } from "./SubmitesRes";
-import { EvaluatingResultsSelect } from "./EvaluatingResultsSelect";
+import { AdminHeader } from "../../../components/adminPage/adminHeader/AdminHeader";
+// import { SubmitesRes } from "./SubmitesRes";
+// import { EvaluatingResultsSelect } from "./EvaluatingResultsSelect";
 import { EvaluteSelect } from "./EvaluteSelect";
 import { ListenWordsSelect } from "./ListenWordsSelect";
 import { TypeSlecet } from "./TypeSlecet";
@@ -15,8 +15,8 @@ export const SelectAll = () => {
   return (
     <StyledAllContainer>
       <AdminHeader />
-      <SubmitesRes />
-      <EvaluatingResultsSelect />
+      {/* <SubmitesRes /> */}
+      {/* <EvaluatingResultsSelect /> */}
       <EvaluteSelect />
       <ListenWordsSelect />
       <TypeSlecet />

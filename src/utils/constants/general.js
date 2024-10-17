@@ -36,6 +36,7 @@ export const usersAnswerData = [
   { id: 3, question: "champion" },
   { id: 4, question: "listen" },
 ];
+
 export const dataQuestion = [
   { id: 1, question: "champion" },
   { id: 2, question: "listen" },
