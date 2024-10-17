@@ -3,15 +3,22 @@ import { ContentWrapper } from "../content_wrapper/ContentWrapper";
 import { Select } from "../input/Select";
 import { selectOptions } from "../../../utils/constants/selectWords";
 import { Input } from "../input/Input";
-import { AdminHeader } from "../../adminPage/adminHeader/AdminHeader";
+import { AdminHeader } from "../../../pages/admin/adminHeader/AdminHeader";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
 import dayjs from "dayjs";
 
-export const AdminForm = () => {
+export const AdminForm = ({ children, onSelectChange }) => {
   const [selectedTime, setSelectedTime] = useState(dayjs());
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleSelectChange = (event) => {
+    const value = event.target.value;
+    setSelectedValue(value);
+    onSelectChange(value);
+  };
 
   const handleTimeChange = (newValue) => {
     setSelectedTime(newValue);
@@ -46,8 +53,13 @@ export const AdminForm = () => {
         </TitleBlock>
         <TypeStyled>
           <p>Type</p>
-          <StyledSelect options={selectOptions} />
+          <StyledSelect
+            options={selectOptions}
+            value={selectedValue}
+            onChange={handleSelectChange}
+          />
         </TypeStyled>
+        <div>{children}</div>
       </ContentWrapper>
     </StyledAdminConteiner>
   );

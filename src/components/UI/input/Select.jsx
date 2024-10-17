@@ -7,7 +7,7 @@ export const Select = ({ options = [], onChange, value }) => {
   return (
     <Box width={"51.25rem"}>
       <FormControl fullWidth>
-        <StyledMuiSelect onChange={onChange} value={value}>
+        <StyledMuiSelect onChange={onChange} value={value ?? ""}>
           {options.map((item) => (
             <StyledMenuItem key={item.id} value={item.value}>
               {item.label}
