@@ -17,6 +17,33 @@ import lidea from "../../assets/images/lidea.png";
 //video data
 import videoo from "../../assets/video/1110710_Soap-bubbles_Breathing_1280x720.mp4";
 
+export const usersQuestionListenData = [
+  { id: 1, question: "WORD 1" },
+  { id: 2, question: "WORD 2" },
+  { id: 3, question: "WORD 3" },
+  { id: 4, question: "WORD 4" },
+  { id: 5, question: "WORD 5" },
+  { id: 6, question: "WORD 6" },
+];
+export const usersAnswerListenData = [
+  { id: 1, question: "WORD 1" },
+  { id: 2, question: "WORD 5" },
+  { id: 3, question: "WORD 6" },
+];
+export const usersAnswerData = [
+  { id: 1, question: "greesey" },
+  { id: 2, question: "listen" },
+  { id: 3, question: "champion" },
+  { id: 4, question: "listen" },
+];
+export const dataQuestion = [
+  { id: 1, question: "champion" },
+  { id: 2, question: "listen" },
+  { id: 3, question: "nature" },
+  { id: 4, question: "twall" },
+  { id: 5, question: "advantage" },
+  { id: 6, question: "greesey" },
+];
 export const dataVideo = [
   {
     video: videoo,
