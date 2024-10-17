@@ -18,7 +18,7 @@ export const InfinitySlider = () => {
       api.start({
         from: { x: 0 },
         to: { x: -totalWidth },
-        config: { duration: 10000, easing: (t) => t },
+        config: { duration: 20000, easing: (t) => t },
         loop: true,
         onRest: () => {
           api.set({ x: 0 });

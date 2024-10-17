@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
-import { Button } from "../../UI/button/Button";
+import { Button } from "../../../components/UI/button/Button";
 
 export const AdminHeader = () => {
   return (

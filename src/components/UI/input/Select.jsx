@@ -5,9 +5,9 @@ import { Select as MuiSelect, styled } from "@mui/material";
 
 export const Select = ({ options = [], onChange, value }) => {
   return (
-    <Box margin={3} width={"51.25rem"}>
+    <Box width={"51.25rem"}>
       <FormControl fullWidth>
-        <StyledMuiSelect onChange={onChange} value={value}>
+        <StyledMuiSelect onChange={onChange} value={value ?? ""}>
           {options.map((item) => (
             <StyledMenuItem key={item.id} value={item.value}>
               {item.label}
@@ -21,7 +21,7 @@ export const Select = ({ options = [], onChange, value }) => {
 
 const StyledMenuItem = styled(MenuItem)({
   "&:hover": {
-    backgroundColor: "#3A10E529",
+    backgroundColor: "#D4D0D0",
   },
 });
 const StyledMuiSelect = styled(MuiSelect)({

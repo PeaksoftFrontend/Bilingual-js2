@@ -35,6 +35,8 @@ import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
 import TickGreen from "./icon/TickGreen.svg";
 import Stars from "./icon/Stars.svg";
+import Plus from "./icon/Plus.svg";
+import EmptyTick from "./icon/EmptyTick.svg";
 
 export const Icons = {
   Stars,
@@ -74,4 +76,6 @@ export const Icons = {
   XSmall,
   EyeClose,
   EyeOpen,
+  Plus,
+  EmptyTick,
 };
