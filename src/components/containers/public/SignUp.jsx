@@ -4,8 +4,9 @@ import { Button } from "../../UI/button/Button";
 import { Icons } from "../../../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ReusableModal } from "../../landingPageComponents/ReusableModal";
-export const SignUp = () => {
+import { UiModal } from "../../UI/modal/UiModal";
+
+export const SignUp = ({ open, onClose }) => {
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -28,83 +29,80 @@ export const SignUp = () => {
         .required("Password is required"),
     }),
   });
+
   return (
-    <ReusableModal
-      open={() => console.log("open")}
-      handleClose={() => console.log("handleClose")}
-      content={
-        <Background>
-          <SignUpForm onSubmit={formik.handleSubmit}>
-            <Container>
+    <UiModal open={open} onClose={onClose} role={"ADMIN"}>
+      <Background>
+        <SignUpForm onSubmit={formik.handleSubmit}>
+          <Container>
+            <div>
               <Icons.Layer />
-              <Title>Create an Account</Title>
-              <StyledInput
-                label="First Name"
-                name="firstName"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.firstName}
-                error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
-                }
-                helperText={formik.touched.firstName && formik.errors.firstName}
-              />
-              <StyledInput
-                label="Last Name"
-                name="lastName"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.lastName}
-                error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-                }
-                helperText={formik.touched.lastName && formik.errors.lastName}
-              />
-              <StyledInput
-                label="Email"
-                name="email"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-              <StyledInput
-                label="Password"
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-              />
-              <StyledButton variant="contained" type="submit">
-                Sign Up
-              </StyledButton>
-              <StyledBtn variant="text">
-                <Icons.Google />
-                <p>Sign up with google</p>
-              </StyledBtn>
-              <StyledText>
-                ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
-              </StyledText>
-            </Container>
-          </SignUpForm>
-        </Background>
-      }
-    />
+            </div>
+            <Title>Create an Account</Title>
+            <StyledInput
+              label="First Name"
+              name="firstName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={formik.touched.firstName && formik.errors.firstName}
+            />
+            <StyledInput
+              label="Last Name"
+              name="lastName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
+            />
+            <StyledInput
+              label="Email"
+              name="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+            <StyledInput
+              label="Password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <StyledButton variant="contained" type="submit">
+              Sign Up
+            </StyledButton>
+            <StyledBtn variant="text">
+              <Icons.Google />
+              <p>Sign up with google</p>
+            </StyledBtn>
+            <StyledText>
+              ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
+            </StyledText>
+          </Container>
+        </SignUpForm>
+      </Background>
+    </UiModal>
   );
 };
+
 const Background = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5),
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "100vh",
+  height: "640px",
 }));
+
 const SignUpForm = styled("form")(({ theme }) => ({
   width: "38.5rem",
   background: "#fff",
@@ -112,6 +110,7 @@ const SignUpForm = styled("form")(({ theme }) => ({
   margin: "0 auto",
   padding: theme.spacing(4),
 }));
+
 const Container = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -120,6 +119,7 @@ const Container = styled(Box)(() => ({
     width: "10rem",
   },
 }));
+
 const Title = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(1.5),
@@ -130,6 +130,7 @@ const Title = styled(Typography)(({ theme }) => ({
   color: "#4C4859",
   marginBottom: theme.spacing(4),
 }));
+
 const StyledInput = styled(Input)(({ theme, error }) => ({
   height: "52px",
   marginBottom: theme.spacing(4.1),
@@ -152,11 +153,13 @@ const StyledInput = styled(Input)(({ theme, error }) => ({
     color: theme.palette.text.primary,
   },
 }));
+
 const StyledButton = styled(Button)(({ theme }) => ({
   height: "52px",
   marginTop: theme.spacing(1.25),
   width: "100%",
 }));
+
 const StyledBtn = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(4),
   background: "none",
@@ -179,6 +182,7 @@ const StyledBtn = styled(Button)(({ theme }) => ({
     marginLeft: theme.spacing(1.5),
   },
 }));
+
 const StyledText = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(3),
@@ -189,6 +193,7 @@ const StyledText = styled(Typography)(({ theme }) => ({
   letterSpacing: "0.02em",
   color: theme.palette.text.secondary,
 }));
+
 const StyledLink = styled("span")(() => ({
   color: "rgba(58, 16, 229, 1)",
   textDecoration: "underline",

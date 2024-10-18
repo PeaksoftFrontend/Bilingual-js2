@@ -64,8 +64,8 @@ export const Feedback = () => {
 const pxToRem = (px) => `${px / 16}rem`;
 
 const AvatarImage = styled(Avatar)({
-  width: "200px",
-  height: "200px",
+  width: "12.5rem",
+  height: "12.5rem",
   margin: "0 auto 1rem",
   boxShadow: "0 0.3rem 0.6rem rgba(0, 0, 0, 0.1)",
 });
@@ -100,7 +100,7 @@ const TextContainer = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  fontSize: "16px",
+  fontSize: "1rem",
   gap: pxToRem(15),
   fontWeight: "500",
   width: "100%",
@@ -130,8 +130,8 @@ const StyledArrowForwardButton = styled(IconButton)({
   transform: "scaleX(-1)",
   zIndex: "10",
   position: "relative",
-  bottom: "400px",
-  left: "50px",
+  bottom: "25rem",
+  left: "3.125rem",
   display: "flex",
   "&:hover svg circle": {
     stroke: "#4B00A2",
@@ -146,8 +146,8 @@ const StyledArrowForwardButton = styled(IconButton)({
 const StyledArrowButton = styled(IconButton)({
   zIndex: "10",
   position: "relative",
-  bottom: "400px",
-  right: "75px",
+  bottom: "25rem",
+  right: "4.688rem",
   display: "flex",
   "&:hover svg circle": {
     stroke: "#4B00A2",
@@ -163,7 +163,7 @@ const StyledPaginationDot = styled(Box)(({ isActive }) => ({
   width: pxToRem(6),
   height: isActive ? pxToRem(30) : pxToRem(16),
   backgroundColor: isActive ? "#4B00A2" : "#E0D7FF",
-  borderRadius: "20px",
+  borderRadius: "1.25rem",
   marginBottom: isActive ? pxToRem(12) : pxToRem(0),
 }));
 
@@ -183,5 +183,5 @@ const PaginationDotsContainer = styled(Box)({
 });
 
 const SliderContainer = styled("div")({
-  width: "1170px",
+  width: "73.125rem",
 });

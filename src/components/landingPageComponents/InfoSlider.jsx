@@ -41,7 +41,7 @@ export const InfoSlider = () => {
   return (
     <StyledCardWrapper>
       <TitleContainer>
-        <Typography variant="h1Bold">Check out each question type</Typography>
+        <StyledName variant="h1Bold">Check out each question type</StyledName>
       </TitleContainer>
       <Slider
         data={defaultImageSlider}
@@ -55,6 +55,12 @@ export const InfoSlider = () => {
 };
 
 const pxToRem = (px) => `${px / 16}rem`;
+const StyledName = styled(Typography)`
+  font-family: Gilroy;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3752b4;
+`;
 
 const StyledCardWrapper = styled("div")({
   padding: `${pxToRem(50)} 0`,

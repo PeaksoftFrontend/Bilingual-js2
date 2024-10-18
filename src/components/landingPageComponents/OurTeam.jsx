@@ -20,12 +20,12 @@ export const OurTeam = () => {
   );
 };
 const StyledImage = styled("img")`
-  width: 11.25rem;
-  height: 11.25rem;
+  width: 10.25rem;
+  height: 10.25rem;
 `;
 const StyledName = styled("h1")`
-  font-family: Gilroy;
   width: 11.25rem;
+  font-family: Gilroy;
   height: 3.25rem;
   font-size: 2.5rem;
   font-weight: 700;
@@ -33,17 +33,17 @@ const StyledName = styled("h1")`
 `;
 const StyledContainer = styled("div")`
   display: flex;
-  gap: 3.5rem;
+  gap: 3.3rem;
 `;
 const StyledAllContainer = styled("div")`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2.5rem;
   background-color: #fef5e8;
   width: 100%;
-  height: 100vh;
+  height: 45vh;
 `;
 const StyledWrapper = styled("div")`
   display: flex;
@@ -58,8 +58,11 @@ const StyledWrapperDescription = styled("div")`
   justify-content: center;
   align-items: center;
   & > h5 {
-    font-size: 40px;
-    font-weight: 700;
+    font-family: Gilroy;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.3rem;
+    text-align: left;
     color: #3a10e5;
   }
 `;

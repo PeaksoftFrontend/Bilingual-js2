@@ -4,8 +4,9 @@ import { Button } from "../../UI/button/Button";
 import { Icons } from "../../../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { UiModal } from "../../UI/modal/UiModal";
 
-export const SignIn = () => {
+export const SignIn = ({ open, onClose }) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,47 +23,49 @@ export const SignIn = () => {
   });
 
   return (
-    <Background>
-      <SignUpForm onSubmit={formik.handleSubmit}>
-        <Container>
-          <Icons.Layer />
-          <Title>Sign In</Title>
-          <StyledInput
-            label="Email"
-            name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <StyledInput
-            label="Password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <FormControlLabelCheck
-            control={<CheckInput type="checkbox" />}
-            label="To remember me"
-          />
-          <StyledButton variant="contained" type="submit">
-            Sign Up
-          </StyledButton>
-          <StyledBtn variant="text">
-            <Icons.Google />
-            <p>Sign up with google</p>
-          </StyledBtn>
-          <StyledText>
-            Don't have an account? <StyledLink>REGISTER</StyledLink>
-          </StyledText>
-        </Container>
-      </SignUpForm>
-    </Background>
+    <UiModal open={open} onClose={onClose} role={"ADMIN"}>
+      <Background>
+        <SignUpForm onSubmit={formik.handleSubmit}>
+          <Container>
+            <Icons.Layer />
+            <Title>Sign In</Title>
+            <StyledInput
+              label="Email"
+              name="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+            <StyledInput
+              label="Password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <FormControlLabelCheck
+              control={<CheckInput type="checkbox" />}
+              label="To remember me"
+            />
+            <StyledButton variant="contained" type="submit">
+              Sign Up
+            </StyledButton>
+            <StyledBtn variant="text">
+              <Icons.Google />
+              <p>Sign up with google</p>
+            </StyledBtn>
+            <StyledText>
+              Don't have an account? <StyledLink>REGISTER</StyledLink>
+            </StyledText>
+          </Container>
+        </SignUpForm>
+      </Background>
+    </UiModal>
   );
 };
 
@@ -106,7 +109,7 @@ const Background = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "100vh",
+  height: "550px",
 }));
 
 const SignUpForm = styled("form")(({ theme }) => ({

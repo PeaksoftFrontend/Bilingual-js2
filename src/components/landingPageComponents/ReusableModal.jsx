@@ -5,14 +5,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "auto", // Allow auto width
-  maxWidth: "650px",
-  height: "800px", // Max width for wider forms like the sign-up page
+  width: 400,
   bgcolor: "background.paper",
   borderRadius: "8px",
   boxShadow: 24,
   p: 4,
-  overflowY: "auto", // Add scroll if the content overflows
 };
 
 export const ReusableModal = ({
@@ -20,32 +17,23 @@ export const ReusableModal = ({
   handleClose,
   title,
   content,
-  confirmText = "Confirm",
+  confirmText,
   onConfirm,
-  ...props
 }) => {
   return (
     <Modal
-      {...props}
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-      <Box sx={{ ...style, ...props.sx }}>
-        {/* Modal Title */}
-        {title && (
-          <Typography id="modal-title" variant="h6" component="h2">
-            {title}
-          </Typography>
-        )}
-
-        {/* Modal Content */}
-        <Box id="modal-description" sx={{ mt: 2 }}>
+      <Box sx={style}>
+        <Typography id="modal-title" variant="h6" component="h2">
+          {title}
+        </Typography>
+        <Typography id="modal-description" sx={{ mt: 2 }}>
           {content}
-        </Box>
-
-        {/* Modal Footer with Action Buttons */}
+        </Typography>
         <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end" }}>
           <Button variant="outlined" onClick={handleClose} sx={{ mr: 2 }}>
             Cancel
