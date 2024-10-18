@@ -1,10 +1,10 @@
-import { SignIn } from "./components/containers/public/SignIn";
+import { SignUp } from "./components/containers/public/SignUp";
 
 export const App = () => {
   return (
     <div>
       <h1>Bilingual</h1>
-      <SignIn />
+      <SignUp />
     </div>
   );
 };

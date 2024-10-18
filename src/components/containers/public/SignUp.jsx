@@ -4,6 +4,7 @@ import { Button } from "../../UI/button/Button";
 import { Icons } from "../../../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { ReusableModal } from "../../landingPageComponents/ReusableModal";
 export const SignUp = () => {
   const formik = useFormik({
     initialValues: {
@@ -28,61 +29,73 @@ export const SignUp = () => {
     }),
   });
   return (
-    <Background>
-      <SignUpForm onSubmit={formik.handleSubmit}>
-        <Container>
-          <Icons.Layer />
-          <Title>Create an Account</Title>
-          <StyledInput
-            label="First Name"
-            name="firstName"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.firstName}
-            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-            helperText={formik.touched.firstName && formik.errors.firstName}
-          />
-          <StyledInput
-            label="Last Name"
-            name="lastName"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.lastName}
-            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-            helperText={formik.touched.lastName && formik.errors.lastName}
-          />
-          <StyledInput
-            label="Email"
-            name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <StyledInput
-            label="Password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <StyledButton variant="contained" type="submit">
-            Sign Up
-          </StyledButton>
-          <StyledBtn variant="text">
-            <Icons.Google />
-            <p>Sign up with google</p>
-          </StyledBtn>
-          <StyledText>
-            ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
-          </StyledText>
-        </Container>
-      </SignUpForm>
-    </Background>
+    <ReusableModal
+      open={() => console.log("open")}
+      handleClose={() => console.log("handleClose")}
+      content={
+        <Background>
+          <SignUpForm onSubmit={formik.handleSubmit}>
+            <Container>
+              <Icons.Layer />
+              <Title>Create an Account</Title>
+              <StyledInput
+                label="First Name"
+                name="firstName"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.firstName}
+                error={
+                  formik.touched.firstName && Boolean(formik.errors.firstName)
+                }
+                helperText={formik.touched.firstName && formik.errors.firstName}
+              />
+              <StyledInput
+                label="Last Name"
+                name="lastName"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.lastName}
+                error={
+                  formik.touched.lastName && Boolean(formik.errors.lastName)
+                }
+                helperText={formik.touched.lastName && formik.errors.lastName}
+              />
+              <StyledInput
+                label="Email"
+                name="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+              <StyledInput
+                label="Password"
+                name="password"
+                type="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
+              <StyledButton variant="contained" type="submit">
+                Sign Up
+              </StyledButton>
+              <StyledBtn variant="text">
+                <Icons.Google />
+                <p>Sign up with google</p>
+              </StyledBtn>
+              <StyledText>
+                ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
+              </StyledText>
+            </Container>
+          </SignUpForm>
+        </Background>
+      }
+    />
   );
 };
 const Background = styled(Box)(({ theme }) => ({
