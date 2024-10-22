@@ -14,7 +14,7 @@ import {
   WrapperButtons,
 } from "./EnglishWords";
 
-export const ListenEnglishWords = () => {
+export const ListenEnglishWords = ({ onReset }) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
@@ -23,6 +23,7 @@ export const ListenEnglishWords = () => {
   const [audioFileName, setAudioFileName] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [playingWordId, setPlayingWordId] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const audioRef = useRef(null);
 
@@ -64,6 +65,7 @@ export const ListenEnglishWords = () => {
     const updatedWords = words.filter((word) => word.id !== wordId);
     setWords(updatedWords);
   };
+
   const updateWordHandler = (wordId) => {
     const updatedWords = words.map((word) => {
       if (word.id === wordId) {
@@ -77,10 +79,14 @@ export const ListenEnglishWords = () => {
   const handlePlayAudio = (audioUrl, wordId) => {
     if (playingWordId === wordId) {
       if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
+        if (!audioRef.current.paused) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          audioRef.current.play();
+          setIsPlaying(true);
+        }
       }
-      setPlayingWordId(null);
     } else {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -91,9 +97,11 @@ export const ListenEnglishWords = () => {
       audioRef.current = audio;
       audio.play();
       setPlayingWordId(wordId);
+      setIsPlaying(true);
 
       audio.onended = () => {
         setPlayingWordId(null);
+        setIsPlaying(false);
       };
     }
   };
@@ -103,6 +111,9 @@ export const ListenEnglishWords = () => {
     setWordsValue("");
     setIsTrueValue(false);
     setShowButton(false);
+    if (onReset) {
+      onReset();
+    }
   };
 
   return (
@@ -123,7 +134,7 @@ export const ListenEnglishWords = () => {
                   <IconButton
                     onClick={() => handlePlayAudio(word.audio, word.id)}
                   >
-                    {playingWordId === word.id ? (
+                    {playingWordId === word.id && isPlaying ? (
                       <Icons.SoundBlue />
                     ) : (
                       <Icons.SoundSmall />
@@ -180,7 +191,7 @@ export const ListenEnglishWords = () => {
             />
             <StyledFileInputWrapper>
               <StyledButton as="label" htmlFor="fileInput">
-                Uppload audio file
+                Upload audio file
               </StyledButton>
               <HiddenFileInput
                 id="fileInput"
@@ -265,4 +276,5 @@ const StyledButton = styled(Button)(() => ({
   fontFamily: "DIN Next Rounded LT Pro Medium",
   cursor: "pointer",
   marginTop: "6px",
+  textWrap: "nowrap",
 }));

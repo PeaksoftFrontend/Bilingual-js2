@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, styled, TextField } from "@mui/material";
+import { InputAdornment, styled, TextField } from "@mui/material";
 import { useState } from "react";
 import { Icons } from "../../../assets/icons";
 

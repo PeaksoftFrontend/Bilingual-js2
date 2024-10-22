@@ -10,10 +10,17 @@ export const CreateTest = () => {
     setSelectedType(value);
   };
 
+  const handleResetForm = () => {
+    setSelectedType("");
+  };
+
   return (
-    <AdminForm onSelectChange={handleSelectChange}>
-      {selectedType === "1" && <EnglishWords />}
-      {selectedType === "2" && <ListenEnglishWords />}
+    <AdminForm
+      onSelectChange={handleSelectChange}
+      onResetForm={handleResetForm}
+    >
+      {selectedType === "1" && <EnglishWords onReset={handleResetForm} />}
+      {selectedType === "2" && <ListenEnglishWords onReset={handleResetForm} />}
     </AdminForm>
   );
 };

@@ -3,11 +3,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { Select as MuiSelect, styled } from "@mui/material";
 
-export const Select = ({ options = [], onChange, value }) => {
+export const Select = ({
+  options = [],
+  onChange,
+  value,
+  placeholder = "Select an option",
+}) => {
   return (
     <Box width={"51.25rem"}>
       <FormControl fullWidth>
-        <StyledMuiSelect onChange={onChange} value={value ?? ""}>
+        <StyledMuiSelect onChange={onChange} value={value ?? ""} displayEmpty>
+          <StyledMenuItem value="" disabled>
+            {placeholder}
+          </StyledMenuItem>
           {options.map((item) => (
             <StyledMenuItem key={item.id} value={item.value}>
               {item.label}
@@ -24,6 +32,7 @@ const StyledMenuItem = styled(MenuItem)({
     backgroundColor: "#D4D0D0",
   },
 });
+
 const StyledMuiSelect = styled(MuiSelect)({
   textAlign: "center",
   borderRadius: "8px",

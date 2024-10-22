@@ -5,7 +5,7 @@ import { Input } from "../../../components/UI/input/Input";
 import { IconButton, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
-export const EnglishWords = () => {
+export const EnglishWords = ({ onReset }) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
@@ -57,6 +57,9 @@ export const EnglishWords = () => {
     setWordsValue("");
     setIsTrueValue(false);
     setShowButton(false);
+    if (onReset) {
+      onReset();
+    }
   };
 
   return (
