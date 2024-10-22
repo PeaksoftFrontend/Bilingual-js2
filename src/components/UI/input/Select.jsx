@@ -26,4 +26,8 @@ const StyledMenuItem = styled(MenuItem)({
 });
 const StyledMuiSelect = styled(MuiSelect)({
   textAlign: "center",
+  borderRadius: "8px",
+  "& .MuiSelect-select": {
+    padding: "14.5px",
+  },
 });

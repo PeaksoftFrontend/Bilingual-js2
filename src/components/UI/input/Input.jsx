@@ -11,6 +11,7 @@ export const Input = ({
   type,
   error,
   fullWidth,
+  accepr,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +30,7 @@ export const Input = ({
       type={type === "password" && showPassword ? "text" : type}
       error={error}
       {...props}
+      accepr={accepr}
       variant="outlined"
       fullWidth
       InputProps={{
@@ -60,6 +62,8 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
   },
 
   "& .MuiOutlinedInput-root": {
+    paddingLeft: "16px",
+
     "& fieldset": {
       borderColor: disabled ? "#BDBDBD" : error ? "#F61414" : "#c4c4c4",
       borderRadius: "10px",
@@ -91,6 +95,5 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
 
   "& .MuiInputBase-input::placeholder": {
     color: "#9e9e9e",
-    paddingLeft: "16px",
   },
 }));

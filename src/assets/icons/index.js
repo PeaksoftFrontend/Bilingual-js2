@@ -37,6 +37,7 @@ import TickGreen from "./icon/TickGreen.svg";
 import Stars from "./icon/Stars.svg";
 import Plus from "./icon/Plus.svg";
 import EmptyTick from "./icon/EmptyTick.svg";
+import SoundBlue from "./icon/SoundBlue.svg";
 
 export const Icons = {
   Stars,
@@ -78,4 +79,5 @@ export const Icons = {
   EyeOpen,
   Plus,
   EmptyTick,
+  SoundBlue,
 };

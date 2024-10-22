@@ -4,15 +4,11 @@ import { Select } from "../input/Select";
 import { selectOptions } from "../../../utils/constants/selectWords";
 import { Input } from "../input/Input";
 import { AdminHeader } from "../../../pages/admin/adminHeader/AdminHeader";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
-import dayjs from "dayjs";
 
-export const AdminForm = ({ children, onSelectChange }) => {
-  const [selectedTime, setSelectedTime] = useState(dayjs());
+export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
   const [selectedValue, setSelectedValue] = useState("");
+  const [duration, setDuration] = useState("15:00");
 
   const handleSelectChange = (event) => {
     const value = event.target.value;
@@ -20,12 +16,14 @@ export const AdminForm = ({ children, onSelectChange }) => {
     onSelectChange(value);
   };
 
-  const handleTimeChange = (newValue) => {
-    setSelectedTime(newValue);
+  const handleDurationChange = (event) => {
+    const value = event.target.value;
+    setDuration(value);
+    onTimeChange(value);
   };
 
   return (
-    <StyledAdminConteiner>
+    <StyledAdminContainer>
       <AdminHeader />
       <ContentWrapper>
         <TitleBlock>
@@ -38,22 +36,17 @@ export const AdminForm = ({ children, onSelectChange }) => {
               <p>Duration</p>
               <p>(in minutes)</p>
             </TextBlock>
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <StyledTimePicker
-                value={selectedTime}
-                onChange={handleTimeChange}
-                ampm={false}
-                views={["minutes", "seconds"]}
-                format="mm:ss"
-                renderInput={(params) => <StyledTimePickerInput {...params} />}
-              />
-            </LocalizationProvider>
+            <SingleInput
+              type="text"
+              value={duration}
+              onChange={handleDurationChange}
+              placeholder="MM:SS"
+            />
           </div>
         </TitleBlock>
         <TypeStyled>
           <p>Type</p>
-          <StyledSelect
+          <Select
             options={selectOptions}
             value={selectedValue}
             onChange={handleSelectChange}
@@ -61,23 +54,11 @@ export const AdminForm = ({ children, onSelectChange }) => {
         </TypeStyled>
         <div>{children}</div>
       </ContentWrapper>
-    </StyledAdminConteiner>
+    </StyledAdminContainer>
   );
 };
 
-const StyledTimePicker = styled(TimePicker)(() => ({
-  width: "99px",
-  "& .MuiInputBase-root": {
-    height: "52px",
-    fontSize: "14px",
-    borderRadius: "8px",
-  },
-  "& .MuiInputAdornment-root": {
-    display: "none",
-  },
-}));
-
-const StyledAdminConteiner = styled("div")(() => ({
+const StyledAdminContainer = styled("div")(() => ({
   width: "100%",
   height: "110vh",
   backgroundColor: "#D7E1F8",
@@ -133,12 +114,16 @@ const TextBlock = styled("div")(() => ({
   gap: "none",
 }));
 
-const StyledTimePickerInput = styled(Input)(() => ({
-  width: "100%",
-}));
+const SingleInput = styled(Input)(() => ({
+  width: "6.1875rem",
+  fontSize: "16px",
+  fontWeight: "500",
+  fontFamily: "DIN Next Rounded LT Pro Medium",
+  color: "#4C4859",
 
-const StyledSelect = styled(Select)(() => ({
-  "& .MuiSelect-select": {
-    height: "48px",
+  "& .css-1jk99ih-MuiInputBase-input-MuiOutlinedInput-input": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
