@@ -72,7 +72,7 @@ const VideoPlayer = ({ videoSrc, title }) => {
 export const VideoGallery = () => {
   return (
     <StyledAllContainer>
-      <Grid container spacing={10} justifyContent="center">
+      <Grid container spacing={19.2} justifyContent="center">
         {dataVideo.map((item, index) => (
           <Grid item key={index}>
             <VideoPlayer videoSrc={item.video} title={item.title} />
@@ -85,7 +85,7 @@ export const VideoGallery = () => {
 
 const StyledAllContainer = styled("div")({
   width: "100%",
-  height: "100vh",
+  height: "65vh",
   backgroundColor: "#fef5e8",
   display: "flex",
   justifyContent: "center",
@@ -134,8 +134,6 @@ const CenteredIconWrapper = styled("div")(() => ({
   width: "100%",
   height: "100%",
   position: "absolute",
-  top: 0,
-  left: 0,
 }));
 
 const StyledTitle = styled("h3")({

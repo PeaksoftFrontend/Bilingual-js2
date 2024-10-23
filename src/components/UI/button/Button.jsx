@@ -95,6 +95,7 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
     backgroundColor: "#FFFFFF",
     color: "#3A10E5",
     border: "2px solid #3A10E5",
+    textWrap: "nowrap",
 
     "&:hover": {
       backgroundColor: "#3A10E5",

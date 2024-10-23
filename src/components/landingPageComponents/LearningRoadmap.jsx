@@ -210,7 +210,6 @@ const StyledIcon = styled(Roadmap)(() => ({
   },
 }));
 
-// Replaced icons with imported images
 const StyledGlobusIcon = styled(motion.img)(() => ({
   content: `url(${sphere})`,
   objectFit: "contain",
@@ -328,4 +327,5 @@ const StyledButton = styled(motion(Grid))(() => ({
 const StyledLandingButton = styled(LandingButton)(() => ({
   fontSize: "1rem",
   margin: "4rem 46.5%",
+  cursor: "pointer",
 }));
