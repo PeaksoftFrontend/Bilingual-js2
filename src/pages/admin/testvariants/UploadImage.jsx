@@ -34,7 +34,7 @@ export const UploadImage = () => {
   });
 
   return (
-    <div>
+    <>
       <ContainerUploadImage>
         <div {...getRootProps()} style={{ cursor: "pointer" }}>
           <input {...getInputProps()} />
@@ -53,7 +53,7 @@ export const UploadImage = () => {
       <WrapperInputAndButtons>
         <InputLabel htmlFor="answer">
           Correct answer
-          <Input type="text" placeholder={"write text"} id={"answer"} />
+          <StyledInput type="text" placeholder={"write text"} id={"answer"} />
         </InputLabel>
 
         <WrapperButtons>
@@ -61,7 +61,7 @@ export const UploadImage = () => {
           <Button variant="success">Save</Button>
         </WrapperButtons>
       </WrapperInputAndButtons>
-    </div>
+    </>
   );
 };
 
@@ -106,6 +106,7 @@ const ContainerUploadImage = styled("section")({
   display: "flex",
   alignItems: "center",
   gap: "40px",
+  marginTop: "24px",
 });
 
 const InputLabel = styled("label")({
@@ -120,6 +121,11 @@ const InputLabel = styled("label")({
 const ImagePreview = styled("img")({
   width: "181px",
   height: "178px",
-  objectFit: "cover",
+  objectFit: "contain",
   borderRadius: "8px",
+});
+const StyledInput = styled(Input)({
+  "& .MuiOutlinedInput-root": {
+    padding: "0",
+  },
 });
