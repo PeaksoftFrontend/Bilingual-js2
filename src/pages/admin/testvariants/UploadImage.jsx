@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { styled } from "@mui/material";
-import { Button } from "../../components/UI/button/Button";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
-import { Input } from "../../components/UI/input/Input";
+import { Button } from "../../../components/UI/button/Button";
+import { Input } from "../../../components/UI/input/Input";
 
 export const UploadImage = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -36,36 +35,32 @@ export const UploadImage = () => {
 
   return (
     <div>
-      <ContentWrapper>
-        <h1>Upload an Image</h1>
+      <ContainerUploadImage>
+        <div {...getRootProps()} style={{ cursor: "pointer" }}>
+          <input {...getInputProps()} />
+          {uploadedImage ? (
+            <ImagePreview src={uploadedImage} alt="Uploaded" />
+          ) : (
+            <UploadImageWrapper isDragging={isDragging}>
+              <p>Upload image</p>
+            </UploadImageWrapper>
+          )}
+        </div>
 
-        <ContainerUploadImage>
-          <div {...getRootProps()} style={{ cursor: "pointer" }}>
-            <input {...getInputProps()} />
-            {uploadedImage ? (
-              <ImagePreview src={uploadedImage} alt="Uploaded" />
-            ) : (
-              <UploadImageWrapper isDragging={isDragging}>
-                <p>Upload image</p>
-              </UploadImageWrapper>
-            )}
-          </div>
+        <p>{fileName ? fileName : "No file uploaded"}</p>
+      </ContainerUploadImage>
 
-          <p>{fileName ? fileName : "No file uploaded"}</p>
-        </ContainerUploadImage>
+      <WrapperInputAndButtons>
+        <InputLabel htmlFor="answer">
+          Correct answer
+          <Input type="text" placeholder={"write text"} id={"answer"} />
+        </InputLabel>
 
-        <WrapperInputAndButtons>
-          <InputLabel htmlFor="answer">
-            Correct answer
-            <Input type="text" placeholder={"write text"} id={"answer"} />
-          </InputLabel>
-
-          <WrapperButtons>
-            <StyledButton variant="outlined">Go Back</StyledButton>
-            <Button variant="success">Save</Button>
-          </WrapperButtons>
-        </WrapperInputAndButtons>
-      </ContentWrapper>
+        <WrapperButtons>
+          <StyledButton variant="outlined">Go Back</StyledButton>
+          <Button variant="success">Save</Button>
+        </WrapperButtons>
+      </WrapperInputAndButtons>
     </div>
   );
 };
