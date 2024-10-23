@@ -38,6 +38,7 @@ import Stars from "./icon/Stars.svg";
 import EmptyTick from "./icon/EmptyTick.svg";
 import playSmall from "./icon/PlaySmall.svg";
 import PlayCircle from "./icon/play-circle.svg";
+import PauseIcon from "./icon/pause.svg";
 
 export const Icons = {
   PlayCircle,
@@ -64,6 +65,7 @@ export const Icons = {
   EyeDisabled,
   Note,
   NoteOnHover,
+  PauseIcon,
   PauseBold,
   PauseLightSmall,
   PlayBold,
