@@ -56,16 +56,23 @@ export const ListenSelect = () => {
               <StyledWrapperQuestionss>
                 <span>{item.id}</span>
                 <Icons.SoundSmall />
-                {item.question}
+                <StyledWrapperTitlPosition>
+                  {item.question}
+                </StyledWrapperTitlPosition>
               </StyledWrapperQuestionss>
-              <div onClick={() => handleIconClick(item.id)}>
-                {selectedIcons[item.id] ? (
-                  <Icons.TickGreen />
-                ) : (
-                  <Icons.EmptyTick />
-                )}
-              </div>
-              <Icons.Trash />
+
+              <StyledIconsContainer>
+                <StyledWrapperIconPosition
+                  onClick={() => handleIconClick(item.id)}
+                >
+                  {selectedIcons[item.id] ? (
+                    <Icons.TickGreen />
+                  ) : (
+                    <Icons.EmptyTick />
+                  )}
+                </StyledWrapperIconPosition>
+                <Icons.Trash />
+              </StyledIconsContainer>
             </StyledQuestion>
           ))}
         </StyledWrapperQuestion>
@@ -89,7 +96,15 @@ export const ListenSelect = () => {
     </>
   );
 };
+const StyledWrapperTitlPosition = styled("p")({
+  position: "relative",
+  top: "2px",
+});
 
+const StyledWrapperIconPosition = styled("div")({
+  position: "relative",
+  top: "3px",
+});
 const StyledWrapperQuestionss = styled("div")({
   display: "flex",
   gap: "10px",
@@ -135,7 +150,13 @@ const StyledQuestion = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "20px",
+  padding: "12px 20px",
+});
+
+const StyledIconsContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
 });
 
 const StyledWrapperTitlePosition = styled("div")({

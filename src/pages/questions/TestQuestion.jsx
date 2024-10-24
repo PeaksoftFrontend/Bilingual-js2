@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { styled } from "@mui/material";
-import { AdminHeader } from "../../components/adminPage/adminHeader/AdminHeader";
 import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
 import { useState } from "react";
 import { EvaluteSubRes } from "../../pages/evaluated/EvaluteSubRes";
@@ -14,10 +13,9 @@ import { HighlightSelect } from "../evaluated/HighlightSelect";
 import { EvaluteMain } from "../evaluated/EvaluteMain";
 
 export const TestQuestion = () => {
-  const [value, setValue] = useState(8);
+  const [value, setValue] = useState(7);
   return (
     <StyledAllContainer>
-      <AdminHeader />
       <StyledWrappe>
         <ContentWrapper>
           <StyledWrapperSecond>
