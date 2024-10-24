@@ -84,9 +84,9 @@ const StyledInput = styled(TextField)(({ error, disabled }) => ({
     },
   },
 
-  "& .MuiOutlinedInput-input": {
-    padding: "14.5px 20px",
-  },
+  // "& .MuiOutlinedInput-input": {
+  //   // padding: "14.5px 20px",
+  // },
 
   "& .Mui-disabled": {
     backgroundColor: "#F7F7F7",
