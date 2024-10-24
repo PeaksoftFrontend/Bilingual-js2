@@ -1,5 +1,6 @@
 import { AdminForm } from "../../../components/UI/admin-form/AdminForm";
 import { EnglishWords } from "../testvariants/EnglishWords";
+import { HighLightTheAnswer } from "../testvariants/HighLightTheAnswer";
 import { ListenEnglishWords } from "../testvariants/ListenEnglishWords";
 import { useState } from "react";
 
@@ -21,6 +22,7 @@ export const CreateTest = () => {
     >
       {selectedType === "1" && <EnglishWords onReset={handleResetForm} />}
       {selectedType === "2" && <ListenEnglishWords onReset={handleResetForm} />}
+      {selectedType === "3" && <HighLightTheAnswer />}
     </AdminForm>
   );
 };
