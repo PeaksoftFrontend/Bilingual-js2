@@ -34,6 +34,7 @@ export const HighLightTheAnswer = () => {
   const handleSave = () => {
     console.log("Выделенный текст:", selectedText);
     console.log("Инпут:", inputValue);
+    console.log("Text:", text);
   };
 
   return (
