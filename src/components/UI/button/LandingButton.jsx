@@ -83,7 +83,7 @@ const StyledButton = styled(Button)(({ variant }) => ({
       overflow: "hidden",
       scale: "1.02",
     },
-    "&:actuve": {
+    "&:active": {
       backgroundImage: `url(${buttonDefault})`,
       position: "relative",
       overflow: "hidden",
