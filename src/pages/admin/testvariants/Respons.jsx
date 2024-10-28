@@ -24,7 +24,7 @@ export const Respons = () => {
       <div>
         <StyledH1>Number off Words</StyledH1>
         <StyledInputNumber
-          type="number"
+          type={"Number"}
           value={num}
           onChange={handleChangeNumber}
         />
@@ -45,7 +45,7 @@ const StyledInputNumber = styled(Input)({
   width: "49px",
   height: "42px",
   "& .MuiOutlinedInput-input": {
-    padding: "14.5px 0px",
+    padding: "9px 0",
   },
 });
 
