@@ -5,47 +5,67 @@ import { Input } from "../../../components/UI/input/Input";
 
 export const Respons = () => {
   const [num, setNum] = useState(0);
+  const [title, setTitle] = useState("");
+
   const handleChangeNumber = (e) => {
-    const value = parseInt(e.target.value, 10);
-    if (value > 0 && value < 10) {
+    const value = e.target.value;
+    if (/^\d{0,2}$/.test(value)) {
       setNum(value);
     }
   };
 
-  const [title, setTitle] = useState("");
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
 
   return (
-    <>
-      <StyledH4>Question statement</StyledH4>
-      <StyledInput onChange={handleChangeTitle} value={title} />
+    <StyledContainer>
+      <div>
+        <StyledH4>Question statement</StyledH4>
+        <StyledInput onChange={handleChangeTitle} value={title} />
+      </div>
       <div>
         <StyledH1>Number off Words</StyledH1>
         <StyledInputNumber
-          type={"Number"}
+          type={"number"}
           value={num}
           onChange={handleChangeNumber}
+          placeholder={"0"}
         />
         <StyledButton>
           <StyledButtonGoBeck variant="outlined">Go Back</StyledButtonGoBeck>
           <Button variant="sucsses">Save</Button>
         </StyledButton>
       </div>
-    </>
+    </StyledContainer>
   );
 };
 
+const StyledContainer = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "27px",
+  marginTop: "16px",
+}));
+
 const StyledInput = styled(Input)({
-  width: "820px",
+  "& .MuiOutlinedInput-root": {
+    paddingLeft: "0",
+  },
 });
 
 const StyledInputNumber = styled(Input)({
-  width: "49px",
-  height: "42px",
+  width: "57.5px",
   "& .MuiOutlinedInput-input": {
-    padding: "9px 0",
+    padding: "12px 20px",
+    "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
+      display: "none",
+      margin: 0,
+    },
+    "-moz-appearance": "textfield",
+  },
+  "& .MuiOutlinedInput-root": {
+    padding: "0px",
   },
 });
 
@@ -53,7 +73,6 @@ const StyledH1 = styled("h4")({
   width: "80px",
   height: "36px",
   marginBottom: "12px",
-  marginTop: "12px",
   color: "#4B4759",
 });
 

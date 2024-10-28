@@ -35,8 +35,11 @@ import ArrowForward from "./icon/ArrowForward.svg";
 import arrowIcon from "./icon/arrow.svg";
 import TickGreen from "./icon/TickGreen.svg";
 import Stars from "./icon/Stars.svg";
-import Plus from "./icon/Plus.svg";
 import EmptyTick from "./icon/EmptyTick.svg";
+import playSmall from "./icon/PlaySmall.svg";
+import PlayCircle from "./icon/play-circle.svg";
+import PauseIcon from "./icon/pause.svg";
+import Plus from "./icon/Plus.svg";
 import SoundBlue from "./icon/SoundBlue.svg";
 import Layer from "./icon/Layer.svg";
 import Frame from "./icon/Frame.svg";
@@ -67,6 +70,7 @@ export const Icons = {
   EyeDisabled,
   Note,
   NoteOnHover,
+  PauseIcon,
   PauseBold,
   PauseLightSmall,
   PlayBold,
@@ -86,4 +90,6 @@ export const Icons = {
   Plus,
   EmptyTick,
   SoundBlue,
+  playSmall,
+  PlayCircle,
 };
