@@ -5,9 +5,21 @@ import BooksFat from "../../assets/images/booksAndFat.png";
 import { LandingButton } from "../UI/button/LandingButton";
 import { Button } from "../UI/button/Button";
 import { useEffect, useState } from "react";
+import { SignIn } from "../../auth/SignIn";
+import { SignUp } from "../../auth/SignUp";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeModal,
+  openSignInModal,
+  openSignUpModal,
+} from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const { openSignIn, openSignUp, isAuth } = useSelector((state) => state.auth);
   const [isScroled, setIsScroled] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScrol = () => {
@@ -23,13 +35,24 @@ export const Header = () => {
     };
   }, []);
 
+  const handleOpenSignInModal = () => {
+    dispatch(openSignInModal());
+  };
+  const handleOpenSignUpModal = () => {
+    dispatch(openSignUpModal());
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <HeaderStyled $bgImg={BgImage}>
       <Container isScroled={isScroled}>
         <Icons.FullLogo />
         <BtnContainer>
-          <StyledBtn>to come in</StyledBtn>
-          <SecondBtn>register</SecondBtn>
+          <StyledBtn onClick={handleOpenSignInModal}>to come in</StyledBtn>
+          <SecondBtn onClick={handleOpenSignUpModal}>register</SecondBtn>
         </BtnContainer>
       </Container>
       <MainBlock>
@@ -43,11 +66,20 @@ export const Header = () => {
               For nearly 30 years, learners have turned to Rosetta Stone to
               build the fluency and confidence they need to speak new languages.
             </p>
-            <StyledLandingButton variant="team">to begin</StyledLandingButton>
+            <StyledLandingButton
+              variant="team"
+              onClick={() => navigate("/main")}
+            >
+              to begin
+            </StyledLandingButton>
           </section>
         </TextContainer>
         <img src={BooksFat} alt="Books" />
       </MainBlock>
+      {isAuth ||
+        (openSignIn && <SignIn open={openSignIn} onClose={handleCloseModal} />)}
+      {isAuth ||
+        (openSignUp && <SignUp open={openSignUp} onClose={handleCloseModal} />)}
     </HeaderStyled>
   );
 };

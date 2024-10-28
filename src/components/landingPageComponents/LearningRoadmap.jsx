@@ -8,6 +8,7 @@ import Roadmap from "../../assets/icons/icon/Dots.svg";
 import { animation, textAnimation } from "../../utils/constants/animation";
 import { motion } from "framer-motion";
 import { LandingButton } from "../UI/button/LandingButton";
+import { useNavigate } from "react-router-dom";
 
 const dash = keyframes`
   to {
@@ -43,6 +44,8 @@ const secondInfoAnimation = {
 };
 
 export const LearningRoadmap = () => {
+  const navigate = useNavigate();
+
   return (
     <Background>
       <div style={{ height: "100vh" }}></div>
@@ -167,7 +170,9 @@ export const LearningRoadmap = () => {
           viewport={{ amount: 0.5 }}
           variants={textAnimation}
         ></StyledButton>
-        <StyledLandingButton variant="team">Get started</StyledLandingButton>
+        <StyledLandingButton variant="team" onClick={() => navigate("/main")}>
+          Get started
+        </StyledLandingButton>
       </Contain>
     </Background>
   );

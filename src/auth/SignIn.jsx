@@ -1,12 +1,18 @@
 import { Box, Typography, styled, FormControlLabel } from "@mui/material";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
-import { Icons } from "../../../assets/icons";
+import { Input } from "../components/UI/input/Input";
+import { Button } from "../components/UI/button/Button";
+import { Icons } from "../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { UiModal } from "../../UI/modal/UiModal";
+import { UiModal } from "../components/UI/modal/UiModal";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { openSignUpModal, setRole } from "../store/slices/authSlice";
 
 export const SignIn = ({ open, onClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,7 +26,21 @@ export const SignIn = ({ open, onClose }) => {
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
+    onSubmit: (values) => {
+      const { email } = values;
+      if (email === "admin@gmail.com") {
+        dispatch(setRole("ADMIN"));
+        navigate("/admin");
+      } else {
+        dispatch(setRole("USER"));
+        navigate("/user");
+      }
+    },
   });
+
+  const handleSwitchSignUp = () => {
+    dispatch(openSignUpModal());
+  };
 
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
@@ -60,7 +80,8 @@ export const SignIn = ({ open, onClose }) => {
               <p>Sign up with google</p>
             </StyledBtn>
             <StyledText>
-              Don't have an account? <StyledLink>REGISTER</StyledLink>
+              Don't have an account?{" "}
+              <StyledLink onClick={handleSwitchSignUp}>REGISTER</StyledLink>
             </StyledText>
           </Container>
         </SignUpForm>
@@ -160,6 +181,9 @@ const StyledInput = styled(Input)(({ theme, error }) => ({
       WebkitBoxShadow: "0 0 0 1000px white inset",
       WebkitTextFillColor: theme.palette.text.primary,
     },
+  },
+  "& .MuiOutlinedInput-root": {
+    paddingLeft: "0px",
   },
 }));
 

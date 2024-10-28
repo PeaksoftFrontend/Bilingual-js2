@@ -3,7 +3,6 @@ import { ContentWrapper } from "../content_wrapper/ContentWrapper";
 import { Select } from "../input/Select";
 import { selectOptions } from "../../../utils/constants/selectWords";
 import { Input } from "../input/Input";
-import { AdminHeader } from "../../../pages/admin/adminHeader/AdminHeader";
 import { useState } from "react";
 
 export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
@@ -24,7 +23,6 @@ export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
 
   return (
     <StyledAdminContainer>
-      <AdminHeader />
       <ContentWrapper>
         <TitleBlock>
           <div>

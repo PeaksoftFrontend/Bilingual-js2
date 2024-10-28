@@ -1,12 +1,18 @@
 import { Box, Typography, styled } from "@mui/material";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
-import { Icons } from "../../../assets/icons";
+import { Input } from "../components/UI/input/Input";
+import { Button } from "../components/UI/button/Button";
+import { Icons } from "../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { UiModal } from "../../UI/modal/UiModal";
+import { UiModal } from "../components/UI/modal/UiModal";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { openSignInModal, setRole } from "../store/slices/authSlice";
 
 export const SignUp = ({ open, onClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -28,7 +34,21 @@ export const SignUp = ({ open, onClose }) => {
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
+    onSubmit: (values) => {
+      const { email } = values;
+      if (email === "admin@gmail.com") {
+        dispatch(setRole("ADMIN"));
+        navigate("/admin");
+      } else {
+        dispatch(setRole("USER"));
+        navigate("/user");
+      }
+    },
   });
+
+  const handleSwitchSignIn = () => {
+    dispatch(openSignInModal());
+  };
 
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
@@ -86,7 +106,8 @@ export const SignUp = ({ open, onClose }) => {
               <p>Sign up with google</p>
             </StyledBtn>
             <StyledText>
-              ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
+              ALREADY HAVE AN ACCOUNT?
+              <StyledLink onClick={handleSwitchSignIn}>LOG IN</StyledLink>
             </StyledText>
           </Container>
         </SignUpForm>
@@ -151,6 +172,9 @@ const StyledInput = styled(Input)(({ theme, error }) => ({
   "& input:-moz-autofill": {
     backgroundColor: "white",
     color: theme.palette.text.primary,
+  },
+  "& .MuiOutlinedInput-root": {
+    paddingLeft: "0px",
   },
 }));
 

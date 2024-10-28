@@ -1,14 +1,26 @@
 import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { Button } from "../../../components/UI/button/Button";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export const AdminHeader = () => {
+  const { role } = useSelector((store) => store.auth);
+
   return (
     <StyledHeader>
       <Icons.FullLogo />
       <DivContainer>
-        <StyledATag href="#">tests</StyledATag>
-        <StyledSecondATag href="#">submitted results</StyledSecondATag>
+        <StyledATag to={role === "USER" ? "/main/test" : "/admin/createTest"}>
+          tests
+        </StyledATag>
+        {role === "USER" ? (
+          <StyledSecondATag to={"/main/result"}>my results</StyledSecondATag>
+        ) : (
+          <StyledSecondATag to={"/admin/submittedResults"}>
+            submitted results
+          </StyledSecondATag>
+        )}
         <StyledButton variant="outlined">LOG OUT</StyledButton>
       </DivContainer>
     </StyledHeader>
@@ -32,7 +44,7 @@ const DivContainer = styled("div")({
   gap: "60px",
 });
 
-const StyledATag = styled("a")({
+const StyledATag = styled(Link)({
   textDecoration: "none",
   fontSize: "15px",
   fontFamily: "DIN Next Rounded LT Pro Medium",
@@ -42,7 +54,7 @@ const StyledATag = styled("a")({
   color: "#3A10E5",
 });
 
-const StyledSecondATag = styled("a")({
+const StyledSecondATag = styled(Link)({
   textDecoration: "none",
   fontSize: "15px",
   fontFamily: "DIN Next Rounded LT Pro Medium",
