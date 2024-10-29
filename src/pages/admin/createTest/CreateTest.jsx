@@ -2,8 +2,10 @@ import { AdminForm } from "../../../components/UI/admin-form/AdminForm";
 import { EnglishWords } from "../testvariants/EnglishWords";
 import { ListenEnglishWords } from "../testvariants/ListenEnglishWords";
 import { useState } from "react";
+import { VariantAudio } from "../testvariants/VariantAudio";
 import { Respons } from "../testvariants/Respons";
 import { RecordStatement } from "../testvariants/RecordStatement";
+import { UploadImage } from "../testvariants/UploadImage";
 
 export const CreateTest = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -23,8 +25,10 @@ export const CreateTest = () => {
     >
       {selectedType === "1" && <EnglishWords onReset={handleResetForm} />}
       {selectedType === "2" && <ListenEnglishWords onReset={handleResetForm} />}
-      {selectedType === "6" && <Respons />}
+      {selectedType === "3" && <VariantAudio />}
+      {selectedType === "4" && <UploadImage />}
       {selectedType === "5" && <RecordStatement />}
+      {selectedType === "6" && <Respons />}
     </AdminForm>
   );
 };
