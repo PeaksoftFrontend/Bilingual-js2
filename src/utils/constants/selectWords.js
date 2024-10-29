@@ -42,6 +42,11 @@ export const selectOptions = [
   {
     id: "m9",
     label: "Select best title",
-    value: "9 ",
+    value: "9",
+  },
+  {
+    id: "m10",
+    label: "Select best title second",
+    value: "10",
   },
 ];
