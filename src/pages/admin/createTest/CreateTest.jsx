@@ -4,6 +4,7 @@ import { ListenEnglishWords } from "../testvariants/ListenEnglishWords";
 import { useState } from "react";
 import { SelectBestTitle } from "../testvariants/SelectBestTitle";
 import { SelectBestTitleSecond } from "../testvariants/SelectBestTitleSecond";
+import { RecordStatement } from "../testvariants/RecordStatement";
 
 export const CreateTest = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -27,6 +28,7 @@ export const CreateTest = () => {
       {selectedType === "10" && (
         <SelectBestTitleSecond onReset={handleResetForm} />
       )}
+      {selectedType === "5" && <RecordStatement />}
     </AdminForm>
   );
 };
