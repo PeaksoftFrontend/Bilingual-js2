@@ -59,7 +59,7 @@ export const VariantAudio = () => {
       <StyledDiv>
         <StyledReplays>
           <StyledH4>Number of Replays</StyledH4>
-          <StyledInput
+          <StyledInputNumber
             type="number"
             value={replays >= 0 ? replays : 0}
             onChange={handleReplays}
@@ -114,13 +114,18 @@ const DropzoneStyle = styled("div")({
   alignItems: "center",
 });
 
-const StyledInput = styled(Input)({
-  textAlign: "center",
-  height: "2.625rem",
-  borderRadius: "8px",
-  width: "3.063rem",
+const StyledInputNumber = styled(Input)({
+  width: "57.5px",
   "& .MuiOutlinedInput-input": {
-    padding: "14.5px 3px",
+    padding: "12px 20px",
+    "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
+      display: "none",
+      margin: 0,
+    },
+    "-moz-appearance": "textfield",
+  },
+  "& .MuiOutlinedInput-root": {
+    padding: "0px",
   },
 });
 
