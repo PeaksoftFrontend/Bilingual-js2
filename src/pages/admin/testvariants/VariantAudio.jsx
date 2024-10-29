@@ -12,6 +12,7 @@ export const VariantAudio = () => {
   const [answer, setAnswer] = useState("");
   const [replays, setReplays] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+
   const audioRef = useRef(null);
 
   const onDrop = (acceptedFiles) => {
@@ -28,21 +29,15 @@ export const VariantAudio = () => {
   });
 
   const handlePlayAudio = () => {
-    if (audioURL && !isPlaying) {
-      audioRef.current = new Audio(audioURL);
+    if (audioRef.current) {
       audioRef.current.play();
       setIsPlaying(true);
-
-      audioRef.current.onended = () => {
-        setIsPlaying(false);
-      };
     }
   };
 
-  const handleStopAudio = () => {
-    if (audioRef.current && isPlaying) {
+  const handlePauseAudio = () => {
+    if (audioRef.current) {
       audioRef.current.pause();
-      audioRef.current.currentTime = 0;
       setIsPlaying(false);
     }
   };
@@ -50,14 +45,6 @@ export const VariantAudio = () => {
   const handleAnswerChange = (event) => {
     setAnswer(event.target.value);
   };
-
-  // const handleGoBack = () => {
-  //   console.log("Go back");
-  // };
-
-  // const handleSave = () => {
-  //   console.log("Saved answer:", answer);
-  // };
 
   const handleReplays = (e) => {
     const value = parseInt(e.target.value, 10);
@@ -68,35 +55,38 @@ export const VariantAudio = () => {
 
   return (
     <>
+      <audio ref={audioRef} src={audioURL} />
       <StyledDiv>
         <StyledReplays>
-          <StyledH4>Number off Replays</StyledH4>
+          <StyledH4>Number of Replays</StyledH4>
           <StyledInput
-            type={Number}
+            type="number"
             value={replays >= 0 ? replays : 0}
             onChange={handleReplays}
           />
         </StyledReplays>
         <StyledPlayButton>
-          <DropzoneStyle {...getRootProps({ className: "  " })}>
+          <DropzoneStyle {...getRootProps()}>
             <Button variant="contained">{file ? "Replace" : "Upload"}</Button>
           </DropzoneStyle>
           {audioURL && (
             <>
               {!isPlaying ? (
-                <StyledButton2 onClick={handlePlayAudio} variant={"text"}>
+                <StyledButton2 onClick={handlePlayAudio} variant="text">
                   <img src={play} alt="play" />
                 </StyledButton2>
               ) : (
-                <StyledButton2 onClick={handleStopAudio} variant={"text"}>
+                <StyledButton2 onClick={handlePauseAudio} variant="text">
                   <img src={pause} alt="pause" />
                 </StyledButton2>
               )}
             </>
           )}
-          {file && <p>{file.name}</p>} <input {...getInputProps()} />
+          {file && <p>{file.name}</p>}
+          <input {...getInputProps()} />
         </StyledPlayButton>
       </StyledDiv>
+
       <StyledAnsver>
         <StyledCorrectAnswer>Correct answer</StyledCorrectAnswer>
         <div>
@@ -125,9 +115,13 @@ const DropzoneStyle = styled("div")({
 });
 
 const StyledInput = styled(Input)({
-  width: "3.063rem",
+  textAlign: "center",
   height: "2.625rem",
   borderRadius: "8px",
+  width: "3.063rem",
+  "& .MuiOutlinedInput-input": {
+    padding: "14.5px 3px",
+  },
 });
 
 const StyledTextField2 = styled(Input)({
@@ -139,7 +133,7 @@ const StyledH4 = styled("h4")({
   width: "80px",
   height: "36px",
   fontSize: "1rem",
-  marginLeft: "1.rem",
+  marginLeft: "1rem",
   marginBottom: "18px   ",
 });
 const StyledCorrectAnswer = styled("h4")({
