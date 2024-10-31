@@ -39,6 +39,10 @@ export const AppRoutes = () => {
           path: "createTest",
           element: <CreateTest />,
         },
+        {
+          path: "/admin",
+          element: <CreateTest />,
+        },
       ],
     },
     {
@@ -57,6 +61,10 @@ export const AppRoutes = () => {
         },
         {
           path: "test",
+          element: <TestPage />,
+        },
+        {
+          path: "/main",
           element: <TestPage />,
         },
       ],
