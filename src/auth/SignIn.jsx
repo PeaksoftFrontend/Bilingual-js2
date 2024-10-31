@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openSignUpModal, setRole } from "../store/slices/authSlice";
+import { openSignUpModal, setRole } from "../store/slices/auth/authSlice";
 
 export const SignIn = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -73,14 +73,14 @@ export const SignIn = ({ open, onClose }) => {
               label="To remember me"
             />
             <StyledButton variant="contained" type="submit">
-              Sign Up
+              Sign In
             </StyledButton>
             <StyledBtn variant="text">
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>
             <StyledText>
-              Don't have an account?{" "}
+              Don't have an account?
               <StyledLink onClick={handleSwitchSignUp}>REGISTER</StyledLink>
             </StyledText>
           </Container>
@@ -133,7 +133,7 @@ const Background = styled(Box)(({ theme }) => ({
   height: "550px",
 }));
 
-const SignUpForm = styled("form")(({ theme }) => ({
+export const SignUpForm = styled("form")(({ theme }) => ({
   width: "38.5rem",
   background: "#fff",
   borderRadius: theme.shape.borderRadius,
@@ -150,7 +150,7 @@ const Container = styled(Box)(() => ({
   },
 }));
 
-const Title = styled(Typography)(({ theme }) => ({
+export const Title = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(1.5),
   fontFamily: "Poppins",
@@ -193,7 +193,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   width: "100%",
 }));
 
-const StyledBtn = styled(Button)(({ theme }) => ({
+export const StyledBtn = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(4),
   background: "none",
   gap: "0px",
@@ -216,7 +216,7 @@ const StyledBtn = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StyledText = styled(Typography)(({ theme }) => ({
+export const StyledText = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(3),
   fontFamily: "Poppins",
@@ -227,9 +227,10 @@ const StyledText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const StyledLink = styled("span")(({ theme }) => ({
+export const StyledLink = styled("span")(({ theme }) => ({
   color: theme.palette.primary.main,
-  textDecoration: "underline",
+  textDecoration: "none",
   cursor: "pointer",
   fontWeight: "bold",
+  marginLeft: "5px",
 }));

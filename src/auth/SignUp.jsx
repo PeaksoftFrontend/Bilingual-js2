@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { Input } from "../components/UI/input/Input";
 import { Button } from "../components/UI/button/Button";
 import { Icons } from "../assets/icons";
@@ -7,7 +7,8 @@ import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openSignInModal, setRole } from "../store/slices/authSlice";
+import { openSignInModal, setRole } from "../store/slices/auth/authSlice";
+import { SignUpForm, StyledBtn, StyledLink, StyledText, Title } from "./SignIn";
 
 export const SignUp = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -124,14 +125,6 @@ const Background = styled(Box)(({ theme }) => ({
   height: "640px",
 }));
 
-const SignUpForm = styled("form")(({ theme }) => ({
-  width: "38.5rem",
-  background: "#fff",
-  borderRadius: theme.shape.borderRadius,
-  margin: "0 auto",
-  padding: theme.spacing(4),
-}));
-
 const Container = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -139,17 +132,6 @@ const Container = styled(Box)(() => ({
   "& svg": {
     width: "10rem",
   },
-}));
-
-const Title = styled(Typography)(({ theme }) => ({
-  textAlign: "center",
-  marginTop: theme.spacing(1.5),
-  fontFamily: "Poppins",
-  fontWeight: 500,
-  fontSize: "1.5rem",
-  lineHeight: "2.25rem",
-  color: "#4C4859",
-  marginBottom: theme.spacing(4),
 }));
 
 const StyledInput = styled(Input)(({ theme, error }) => ({
@@ -182,46 +164,4 @@ const StyledButton = styled(Button)(({ theme }) => ({
   height: "52px",
   marginTop: theme.spacing(1.25),
   width: "100%",
-}));
-
-const StyledBtn = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(4),
-  background: "none",
-  gap: "0px",
-  boxShadow: "none",
-  width: "218px",
-  padding: "24px 0",
-  border: `1px solid ${theme.palette.grey[400]}`,
-  justifyContent: "center",
-  borderRadius: "8px",
-  "&:hover": {
-    background: "none",
-  },
-  "& p": {
-    fontSize: "14px",
-    color: theme.palette.text.secondary,
-    width: "992px",
-  },
-  "& svg": {
-    marginLeft: theme.spacing(1.5),
-  },
-}));
-
-const StyledText = styled(Typography)(({ theme }) => ({
-  textAlign: "center",
-  marginTop: theme.spacing(3),
-  fontFamily: "Poppins",
-  fontWeight: 500,
-  fontSize: "14px",
-  lineHeight: "21px",
-  letterSpacing: "0.02em",
-  color: theme.palette.text.secondary,
-}));
-
-const StyledLink = styled("span")(() => ({
-  color: "rgba(58, 16, 229, 1)",
-  textDecoration: "underline",
-  cursor: "pointer",
-  fontWeight: "bold",
-  fontSize: "17px",
 }));

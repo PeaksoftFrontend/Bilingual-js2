@@ -12,11 +12,13 @@ import {
   closeModal,
   openSignInModal,
   openSignUpModal,
-} from "../../store/slices/authSlice";
+} from "../../store/slices/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
-  const { openSignIn, openSignUp, isAuth } = useSelector((state) => state.auth);
+  const { openSignIn, openSignUp, isAuth, role } = useSelector(
+    (state) => state.auth
+  );
   const [isScroled, setIsScroled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,7 +70,11 @@ export const Header = () => {
             </p>
             <StyledLandingButton
               variant="team"
-              onClick={() => navigate("/main")}
+              onClick={
+                role === "GUEST"
+                  ? handleOpenSignInModal
+                  : () => navigate("/main")
+              }
             >
               to begin
             </StyledLandingButton>

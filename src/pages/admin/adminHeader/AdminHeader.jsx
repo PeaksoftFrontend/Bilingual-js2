@@ -2,24 +2,27 @@ import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { Button } from "../../../components/UI/button/Button";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export const AdminHeader = () => {
   const { role } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
 
   return (
     <StyledHeader>
-      <Icons.FullLogo />
+      <Icons.FullLogo onClick={() => navigate("/")} />
       <DivContainer>
-        <StyledATag to={role === "USER" ? "/main/test" : "/admin/createTest"}>
+        <StyledNavLink
+          to={role === "USER" ? "/main/test" : "/admin/createTest"}
+        >
           tests
-        </StyledATag>
+        </StyledNavLink>
         {role === "USER" ? (
-          <StyledSecondATag to={"/main/result"}>my results</StyledSecondATag>
+          <StyledNavLink to={"/main/result"}>my results</StyledNavLink>
         ) : (
-          <StyledSecondATag to={"/admin/submittedResults"}>
+          <StyledNavLink to={"/admin/submittedResults"}>
             submitted results
-          </StyledSecondATag>
+          </StyledNavLink>
         )}
         <StyledButton variant="outlined">LOG OUT</StyledButton>
       </DivContainer>
@@ -37,24 +40,14 @@ const StyledHeader = styled("header")({
   padding: "26px 120px",
 });
 
-const DivContainer = styled("div")({
+const DivContainer = styled("nav")({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   gap: "60px",
 });
 
-const StyledATag = styled(Link)({
-  textDecoration: "none",
-  fontSize: "15px",
-  fontFamily: "DIN Next Rounded LT Pro Medium",
-  fontWeight: "700",
-  lineHeight: "17.58px",
-  textTransform: "uppercase",
-  color: "#3A10E5",
-});
-
-const StyledSecondATag = styled(Link)({
+const StyledNavLink = styled(NavLink)({
   textDecoration: "none",
   fontSize: "15px",
   fontFamily: "DIN Next Rounded LT Pro Medium",
@@ -62,6 +55,10 @@ const StyledSecondATag = styled(Link)({
   lineHeight: "17.58px",
   textTransform: "uppercase",
   color: "#4C4859",
+
+  "&.active": {
+    color: "#3A10E5",
+  },
 });
 
 const StyledButton = styled(Button)({
