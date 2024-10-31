@@ -60,7 +60,7 @@ export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
 
 const StyledAdminContainer = styled("div")(() => ({
   width: "100%",
-  height: "110vh",
+  height: "140vh",
   backgroundColor: "#D7E1F8",
   display: "flex",
   flexDirection: "column",

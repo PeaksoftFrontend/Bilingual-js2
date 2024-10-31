@@ -1,7 +1,7 @@
-import { IconButton, styled, TextareaAutosize } from "@mui/material";
 import { useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
 import { Icons } from "../../../assets/icons";
+import { IconButton, styled, TextareaAutosize } from "@mui/material";
 import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
 
@@ -19,11 +19,14 @@ export const SelectBestTitle = ({ onReset }) => {
   const handleOpenCloseModal = () => {
     setOpenModal((state) => !state);
   };
+
   const isTrueHandler = () => {
     setIsTrueValue(!isTrueValue);
   };
 
   const saveWordsHandler = () => {
+    if (words.length >= 4) return;
+
     const data = {
       word: wordsValue,
       isTrue: isTrueValue,
@@ -61,6 +64,7 @@ export const SelectBestTitle = ({ onReset }) => {
       onReset();
     }
   };
+
   return (
     <div>
       <StyledLabe>
@@ -70,9 +74,11 @@ export const SelectBestTitle = ({ onReset }) => {
 
       <>
         <StyledButtonContainer>
-          <Button onClick={handleOpenCloseModal}>
-            <Icons.Plus /> add options
-          </Button>
+          {words.length < 4 && (
+            <Button onClick={handleOpenCloseModal}>
+              <Icons.Plus /> add options
+            </Button>
+          )}
         </StyledButtonContainer>
 
         <StyledMap>
@@ -109,7 +115,10 @@ export const SelectBestTitle = ({ onReset }) => {
               <Button variant="outlined" onClick={resetValues}>
                 go back
               </Button>
-              <Button variant="sucsses">save</Button>
+              <Button variant="sucsses" disabled={words.length < 4}>
+                {" "}
+                save
+              </Button>
             </StyledShowButton>
           )}
         </StyledMap>
@@ -160,6 +169,7 @@ export const SelectBestTitle = ({ onReset }) => {
     </div>
   );
 };
+
 export const StyledContainer = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
@@ -210,7 +220,6 @@ export const StyledText = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "18px",
-
   "& p": {
     fontSize: "16px",
     fontWeight: "500",
@@ -255,12 +264,14 @@ export const BlockMap = styled("div")(() => ({
   flexWrap: "wrap",
   gap: "18.5px",
 }));
+
 const StyledLabe = styled("labe")({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
   marginTop: "40px",
 });
+
 const StyledTextArea = styled(TextareaAutosize)({
   padding: "14.5px 20px",
   fontSize: "16px",
