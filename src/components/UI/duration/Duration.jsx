@@ -1,7 +1,9 @@
+import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 
-export const CountdownTimer = ({ time }) => {
-  const [remainingTime, setRemainingTime] = useState(time);
+export const Duration = ({ minutes = 0, time = 0 }) => {
+  const initialTime = minutes * 60 + time;
+  const [remainingTime, setRemainingTime] = useState(initialTime);
 
   useEffect(() => {
     if (remainingTime > 0) {
@@ -13,22 +15,17 @@ export const CountdownTimer = ({ time }) => {
     }
   }, [remainingTime]);
 
-  // Calculate the progress as a percentage
-  const progress = (remainingTime / time) * 100;
+  const progress = (remainingTime / initialTime) * 100;
+  const displayMinutes = Math.floor(remainingTime / 60);
+  const displaySeconds = remainingTime % 60;
 
   return (
-    <div style={{ width: "300px", textAlign: "center" }}>
-      <div>{remainingTime}s</div>
-      <div
-        style={{
-          width: "100%",
-          height: "10px",
-          backgroundColor: "#ddd",
-          position: "relative",
-          overflow: "hidden",
-          borderRadius: "5px",
-        }}
-      >
+    <StyledContentWrapper>
+      <div>
+        {displayMinutes}:
+        {displaySeconds < 10 ? `0${displaySeconds}` : displaySeconds}
+      </div>
+      <StyledDiv>
         <div
           style={{
             width: `${progress}%`,
@@ -36,10 +33,26 @@ export const CountdownTimer = ({ time }) => {
             backgroundColor: "blue",
             transition: "width 1s linear",
             position: "absolute",
-            right: 0,
+            left: 0,
           }}
         ></div>
-      </div>
-    </div>
+      </StyledDiv>
+    </StyledContentWrapper>
   );
 };
+
+const StyledDiv = styled("div")({
+  width: "100%",
+  height: "10px",
+  backgroundColor: "#ddd",
+  position: "relative",
+  overflow: "hidden",
+  borderRadius: "5px",
+  marginTop: "0.5rem",
+});
+
+const StyledContentWrapper = styled("div")({
+  width: "100%",
+  textAlign: "start",
+  paddingLeft: "1rem",
+});
