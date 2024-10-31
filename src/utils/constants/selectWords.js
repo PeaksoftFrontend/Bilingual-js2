@@ -41,12 +41,12 @@ export const selectOptions = [
   },
   {
     id: "m9",
-    label: "Select best title",
+    label: "Select main idea",
     value: "9",
   },
   {
     id: "m10",
-    label: "Select best title second",
+    label: " Select main idea second",
     value: "10",
   },
 ];

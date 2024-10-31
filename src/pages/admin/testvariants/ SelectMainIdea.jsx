@@ -5,7 +5,7 @@ import { IconButton, styled, TextareaAutosize } from "@mui/material";
 import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
 
-export const SelectBestTitle = ({ onReset }) => {
+export const SelectMainIdea = ({ onReset }) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
@@ -19,21 +19,22 @@ export const SelectBestTitle = ({ onReset }) => {
   const handleOpenCloseModal = () => {
     setOpenModal((state) => !state);
   };
-
   const isTrueHandler = () => {
-    setIsTrueValue(!isTrueValue);
+    const alreadyTrue = words.some((word) => word.isTrue);
+    setIsTrueValue(!alreadyTrue);
   };
 
   const saveWordsHandler = () => {
     if (words.length >= 4) return;
 
+    const alreadyTrue = words.some((word) => word.isTrue);
     const data = {
       word: wordsValue,
-      isTrue: isTrueValue,
+      isTrue: !alreadyTrue && isTrueValue,
       id: Date.now().toString(),
     };
-    setWords([...words, data]);
 
+    setWords([...words, data]);
     setWordsValue("");
     setIsTrueValue(false);
     handleOpenCloseModal();
@@ -48,9 +49,9 @@ export const SelectBestTitle = ({ onReset }) => {
   const updateWordHandler = (wordId) => {
     const updatedWords = words.map((word) => {
       if (word.id === wordId) {
-        return { ...word, isTrue: !word.isTrue };
+        return { ...word, isTrue: true };
       }
-      return word;
+      return { ...word, isTrue: false };
     });
     setWords(updatedWords);
   };
