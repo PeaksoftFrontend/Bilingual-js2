@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { LayoutPage } from "../layout/LayoutPage";
 import { PrivateRouter } from "./PrivateRouter";
 import { AdminPage } from "../layout/AdminPage";
@@ -32,15 +36,15 @@ export const AppRoutes = () => {
       ),
       children: [
         {
+          index: true,
+          element: <Navigate to="createTest" />,
+        },
+        {
           path: "submittedResults",
           element: <SubmittedResults />,
         },
         {
           path: "createTest",
-          element: <CreateTest />,
-        },
-        {
-          path: "/admin",
           element: <CreateTest />,
         },
       ],
@@ -56,15 +60,15 @@ export const AppRoutes = () => {
       ),
       children: [
         {
+          index: true,
+          element: <Navigate to="test" />,
+        },
+        {
           path: "result",
           element: <ResultPage />,
         },
         {
           path: "test",
-          element: <TestPage />,
-        },
-        {
-          path: "/main",
           element: <TestPage />,
         },
       ],
