@@ -1,5 +1,6 @@
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
+import { theme } from "../../../theme/theme";
 
 export const Duration = ({ minutes = 0, time = 0 }) => {
   const initialTime = minutes * 60 + time;
@@ -27,13 +28,15 @@ export const Duration = ({ minutes = 0, time = 0 }) => {
       </div>
       <StyledDiv>
         <div
+          theme={theme}
           style={{
             width: `${progress}%`,
             height: "100%",
-            backgroundColor: "blue",
+            backgroundColor: "rgba(2,17,253,1) ",
             transition: "width 1s linear",
             position: "absolute",
             left: 0,
+            borderRadius: "5px",
           }}
         ></div>
       </StyledDiv>
@@ -54,5 +57,8 @@ const StyledDiv = styled("div")({
 const StyledContentWrapper = styled("div")({
   width: "100%",
   textAlign: "start",
-  paddingLeft: "1rem",
+  color: "#4C4859",
+  fontFamily: "DINNextRoundedLTW04-Medium",
+  fontWeight: "bold",
+  lineHeight: "24px",
 });
