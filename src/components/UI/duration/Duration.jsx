@@ -1,6 +1,5 @@
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
-import { theme } from "../../../theme/theme";
 
 export const Duration = ({ minutes = 0, time = 0 }) => {
   const initialTime = minutes * 60 + time;
