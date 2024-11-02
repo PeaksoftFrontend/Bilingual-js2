@@ -28,11 +28,12 @@ export const Duration = ({ minutes = 0, time = 0 }) => {
       </div>
       <StyledDiv>
         <div
-          theme={theme}
           style={{
             width: `${progress}%`,
             height: "100%",
-            backgroundColor: "rgba(2,17,253,1) ",
+            background:
+              "linear-gradient(270deg, #3A10E5 29.37%, #6746EF 84.8%)",
+
             transition: "width 1s linear",
             position: "absolute",
             left: 0,
