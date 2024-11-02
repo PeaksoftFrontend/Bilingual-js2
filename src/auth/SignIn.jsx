@@ -1,64 +1,54 @@
-import { Box, Typography, styled } from "@mui/material";
-import { Input } from "../../UI/input/Input";
-import { Button } from "../../UI/button/Button";
-import { Icons } from "../../../assets/icons";
+import { Box, Typography, styled, FormControlLabel } from "@mui/material";
+import { Input } from "../components/UI/input/Input";
+import { Button } from "../components/UI/button/Button";
+import { Icons } from "../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { UiModal } from "../../UI/modal/UiModal";
+import { UiModal } from "../components/UI/modal/UiModal";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { openSignUpModal, setRole } from "../store/slices/auth/authSlice";
 
-export const SignUp = ({ open, onClose }) => {
+export const SignIn = ({ open, onClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required("First Name is required"),
-      lastName: Yup.string().required("Last Name is required"),
       email: Yup.string()
         .email("Invalid email format")
-        .matches(
-          /^[\w.%+-]+@gmail\.com$/,
-          "Email must be a valid gmail.com address"
-        )
         .required("Email is required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     }),
+    onSubmit: (values) => {
+      const { email } = values;
+      if (email === "admin@gmail.com") {
+        dispatch(setRole("ADMIN"));
+        navigate("/admin");
+      } else {
+        dispatch(setRole("USER"));
+        navigate("/user");
+      }
+    },
   });
+
+  const handleSwitchSignUp = () => {
+    dispatch(openSignUpModal());
+  };
 
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
       <Background>
         <SignUpForm onSubmit={formik.handleSubmit}>
           <Container>
-            <div>
-              <Icons.Layer />
-            </div>
-            <Title>Create an Account</Title>
-            <StyledInput
-              label="First Name"
-              name="firstName"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.firstName}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-            <StyledInput
-              label="Last Name"
-              name="lastName"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.lastName}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
+            <Icons.Layer />
+            <Title>Sign In</Title>
             <StyledInput
               label="Email"
               name="email"
@@ -78,15 +68,20 @@ export const SignUp = ({ open, onClose }) => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
+            <FormControlLabelCheck
+              control={<CheckInput type="checkbox" />}
+              label="To remember me"
+            />
             <StyledButton variant="contained" type="submit">
-              Sign Up
+              Sign In
             </StyledButton>
             <StyledBtn variant="text">
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>
             <StyledText>
-              ALREADY HAVE AN ACCOUNT? <StyledLink>LOG IN</StyledLink>
+              Don't have an account?
+              <StyledLink onClick={handleSwitchSignUp}>REGISTER</StyledLink>
             </StyledText>
           </Container>
         </SignUpForm>
@@ -95,15 +90,50 @@ export const SignUp = ({ open, onClose }) => {
   );
 };
 
+const CheckInput = styled("input")(() => ({
+  width: "22px",
+  height: "22px",
+}));
+
+const FormControlLabelCheck = styled(FormControlLabel)(({ theme }) => ({
+  position: "relative",
+  zIndex: "10",
+  right: "12rem",
+  "&.Mui-checked": {
+    color: theme.palette.primary.main,
+  },
+  background: "transparent",
+  lineHeight: "21px",
+  "& :hover": {
+    background: "transparent",
+  },
+  marginTop: 0,
+  "& .MuiFormControlLabel-label": {
+    fontSize: "14px",
+    position: "relative",
+    zIndex: "10",
+    left: "1rem",
+    color: "#b8b8b8",
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+  "&.MuiCheckbox-root": {
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+}));
+
 const Background = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5),
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "640px",
+  height: "550px",
 }));
 
-const SignUpForm = styled("form")(({ theme }) => ({
+export const SignUpForm = styled("form")(({ theme }) => ({
   width: "38.5rem",
   background: "#fff",
   borderRadius: theme.shape.borderRadius,
@@ -120,7 +150,7 @@ const Container = styled(Box)(() => ({
   },
 }));
 
-const Title = styled(Typography)(({ theme }) => ({
+export const Title = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(1.5),
   fontFamily: "Poppins",
@@ -133,7 +163,7 @@ const Title = styled(Typography)(({ theme }) => ({
 
 const StyledInput = styled(Input)(({ theme, error }) => ({
   height: "52px",
-  marginBottom: theme.spacing(4.1),
+  marginBottom: theme.spacing(4.5),
   "& .MuiInputLabel-root": {
     color: theme.palette.text.primary,
   },
@@ -144,23 +174,26 @@ const StyledInput = styled(Input)(({ theme, error }) => ({
     textAlign: "start",
     color: "red",
   },
-  "& input:-webkit-autofill": {
-    WebkitBoxShadow: "0 0 0 100px white inset",
-    WebkitTextFillColor: theme.palette.text.primary,
-  },
-  "& input:-moz-autofill": {
-    backgroundColor: "white",
+  "& .MuiInputBase-input": {
     color: theme.palette.text.primary,
+    backgroundColor: "white",
+    "&:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px white inset",
+      WebkitTextFillColor: theme.palette.text.primary,
+    },
+  },
+  "& .MuiOutlinedInput-root": {
+    paddingLeft: "0px",
   },
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   height: "52px",
-  marginTop: theme.spacing(1.25),
+  marginTop: theme.spacing(4.25),
   width: "100%",
 }));
 
-const StyledBtn = styled(Button)(({ theme }) => ({
+export const StyledBtn = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(4),
   background: "none",
   gap: "0px",
@@ -183,7 +216,7 @@ const StyledBtn = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StyledText = styled(Typography)(({ theme }) => ({
+export const StyledText = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   marginTop: theme.spacing(3),
   fontFamily: "Poppins",
@@ -194,10 +227,10 @@ const StyledText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const StyledLink = styled("span")(() => ({
-  color: "rgba(58, 16, 229, 1)",
-  textDecoration: "underline",
+export const StyledLink = styled("span")(({ theme }) => ({
+  color: theme.palette.primary.main,
+  textDecoration: "none",
   cursor: "pointer",
   fontWeight: "bold",
-  fontSize: "17px",
+  marginLeft: "5px",
 }));

@@ -30,6 +30,7 @@ export const Button = ({
 };
 
 const StyledBtn = styled(MyButton)(({ variant }) => ({
+  width: "fit-content",
   fontWeight: "600",
   "&:disabled": {
     pointerEvents: "auto",
