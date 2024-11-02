@@ -19,6 +19,7 @@ export const SelectMainIdea = ({ onReset }) => {
   const handleOpenCloseModal = () => {
     setOpenModal((state) => !state);
   };
+
   const isTrueHandler = () => {
     const alreadyTrue = words.some((word) => word.isTrue);
     setIsTrueValue(!alreadyTrue);

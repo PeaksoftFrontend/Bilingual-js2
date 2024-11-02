@@ -5,7 +5,7 @@ import { IconButton, styled, TextareaAutosize } from "@mui/material";
 import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
 
-export const SelectMainIdeaSecond = ({ onReset }) => {
+export const SelectBestTitle = ({ onReset }) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
@@ -19,7 +19,6 @@ export const SelectMainIdeaSecond = ({ onReset }) => {
   const handleOpenCloseModal = () => {
     setOpenModal((state) => !state);
   };
-
   const isTrueHandler = () => {
     const alreadyTrue = words.some((word) => word.isTrue);
     setIsTrueValue(!alreadyTrue);
