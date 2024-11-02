@@ -21,10 +21,10 @@ export const Duration = ({ minutes = 0, time = 0 }) => {
 
   return (
     <StyledContentWrapper>
-      <div>
+      <StyledTimer>
         {displayMinutes}:
         {displaySeconds < 10 ? `0${displaySeconds}` : displaySeconds}
-      </div>
+      </StyledTimer>
       <StyledDiv>
         <div
           style={{
@@ -57,8 +57,12 @@ const StyledDiv = styled("div")({
 const StyledContentWrapper = styled("div")({
   width: "100%",
   textAlign: "start",
+});
+const StyledTimer = styled("div")({
   color: "#4C4859",
-  fontFamily: "DINNextRoundedLTW04-Medium",
-  fontWeight: "bold",
+  fontFamily: "DIN Next Rounded LT Pro Light",
+  fontSize: "32px",
+  height: "24px",
+  fontWeight: "900",
   lineHeight: "24px",
 });
