@@ -58,7 +58,7 @@ export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
 
 const StyledAdminContainer = styled("div")(() => ({
   width: "100%",
-  height: "110vh",
+  height: "180vh",
   backgroundColor: "#D7E1F8",
   display: "flex",
   flexDirection: "column",
@@ -88,6 +88,9 @@ const TitleBlock = styled("div")(() => ({
 
 const StyledInput = styled(Input)(() => ({
   width: "43.563rem",
+  ".css-1jk99ih-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill": {
+    padding: " 16px 0 16px 0 ",
+  },
 }));
 
 const TypeStyled = styled("div")(() => ({
