@@ -12,6 +12,7 @@ import { TestPage } from "../pages/client/TestPage";
 import { CreateTest } from "../pages/admin/createTest/CreateTest";
 import { SubmittedResults } from "../pages/admin/submitted Results/SubmittedResults";
 import { NotFoundPage } from "../pages/404/NotFoundPage";
+import { StartTest } from "../pages/client/StartTest";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -70,6 +71,10 @@ export const AppRoutes = () => {
         {
           path: "test",
           element: <TestPage />,
+        },
+        {
+          path: "startTest",
+          element: <StartTest />,
         },
       ],
     },
