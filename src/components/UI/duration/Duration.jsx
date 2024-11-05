@@ -1,0 +1,68 @@
+import { styled } from "@mui/system";
+import { useEffect, useState } from "react";
+
+export const Duration = ({ minutes = 0, time = 0 }) => {
+  const initialTime = minutes * 60 + time;
+  const [remainingTime, setRemainingTime] = useState(initialTime);
+
+  useEffect(() => {
+    if (remainingTime > 0) {
+      const timerId = setInterval(() => {
+        setRemainingTime((prevTime) => prevTime - 1);
+      }, 1000);
+
+      return () => clearInterval(timerId);
+    }
+  }, [remainingTime]);
+
+  const progress = (remainingTime / initialTime) * 100;
+  const displayMinutes = Math.floor(remainingTime / 60);
+  const displaySeconds = remainingTime % 60;
+
+  return (
+    <StyledContentWrapper>
+      <StyledTimer>
+        {displayMinutes}:
+        {displaySeconds < 10 ? `0${displaySeconds}` : displaySeconds}
+      </StyledTimer>
+      <StyledDiv>
+        <div
+          style={{
+            width: `${progress}%`,
+            height: "100%",
+            background:
+              "linear-gradient(270deg, #3A10E5 29.37%, #6746EF 84.8%)",
+
+            transition: "width 1s linear",
+            position: "absolute",
+            left: 0,
+            borderRadius: "5px",
+          }}
+        ></div>
+      </StyledDiv>
+    </StyledContentWrapper>
+  );
+};
+
+const StyledDiv = styled("div")({
+  width: "100%",
+  height: "10px",
+  backgroundColor: "#ddd",
+  position: "relative",
+  overflow: "hidden",
+  borderRadius: "5px",
+  marginTop: "0.5rem",
+});
+
+const StyledContentWrapper = styled("div")({
+  width: "100%",
+  textAlign: "start",
+});
+const StyledTimer = styled("div")({
+  color: "#4C4859",
+  fontFamily: "DIN Next Rounded LT Pro Light",
+  fontSize: "32px",
+  height: "24px",
+  fontWeight: "900",
+  lineHeight: "24px",
+});
