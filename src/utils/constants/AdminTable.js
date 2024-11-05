@@ -124,7 +124,7 @@ export const userInfoData = [
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
-    score: "0",
+    score: "7",
     icon: false,
   },
   {
@@ -133,7 +133,7 @@ export const userInfoData = [
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
-    score: "0",
+    score: "7",
     icon: false,
   },
 ];

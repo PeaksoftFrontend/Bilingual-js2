@@ -12,6 +12,16 @@ import {
 } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 
+const ScoreCell = styled("span")(({ score }) => ({
+  color: score > 0 ? "green" : "red",
+  fontWeight: "bold",
+}));
+
+const StatusCell = styled("span")(({ status }) => ({
+  color: status === "Evaluated" ? "green" : "red",
+  fontWeight: "bold",
+}));
+
 export const AdminTable = ({ columns, data }) => {
   const getTableType = () => {
     if (columns.some((col) => col.accessor === "questionType")) {
@@ -64,7 +74,23 @@ export const AdminTable = ({ columns, data }) => {
 
   const modifiedColumns = React.useMemo(
     () => [
-      ...columns,
+      ...columns.map((col) => {
+        if (col.accessor === "score") {
+          return {
+            ...col,
+            Cell: ({ value }) => <ScoreCell score={value}>{value}</ScoreCell>,
+          };
+        }
+        if (col.accessor === "status") {
+          return {
+            ...col,
+            Cell: ({ value }) => (
+              <StatusCell status={value}>{value}</StatusCell>
+            ),
+          };
+        }
+        return col;
+      }),
       {
         accessor: "actions",
         Cell: ({ row }) => getIcons(row),
