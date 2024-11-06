@@ -22,7 +22,9 @@ const StatusCell = styled("span")(({ status }) => ({
   fontWeight: "bold",
 }));
 
-export const AdminTable = ({ columns, data }) => {
+export const AdminTable = ({ columns, data: initialData }) => {
+  const [data, setData] = useState(initialData); // Store data in local state
+
   const getTableType = () => {
     if (columns.some((col) => col.accessor === "questionType")) {
       return "TEST";
@@ -36,40 +38,34 @@ export const AdminTable = ({ columns, data }) => {
 
   const tableType = getTableType();
 
+  const handleDeleteRow = (rowId) => {
+    // Remove row by filtering out based on id
+    setData((prevData) => prevData.filter((row) => row.id !== rowId));
+  };
+
   const getIcons = (row) => {
-    const [isSwitced, setIsSwitced] = useState(row.original.icon);
+    const [isSwitched, setIsSwitched] = useState(row.original.icon);
 
     const handleIconClick = () => {
-      setIsSwitced((prevState) => !prevState);
+      setIsSwitched((prevState) => !prevState);
     };
 
-    switch (tableType) {
-      case "TEST":
-        return (
-          <ActionsContainer>
-            <div onClick={handleIconClick}>
-              {isSwitced ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
-            </div>
-            <Icons.Note />
-            <Icons.Trash />
-          </ActionsContainer>
-        );
-      case "USERINFO":
-        return (
-          <ActionsContainer>
-            {row.original.icon ? <Icons.Tick /> : <Icons.Eye />}
-            <Icons.Trash />
-          </ActionsContainer>
-        );
-      case "RESULT":
-        return (
-          <ActionsContainer>
-            {row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />}
-          </ActionsContainer>
-        );
-      default:
-        return null;
-    }
+    return (
+      <ActionsContainer>
+        {tableType === "TEST" && (
+          <div onClick={handleIconClick}>
+            {isSwitched ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+          </div>
+        )}
+        {tableType === "USERINFO" &&
+          (row.original.icon ? <Icons.Tick /> : <Icons.Eye />)}
+        {tableType === "RESULT" &&
+          (row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />)}
+
+        {/* Delete icon with delete handler */}
+        <Icons.Trash onClick={() => handleDeleteRow(row.original.id)} />
+      </ActionsContainer>
+    );
   };
 
   const modifiedColumns = React.useMemo(
