@@ -4,14 +4,12 @@ import { theme } from "./theme/theme";
 import { ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { UserSelectRealWords } from "./pages/client/takeTheTest/UserSelectRealWords";
-// import { AppRoutes } from "./routes/routes";
+import { AppRoutes } from "./routes/routes";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      {/* <AppRoutes /> */}
-      <UserSelectRealWords />
+      <AppRoutes />
     </ThemeProvider>
   </Provider>
 );
