@@ -3,10 +3,17 @@ import { Icons } from "../../../assets/icons";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { UserTestWords } from "../../../utils/constants/selectWords";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "../../../components/UI/button/Button";
 
 export const UserSelectRealWords = () => {
   const [words, setWords] = useState(UserTestWords);
+  const [isAnySelected, setIsAnySelected] = useState(false);
+
+  useEffect(() => {
+    // Проверяем, выбран ли хотя бы один элемент
+    setIsAnySelected(words.some((word) => word.isChecked));
+  }, [words]);
 
   const handleCheckClick = (id) => {
     setWords((prevWords) =>
@@ -16,8 +23,8 @@ export const UserSelectRealWords = () => {
     );
   };
   return (
-    <>
-      <ContentWrapper>
+    <ContentWrapper>
+      <MainContent>
         <Duration time={100} />
 
         <WrapperWords>
@@ -42,8 +49,9 @@ export const UserSelectRealWords = () => {
             ))}
           </ContainerWords>
         </WrapperWords>
-      </ContentWrapper>
-    </>
+        <StyledButton disabled={!isAnySelected}>next</StyledButton>
+      </MainContent>
+    </ContentWrapper>
   );
 };
 
@@ -73,6 +81,8 @@ const WrapperWords = styled("div")({
     textAlign: "center",
     marginTop: "50px",
   },
+  paddingBottom: "60px",
+  borderBottom: "3px solid #D4D0D0",
 });
 const ContainerWord = styled("div")({
   display: "flex",
@@ -92,3 +102,20 @@ const ContainerCheck = styled("div")(({ isChecked }) => ({
   borderTopRightRadius: "7px",
   borderBottomRightRadius: "7px",
 }));
+
+const MainContent = styled("div")({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "end",
+});
+
+const StyledButton = styled(Button)({
+  marginTop: "32px",
+  "&:disabled": {
+    backgroundColor: "#C4C4C4",
+    color: "#ffffff",
+    cursor: "not-allowed",
+    border: "none",
+  },
+});
