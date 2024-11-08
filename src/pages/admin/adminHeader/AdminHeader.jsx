@@ -12,9 +12,7 @@ export const AdminHeader = () => {
     <StyledHeader>
       <Icons.FullLogo onClick={() => navigate("/")} />
       <DivContainer>
-        <StyledNavLink
-          to={role === "USER" ? "/main/test" : "/admin/createTest"}
-        >
+        <StyledNavLink to={role === "USER" ? "/main/test" : "/admin/testPage"}>
           tests
         </StyledNavLink>
         {role === "USER" ? (

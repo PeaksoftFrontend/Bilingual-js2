@@ -7,6 +7,7 @@ import { Respons } from "../testvariants/Respons";
 import { RecordStatement } from "../testvariants/RecordStatement";
 import { UploadImage } from "../testvariants/UploadImage";
 import { SelectMainIdea } from "../testvariants/ SelectMainIdea";
+import { HighLightTheAnswer } from "../testvariants/HighLightTheAnswer";
 
 export const CreateTest = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -30,8 +31,9 @@ export const CreateTest = () => {
       {selectedType === "4" && <UploadImage />}
       {selectedType === "5" && <RecordStatement />}
       {selectedType === "6" && <Respons />}
+      {selectedType === "7" && <HighLightTheAnswer />}
+      {selectedType === "8" && <SelectMainIdea onReset={handleResetForm} />}
       {selectedType === "9" && <SelectMainIdea onReset={handleResetForm} />}
-      {selectedType === "10" && <SelectMainIdea onReset={handleResetForm} />}
     </AdminForm>
   );
 };
