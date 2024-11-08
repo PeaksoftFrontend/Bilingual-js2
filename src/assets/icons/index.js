@@ -44,6 +44,9 @@ import SoundBlue from "./icon/SoundBlue.svg";
 import Layer from "./icon/Layer.svg";
 import Frame from "./icon/Frame.svg";
 import Google from "./icon/Google.svg";
+import VolumeUp from "./icon/VolumeUp.svg";
+import Check from "./icon/check.svg";
+import HoverCheck from "./icon/hoverCheck.svg";
 
 export const Icons = {
   Google,
@@ -92,4 +95,7 @@ export const Icons = {
   SoundBlue,
   playSmall,
   PlayCircle,
+  VolumeUp,
+  Check,
+  HoverCheck,
 };

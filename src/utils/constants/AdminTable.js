@@ -51,7 +51,7 @@ export const USERINFO = [
     accessor: "icon",
   },
 ];
-export const USERRESULT = [
+export const RESULTDATA = [
   {
     Header: "#",
     accessor: "id",

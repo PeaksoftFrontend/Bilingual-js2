@@ -46,7 +46,63 @@ export const selectOptions = [
   },
   {
     id: "m10",
-    label: " Select main idea second",
+    label: " Select best title",
     value: "10",
+  },
+];
+
+export const UserTestWords = [
+  {
+    title: "WORD 1",
+    isChecked: false,
+    id: "m1",
+  },
+  {
+    title: "WORD 2",
+    isChecked: false,
+
+    id: "m2",
+  },
+  {
+    title: "WORD 3",
+    isChecked: false,
+
+    id: "m3",
+  },
+  {
+    title: "WORD 4",
+    isChecked: false,
+
+    id: "m4",
+  },
+  {
+    title: "WORD 5",
+    isChecked: false,
+
+    id: "m5",
+  },
+  {
+    title: "WORD 6",
+    isChecked: false,
+
+    id: "m6",
+  },
+  {
+    title: "WORD 7",
+    isChecked: false,
+
+    id: "m7",
+  },
+  {
+    title: "WORD 8",
+    isChecked: false,
+
+    id: "m8",
+  },
+  {
+    title: "WORD 9",
+    isChecked: false,
+
+    id: "m9",
   },
 ];

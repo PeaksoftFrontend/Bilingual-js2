@@ -23,7 +23,7 @@ const StatusCell = styled("span")(({ status }) => ({
 }));
 
 export const AdminTable = ({ columns, data: initialData }) => {
-  const [data, setData] = useState(initialData); // Store data in local state
+  const [data, setData] = useState(initialData);
 
   const getTableType = () => {
     if (columns.some((col) => col.accessor === "questionType")) {
@@ -39,7 +39,6 @@ export const AdminTable = ({ columns, data: initialData }) => {
   const tableType = getTableType();
 
   const handleDeleteRow = (rowId) => {
-    // Remove row by filtering out based on id
     setData((prevData) => prevData.filter((row) => row.id !== rowId));
   };
 
@@ -62,7 +61,6 @@ export const AdminTable = ({ columns, data: initialData }) => {
         {tableType === "RESULT" &&
           (row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />)}
 
-        {/* Delete icon with delete handler */}
         <Icons.Trash onClick={() => handleDeleteRow(row.original.id)} />
       </ActionsContainer>
     );
