@@ -101,7 +101,7 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
     "&:hover": {
       backgroundColor: "#3A10E5",
       color: "#FEFEFF",
-      border: "none",
+      border: "2px solid #FEFEFF",
     },
     "&:active": {
       backgroundColor: "#3007DA",

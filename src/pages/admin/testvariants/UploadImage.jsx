@@ -58,7 +58,7 @@ export const UploadImage = () => {
 
         <WrapperButtons>
           <StyledButton variant="outlined">Go Back</StyledButton>
-          <Button variant="success">Save</Button>
+          <Button variant="sucsses">Save</Button>
         </WrapperButtons>
       </WrapperInputAndButtons>
     </>

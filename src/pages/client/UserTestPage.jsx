@@ -2,7 +2,7 @@ import { AdminTable } from "../../components/UI/admin-table/AdminTable";
 import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
 import { RESULT, resultData } from "../../utils/constants/AdminTable";
 
-export const TestPage = () => {
+export const UserTestPage = () => {
   return (
     <div>
       <ContentWrapper>
