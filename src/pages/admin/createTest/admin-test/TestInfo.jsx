@@ -33,7 +33,7 @@ export const TestInfo = ({ duration }) => {
         <TestNotFound />
       )}
       <ButtonContainer>
-        <Button onClick={() => navigate("/admin/createTest")}>
+        <Button onClick={() => navigate("/admin/test-page/create-test")}>
           <Icons.Plus />
           ADD MORE QUESTIONS
         </Button>

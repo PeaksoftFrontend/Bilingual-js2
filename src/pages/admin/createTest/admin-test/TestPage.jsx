@@ -33,17 +33,17 @@ export const TestPage = () => {
 
   const updateHandler = (event, test) => {
     event.stopPropagation();
-    navigate("/admin/addNewTest", { state: { test } });
+    navigate("/admin/test-page/add-new-test", { state: { test } });
   };
 
   const handlerNavigate = (selectedId) => {
-    navigate(`/admin/testInfo/${selectedId}`);
+    navigate(`/admin/test-page/test-info/${selectedId}`);
   };
 
   return (
     <ContentWrapper>
       <ContainerButton>
-        <Button onClick={() => navigate("/admin/addNewTest")}>
+        <Button onClick={() => navigate("/admin/test-page/add-new-test")}>
           <Icons.Plus />
           ADD NEW TEST
         </Button>
@@ -55,10 +55,10 @@ export const TestPage = () => {
               key={item.id}
               onClick={() => handlerNavigate(item.id)}
             >
-              <div>
+              <TextContainer>
                 <StyledTitle>{item.title}</StyledTitle>
-                <StyledTitle>{item.description}</StyledTitle>
-              </div>
+                <StyledDescription>{item.description}</StyledDescription>
+              </TextContainer>
               <IconContainer>
                 {item.isChecked ? (
                   <IconButton
@@ -96,6 +96,7 @@ const StyledContainer = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-between",
   padding: "16px",
+  cursor: "pointer",
   boxShadow:
     "0px 4px 10px 0px rgba(0, 0, 0, 0.06),  0px -4px 10px 0px rgba(0, 0, 0, 0.06)",
 }));
@@ -120,4 +121,16 @@ const IconContainer = styled("div")(() => ({
 const StyledTitle = styled("p")(() => ({
   fontWeight: "600",
   color: "#4C4859",
+  fontSize: "22px",
+}));
+
+const StyledDescription = styled("p")(() => ({
+  fontWeight: "600",
+  color: "#4C4859",
+}));
+
+const TextContainer = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
 }));

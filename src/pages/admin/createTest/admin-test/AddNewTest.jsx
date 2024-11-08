@@ -35,7 +35,7 @@ export const AddNewTest = () => {
     } else {
       dispatch(addTest({ ...testValue, id: Date.now(), isChecked: false }));
     }
-    navigate("/admin/testPage");
+    navigate("/admin/test-page");
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const AddNewTest = () => {
         <BtnBlock>
           <Button
             variant="outlined"
-            onClick={() => navigate("/admin/testPage")}
+            onClick={() => navigate("/admin/test-page")}
           >
             GO BACK
           </Button>

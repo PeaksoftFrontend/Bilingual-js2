@@ -40,26 +40,26 @@ export const AppRoutes = () => {
       children: [
         {
           index: true,
-          element: <Navigate to="testPage" />,
+          element: <Navigate to="test-page" />,
         },
         {
-          path: "testPage",
+          path: "test-page",
           element: <TestPage />,
         },
         {
-          path: "testInfo/:testInfoId",
+          path: "test-page/test-info/:test-infoId",
           element: <TestInfo />,
         },
         {
-          path: "createTest",
+          path: "test-page/create-test",
           element: <CreateTest />,
         },
         {
-          path: "submittedResults",
+          path: "submitted-results",
           element: <SubmittedResults />,
         },
         {
-          path: "addNewTest",
+          path: "test-page/add-new-test",
           element: <AddNewTest />,
         },
       ],
