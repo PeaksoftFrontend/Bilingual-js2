@@ -8,22 +8,22 @@ import { TEST, testData } from "../../../../utils/constants/AdminTable";
 import { styled } from "@mui/system";
 import { TestNotFound } from "../../../404/TestNotFound";
 
-export const TestInfo = ({ duration }) => {
-  const { testInfoId } = useParams();
+export const TestInfo = ({ duration = "15" }) => {
   const navigate = useNavigate();
   const { tests } = useSelector((state) => state.test);
+  const { testInfoId } = useParams();
 
-  const test = tests.find((item) => item.id === Number(testInfoId));
+  const test = tests?.find((item) => item.id === Number(testInfoId));
 
   return (
     <ContentWrapper>
       {test ? (
         <StyledContainerText>
           <StyledText>
-            <span>Title:</span> {test.title}
+            <span>Title:</span> {test?.title}
           </StyledText>
           <StyledText>
-            <span>Short Description:</span> {test.description}
+            <span>Short Description:</span> {test?.description}
           </StyledText>
           <StyledText>
             <span>Duration:</span> {duration}
