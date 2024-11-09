@@ -9,30 +9,36 @@ export const UserTestPage = () => {
   const navigate = useNavigate();
 
   return (
-    <ContentWrapper>
+    <StyledDiv>
       {userTest.length > 0 ? (
         userTest.map((item, index) => (
-          <StyledContainer key={index}>
-            <BlockImg>
-              <img src={item.img} alt="" />
-              <TextBlock>
-                <StyledDuration>{item.duration} minutes</StyledDuration>
-                <StyledTitle>{item.title}</StyledTitle>
-                <StyledDescription>{item.description}</StyledDescription>
-              </TextBlock>
-            </BlockImg>
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/main/test/start-test", { state: item })}
-            >
-              try test
-            </Button>
-          </StyledContainer>
+          <ContentWrapper key={index}>
+            <StyledContainer>
+              <BlockImg>
+                <img src={item.img} alt="" />
+                <TextBlock>
+                  <StyledDuration>{item.duration} minutes</StyledDuration>
+                  <StyledTitle>{item.title}</StyledTitle>
+                  <StyledDescription>{item.description}</StyledDescription>
+                </TextBlock>
+              </BlockImg>
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  navigate("/main/test/start-test", { state: item })
+                }
+              >
+                try test
+              </Button>
+            </StyledContainer>
+          </ContentWrapper>
         ))
       ) : (
-        <TestNotFound />
+        <ContentWrapper>
+          <TestNotFound />
+        </ContentWrapper>
       )}
-    </ContentWrapper>
+    </StyledDiv>
   );
 };
 
@@ -71,4 +77,10 @@ const TextBlock = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   gap: "15px",
+}));
+
+const StyledDiv = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "50px",
 }));
