@@ -3,30 +3,35 @@ import { Button } from "../../components/UI/button/Button";
 import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
 import { userTest } from "../../utils/constants/userTest";
 import { useNavigate } from "react-router-dom";
+import { TestNotFound } from "../404/TestNotFound";
 
 export const UserTestPage = () => {
   const navigate = useNavigate();
 
   return (
     <ContentWrapper>
-      {userTest.map((item, index) => (
-        <StyledContainer key={index}>
-          <BlockImg>
-            <img src={item.img} alt="" />
-            <TextBlock>
-              <StyledDuration>{item.duration} minutes</StyledDuration>
-              <StyledTitle>{item.title}</StyledTitle>
-              <StyledDescription>{item.description}</StyledDescription>
-            </TextBlock>
-          </BlockImg>
-          <Button
-            variant="outlined"
-            onClick={() => navigate("/main/test/start-test", { state: item })}
-          >
-            try test
-          </Button>
-        </StyledContainer>
-      ))}
+      {userTest.length > 0 ? (
+        userTest.map((item, index) => (
+          <StyledContainer key={index}>
+            <BlockImg>
+              <img src={item.img} alt="" />
+              <TextBlock>
+                <StyledDuration>{item.duration} minutes</StyledDuration>
+                <StyledTitle>{item.title}</StyledTitle>
+                <StyledDescription>{item.description}</StyledDescription>
+              </TextBlock>
+            </BlockImg>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/main/test/start-test", { state: item })}
+            >
+              try test
+            </Button>
+          </StyledContainer>
+        ))
+      ) : (
+        <TestNotFound />
+      )}
     </ContentWrapper>
   );
 };
