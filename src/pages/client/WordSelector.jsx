@@ -4,49 +4,6 @@ import { styled } from "@mui/system";
 import { words } from "../../utils/helpers/words";
 import { Duration } from "../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
-const WordButton = styled(Button, {
-  shouldForwardProp: (prop) => prop !== "active",
-})(({ active }) => ({
-  border: "1px solid lightgray",
-  borderRadius: "8px",
-  height: "41px",
-  padding: "1px, 2px",
-  textTransform: "none",
-  fontSize: "18px",
-  fontWeight: "500",
-  margin: "2px",
-  color: active ? "white" : "#4C4859",
-  backgroundColor: active ? "#3A10E5" : "white",
-  "&:hover": {
-    border: "1.9px solid #3A10E5",
-  },
-  "&:active": {
-    backgroundColor: "#3A10E5",
-    color: "white",
-  },
-}));
-
-const DropArea = styled(Box)({
-  border: "1.9px dashed #C4C4C4",
-  borderRadius: "8px",
-  minHeight: "100px",
-  width: "243px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#020202",
-  marginLeft: "69%",
-  backgroundColor: "#fafafa",
-  "&.highlight": {
-    borderColor: "#1976d2",
-    backgroundColor: "#e3f2fd",
-    color: "black",
-  },
-  "&.active": {
-    backgroundColor: "#1976d2",
-    color: "black",
-  },
-});
 
 export const WordSelector = () => {
   const [selectedWords, setSelectedWords] = useState([]);
@@ -167,5 +124,48 @@ const StyledBtn = styled(Button)({
     backgroundColor: "#C4C4C4",
     color: "#ffffff",
     border: "2px solid #C4C4C4",
+  },
+});
+const WordButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "active",
+})(({ active }) => ({
+  border: "1px solid lightgray",
+  borderRadius: "8px",
+  height: "41px",
+  padding: "1px, 3px",
+  textTransform: "none",
+  fontSize: "18px",
+  fontWeight: "500",
+  margin: "2px",
+  color: active ? "white" : "#4C4859",
+  backgroundColor: active ? "#3A10E5" : "white",
+  "&:hover": {
+    border: "1.9px solid #3A10E5",
+  },
+  "&:active": {
+    backgroundColor: "#3A10E5",
+    color: "white",
+  },
+}));
+
+const DropArea = styled(Box)({
+  border: "1.9px dashed #C4C4C4",
+  borderRadius: "8px",
+  minHeight: "100px",
+  width: "243px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#020202",
+  marginLeft: "69%",
+  backgroundColor: "#fafafa",
+  "&.highlight": {
+    borderColor: "#1976d2",
+    backgroundColor: "#e3f2fd",
+    color: "black",
+  },
+  "&.active": {
+    backgroundColor: "#1976d2",
+    color: "black",
   },
 });
