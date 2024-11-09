@@ -4,8 +4,9 @@ import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapp
 import { userTest } from "../../utils/constants/userTest";
 import { useNavigate } from "react-router-dom";
 
-export const TestPage = () => {
+export const UserTestPage = () => {
   const navigate = useNavigate();
+
   return (
     <ContentWrapper>
       {userTest.map((item, index) => (
@@ -20,7 +21,7 @@ export const TestPage = () => {
           </BlockImg>
           <Button
             variant="outlined"
-            onClick={() => navigate("/main/startTest")}
+            onClick={() => navigate("/main/test/start-test")}
           >
             try test
           </Button>

@@ -47,6 +47,9 @@ import Google from "./icon/Google.svg";
 import NoteBook from "./icon/Notebook.svg";
 import Time from "./icon/Time.svg";
 import PhotoId from "./icon/PhotoId.svg";
+import VolumeUp from "./icon/VolumeUp.svg";
+import Check from "./icon/check.svg";
+import HoverCheck from "./icon/hoverCheck.svg";
 
 export const Icons = {
   Google,
@@ -98,4 +101,7 @@ export const Icons = {
   NoteBook,
   Time,
   PhotoId,
+  VolumeUp,
+  Check,
+  HoverCheck,
 };

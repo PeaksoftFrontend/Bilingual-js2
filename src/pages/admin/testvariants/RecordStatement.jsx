@@ -37,4 +37,6 @@ const StyledLable = styled("lable")({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
+  color: "#4C4859",
+  fontWeight: "700",
 });

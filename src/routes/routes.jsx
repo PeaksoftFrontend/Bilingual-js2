@@ -8,11 +8,14 @@ import { PrivateRouter } from "./PrivateRouter";
 import { AdminPage } from "../layout/AdminPage";
 import { UserLayout } from "../layout/UserLayout";
 import { ResultPage } from "../pages/client/ResultPage";
-import { TestPage } from "../pages/client/TestPage";
+import { UserTestPage } from "../pages/client/UserTestPage";
 import { CreateTest } from "../pages/admin/createTest/CreateTest";
 import { SubmittedResults } from "../pages/admin/submitted Results/SubmittedResults";
 import { NotFoundPage } from "../pages/404/NotFoundPage";
 import { StartTest } from "../pages/client/StartTest";
+import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
+import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
+import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -38,15 +41,27 @@ export const AppRoutes = () => {
       children: [
         {
           index: true,
-          element: <Navigate to="createTest" />,
+          element: <Navigate to="test-page" />,
         },
         {
-          path: "submittedResults",
+          path: "test-page",
+          element: <TestPage />,
+        },
+        {
+          path: "test-page/test-info/:test-infoId",
+          element: <TestInfo />,
+        },
+        {
+          path: "test-page/create-test",
+          element: <CreateTest />,
+        },
+        {
+          path: "submitted-results",
           element: <SubmittedResults />,
         },
         {
-          path: "createTest",
-          element: <CreateTest />,
+          path: "test-page/add-new-test",
+          element: <AddNewTest />,
         },
       ],
     },
@@ -70,10 +85,10 @@ export const AppRoutes = () => {
         },
         {
           path: "test",
-          element: <TestPage />,
+          element: <UserTestPage />,
         },
         {
-          path: "startTest",
+          path: "test/start-test",
           element: <StartTest />,
         },
       ],

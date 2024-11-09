@@ -3,8 +3,10 @@ import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapp
 import SearchInfo from "../../assets/images/searchInfo.png";
 import { Icons } from "../../assets/icons";
 import { styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-export const StartTest = () => {
+export const StartTest = ({ duration }) => {
+  const navigate = useNavigate();
   return (
     <ContentWrapper>
       <Container>
@@ -18,7 +20,7 @@ export const StartTest = () => {
             </p>
             <p>
               <Icons.Time />
-              Practice takes just 15 minutes
+              Practice takes just {duration} minutes
             </p>
             <p>
               <Icons.PhotoId />
@@ -32,7 +34,9 @@ export const StartTest = () => {
         </StyledText>
       </Container>
       <BtnBlock>
-        <Button variant="outlined">CANCEL</Button>
+        <Button variant="outlined" onClick={() => navigate("/main/test")}>
+          CANCEL
+        </Button>
         <Button>PRACTICE TEST</Button>
       </BtnBlock>
     </ContentWrapper>
