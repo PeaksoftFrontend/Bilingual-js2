@@ -14,14 +14,14 @@ export const UserTestPage = () => {
           <BlockImg>
             <img src={item.img} alt="" />
             <TextBlock>
-              <StyledDuration>{item.duration}</StyledDuration>
+              <StyledDuration>{item.duration} minutes</StyledDuration>
               <StyledTitle>{item.title}</StyledTitle>
               <StyledDescription>{item.description}</StyledDescription>
             </TextBlock>
           </BlockImg>
           <Button
             variant="outlined"
-            onClick={() => navigate("/main/test/start-test")}
+            onClick={() => navigate("/main/test/start-test", { state: item })}
           >
             try test
           </Button>

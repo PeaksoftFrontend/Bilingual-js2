@@ -3,10 +3,12 @@ import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapp
 import SearchInfo from "../../assets/images/searchInfo.png";
 import { Icons } from "../../assets/icons";
 import { styled } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export const StartTest = ({ duration }) => {
+export const StartTest = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   return (
     <ContentWrapper>
       <Container>
@@ -20,7 +22,7 @@ export const StartTest = ({ duration }) => {
             </p>
             <p>
               <Icons.Time />
-              Practice takes just {duration} minutes
+              Practice takes just {state.duration} minutes
             </p>
             <p>
               <Icons.PhotoId />
