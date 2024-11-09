@@ -44,6 +44,11 @@ export const selectOptions = [
     label: "Select best title",
     value: "9",
   },
+  {
+    id: "m10",
+    label: " Select main idea",
+    value: "10",
+  },
 ];
 
 export const UserTestWords = [
