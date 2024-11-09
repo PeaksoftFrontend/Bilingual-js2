@@ -272,6 +272,8 @@ const StyledLabe = styled("labe")({
   flexDirection: "column",
   gap: "8px",
   marginTop: "40px",
+  color: "#4C4859",
+  fontWeight: "700",
 });
 
 const StyledTextArea = styled(TextareaAutosize)({

@@ -139,7 +139,9 @@ const StyledH4 = styled("h4")({
   height: "36px",
   fontSize: "1rem",
   marginLeft: "1rem",
-  marginBottom: "18px   ",
+  marginBottom: "18px",
+  color: "#4C4859",
+  fontWeight: "700",
 });
 const StyledCorrectAnswer = styled("h4")({
   width: "109px",
@@ -147,6 +149,8 @@ const StyledCorrectAnswer = styled("h4")({
   fontSize: "1rem",
   marginRight: "86%",
   marginBottom: "16px",
+  color: "#4C4859",
+  fontWeight: "700",
 });
 
 const StyledDiv = styled("div")({
