@@ -74,6 +74,5 @@ const ButtonContainer = styled("div")(() => ({
 }));
 
 const StyledAdminTable = styled("div")(() => ({
-  padding: "10px",
-  // width: "900px",
+  // padding: "10px",
 }));
