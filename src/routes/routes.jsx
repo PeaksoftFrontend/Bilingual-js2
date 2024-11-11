@@ -16,7 +16,7 @@ import { StartTest } from "../pages/client/StartTest";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
-import { Words } from "../pages/client/user-test/Words";
+// import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -92,10 +92,10 @@ export const AppRoutes = () => {
           path: "test/start-test",
           element: <StartTest />,
         },
-        {
-          path: "words",
-          element: <Words />,
-        },
+        // {
+        //   path: "words",
+        //   element: <Words />,
+        // },
       ],
     },
 

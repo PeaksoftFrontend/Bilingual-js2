@@ -6,7 +6,7 @@ import { Input } from "../../../components/UI/input/Input";
 import { useEffect, useState } from "react";
 
 export const Words = () => {
-  const wordN = { n: 8 };
+  const wordN = { n: 5 };
   const [response, setResponse] = useState("");
   const [wordCount, setWordCount] = useState(0);
 
@@ -27,7 +27,7 @@ export const Words = () => {
           <StyledTextQuestion>
             “Describe a time you were surprised. what happened?”
           </StyledTextQuestion>
-          <ContainerInput>
+          <ContainerInput wordCount={wordCount} wordN={wordN}>
             <StyledInput
               placeholder={"Your response"}
               value={response}
@@ -79,13 +79,13 @@ const StyledInput = styled(Input)(() => ({
   },
 }));
 
-const ContainerInput = styled("div")(() => ({
+const ContainerInput = styled("div")(({ wordCount, wordN }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
 
   "& p": {
-    color: "#AFAFAF",
+    color: wordN.n > wordCount ? "#AFAFAF" : "#3A10E5",
     fontWeight: "600",
   },
 }));
