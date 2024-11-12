@@ -16,6 +16,7 @@ import { StartTest } from "../pages/client/StartTest";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
+import { Highlight } from "../pages/client/user-test/Highlight";
 // import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
@@ -96,6 +97,10 @@ export const AppRoutes = () => {
         //   path: "words",
         //   element: <Words />,
         // },
+        {
+          path: "highlight",
+          element: <Highlight />,
+        },
       ],
     },
 
