@@ -31,11 +31,16 @@ export const WordSelector = () => {
   const handleDrop = (e) => {
     e.preventDefault();
     if (draggedWord && !selectedWords.includes(draggedWord)) {
-      setSelectedWords([...selectedWords, draggedWord]);
+      const updatedSelectedWords = [...selectedWords, draggedWord];
+      setSelectedWords(updatedSelectedWords);
       setActiveWords([...activeWords, draggedWord]);
     }
     setDraggedWord(null);
     setIsOverDropArea(false);
+  };
+
+  const handleNextClick = () => {
+    console.log("All selected words:", selectedWords);
   };
 
   return (
@@ -59,7 +64,7 @@ export const WordSelector = () => {
         sx={{ marginBottom: "2rem" }}
       >
         {words.map((word, index) => (
-          <Grid item xs={"1rem"} key={index}>
+          <Grid item key={index}>
             <WordButton
               id={`word-${word}`}
               draggable
@@ -89,6 +94,8 @@ export const WordSelector = () => {
         <StyledDiv></StyledDiv>
         <StyledBtn
           variant={selectedWords.length > 0 ? "contained" : "disabled"}
+          onClick={handleNextClick}
+          disabled={selectedWords.length === 0}
         >
           Next
         </StyledBtn>
