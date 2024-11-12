@@ -67,7 +67,7 @@ const StyledText = styled("p")(() => ({
   width: "400px",
   padding: "16px 50px 35px 18px",
   color: "#4C4859",
-  fontWeight: "500",
+  fontWeight: "400",
 
   "::selection": {
     background: "#3A10E52E",
@@ -79,11 +79,11 @@ const StyledTextBlock = styled("div")(() => ({
   borderRadius: "8px",
 }));
 
-const StyledPassage = styled("h2")(() => ({
+const StyledPassage = styled("p")(() => ({
   padding: "16px 18px",
   borderBottom: "1px solid #D4D0D0",
   color: "#4C4859",
-  fontWeight: "700",
+  fontWeight: "500",
 }));
 
 const StyledBlock = styled("div")(() => ({
@@ -95,13 +95,14 @@ const StyledBlock = styled("div")(() => ({
     fontSize: "26px",
     width: "390px",
     color: "#4C4859",
+    fontWeight: "400",
   },
 
   "& p": {
     fontSize: "18px",
     width: "376px",
     color: "#4C4859",
-    fontWeight: "600",
+    fontWeight: "400",
   },
 }));
 
@@ -122,7 +123,7 @@ const StyledInput = styled(TextareaAutosize)(() => ({
 
   "::placeholder": {
     color: "#979797",
-    fontWeight: "600",
+    fontWeight: "400",
   },
 
   "&:focus": {
