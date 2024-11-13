@@ -7,7 +7,7 @@ import { LayoutPage } from "../layout/LayoutPage";
 import { PrivateRouter } from "./PrivateRouter";
 import { AdminPage } from "../layout/AdminPage";
 import { UserLayout } from "../layout/UserLayout";
-import { ResultPage } from "../pages/client/ResultPage";
+// import { ResultPage } from "../pages/client/ResultPage";
 import { UserTestPage } from "../pages/client/UserTestPage";
 import { CreateTest } from "../pages/admin/createTest/CreateTest";
 import { SubmittedResults } from "../pages/admin/submitted Results/SubmittedResults";
@@ -16,6 +16,7 @@ import { StartTest } from "../pages/client/StartTest";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
+import { TypeWhatYoyHear } from "../pages/client/tests/TypeWhatYoyHear";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -81,7 +82,7 @@ export const AppRoutes = () => {
         },
         {
           path: "result",
-          element: <ResultPage />,
+          element: <TypeWhatYoyHear />,
         },
         {
           path: "test",
