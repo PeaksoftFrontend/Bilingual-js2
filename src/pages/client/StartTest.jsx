@@ -4,10 +4,23 @@ import SearchInfo from "../../assets/images/searchInfo.png";
 import { Icons } from "../../assets/icons";
 import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { WordSelector } from "./WordSelector";
+import { UserSelectRealWords } from "./takeTheTest/UserSelectRealWords";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const renderTestComponent = () => {
+    switch (state.id) {
+      case "s1":
+        return <WordSelector />;
+      case "s2":
+        return <UserSelectRealWords />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <ContentWrapper>
@@ -35,11 +48,14 @@ export const StartTest = () => {
           the certified test.
         </StyledText>
       </Container>
+      {renderTestComponent()}
       <BtnBlock>
         <Button variant="outlined" onClick={() => navigate("/main/test")}>
           CANCEL
         </Button>
-        <Button>PRACTICE TEST</Button>
+        <Button onClick={() => navigate("/main/test/start-test")}>
+          PRACTICE TEST
+        </Button>
       </BtnBlock>
     </ContentWrapper>
   );
