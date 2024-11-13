@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { words } from "../../utils/constants/words";
-import { Duration } from "../../components/UI/duration/Duration";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
+import { words } from "../../../utils/constants/words";
+import { Duration } from "../../../components/UI/duration/Duration";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 
 export const WordSelector = () => {
   const [selectedWords, setSelectedWords] = useState([]);

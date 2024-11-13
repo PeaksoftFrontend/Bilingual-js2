@@ -11,7 +11,6 @@ export const UserSelectRealWords = () => {
   const [isAnySelected, setIsAnySelected] = useState(false);
 
   useEffect(() => {
-    // Проверяем, выбран ли хотя бы один элемент
     setIsAnySelected(words.some((word) => word.isChecked));
   }, [words]);
 

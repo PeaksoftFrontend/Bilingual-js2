@@ -5,7 +5,7 @@ import Img from "../../../assets/images/user5.png";
 import { Button } from "../../../components/UI/button/Button";
 import { useState } from "react";
 
-export const DescriptImage = () => {
+export const DescribeImage = () => {
   const [text, setText] = useState("");
 
   const handleTextChange = (event) => {

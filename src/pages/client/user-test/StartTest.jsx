@@ -1,25 +1,18 @@
-import { Button } from "../../components/UI/button/Button";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
-import SearchInfo from "../../assets/images/searchInfo.png";
-import { Icons } from "../../assets/icons";
+import { Button } from "../../../components/UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import SearchInfo from "../../../assets/images/searchInfo.png";
+import { Icons } from "../../../assets/icons";
 import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { WordSelector } from "./WordSelector";
-import { UserSelectRealWords } from "./takeTheTest/UserSelectRealWords";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const renderTestComponent = () => {
-    switch (state.id) {
-      case "s1":
-        return <WordSelector />;
-      case "s2":
-        return <UserSelectRealWords />;
-      default:
-        return null;
-    }
+  const handlerNavigate = (selectedId) => {
+    navigate(`/main/test/start-test/user-test/${selectedId}`, {
+      state: { id: selectedId },
+    });
   };
 
   return (
@@ -48,14 +41,11 @@ export const StartTest = () => {
           the certified test.
         </StyledText>
       </Container>
-      {renderTestComponent()}
       <BtnBlock>
         <Button variant="outlined" onClick={() => navigate("/main/test")}>
           CANCEL
         </Button>
-        <Button onClick={() => navigate("/main/test/start-test")}>
-          PRACTICE TEST
-        </Button>
+        <Button onClick={() => handlerNavigate(state.id)}>PRACTICE TEST</Button>
       </BtnBlock>
     </ContentWrapper>
   );
