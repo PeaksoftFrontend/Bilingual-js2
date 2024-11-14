@@ -18,6 +18,8 @@ import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
 import { Highlight } from "../pages/client/user-test/Highlight";
 import { TypeWhatYouHear } from "../pages/client/tests/TypeWhatYoyHear";
+import { TestBestTitle } from "../pages/client/tests/TestBestTitle";
+import { TestMainIdea } from "../pages/client/tests/TestMainIdea";
 // import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
@@ -105,6 +107,14 @@ export const AppRoutes = () => {
         {
           path: "typeYouHear",
           element: <TypeWhatYouHear />,
+        },
+        {
+          path: "theBestTitle",
+          element: <TestBestTitle />,
+        },
+        {
+          path: "theMainIdea",
+          element: <TestMainIdea />,
         },
       ],
     },
