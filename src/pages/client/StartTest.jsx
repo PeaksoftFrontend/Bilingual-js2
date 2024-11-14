@@ -84,7 +84,7 @@ const BtnBlock = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "end",
-  borderTop: "1px solid #D4D0D0",
+  borderTop: "2px solid #D4D0D0",
   marginTop: "60px",
   paddingTop: "32px",
 }));

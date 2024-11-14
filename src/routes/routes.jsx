@@ -16,7 +16,9 @@ import { StartTest } from "../pages/client/StartTest";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
-import { TypeWhatYoyHear } from "../pages/client/tests/TypeWhatYoyHear";
+import { Highlight } from "../pages/client/user-test/Highlight";
+import { TypeWhatYouHear } from "../pages/client/tests/TypeWhatYoyHear";
+// import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -82,7 +84,7 @@ export const AppRoutes = () => {
         },
         {
           path: "result",
-          element: <TypeWhatYoyHear />,
+          element: <TypeWhatYouHear />,
         },
         {
           path: "test",
@@ -91,6 +93,14 @@ export const AppRoutes = () => {
         {
           path: "test/start-test",
           element: <StartTest />,
+        },
+        // {
+        //   path: "words",
+        //   element: <Words />,
+        // },
+        {
+          path: "highlight",
+          element: <Highlight />,
         },
       ],
     },

@@ -55,9 +55,8 @@ const StyledBtn = styled(MyButton)(({ variant }) => ({
       backgroundColor: "#3007DA",
     },
     "&.Mui-disabled": {
-      backgroundColor: "#FEFEFF",
-      color: "#C4C4C4",
-      border: "2px solid #C4C4C4",
+      backgroundColor: "#C4C4C4",
+      color: "#FEFEFF",
     },
   }),
 
