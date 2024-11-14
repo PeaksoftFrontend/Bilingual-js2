@@ -7,7 +7,7 @@ import { LayoutPage } from "../layout/LayoutPage";
 import { PrivateRouter } from "./PrivateRouter";
 import { AdminPage } from "../layout/AdminPage";
 import { UserLayout } from "../layout/UserLayout";
-// import { ResultPage } from "../pages/client/ResultPage";
+import { ResultPage } from "../pages/client/ResultPage";
 import { UserTestPage } from "../pages/client/UserTestPage";
 import { CreateTest } from "../pages/admin/createTest/CreateTest";
 import { SubmittedResults } from "../pages/admin/submitted Results/SubmittedResults";
@@ -84,7 +84,7 @@ export const AppRoutes = () => {
         },
         {
           path: "result",
-          element: <TypeWhatYouHear />,
+          element: <ResultPage />,
         },
         {
           path: "test",
@@ -101,6 +101,10 @@ export const AppRoutes = () => {
         {
           path: "highlight",
           element: <Highlight />,
+        },
+        {
+          path: "typeYouHear",
+          element: <TypeWhatYouHear />,
         },
       ],
     },
