@@ -20,6 +20,7 @@ import { Highlight } from "../pages/client/user-test/Highlight";
 import { TypeWhatYouHear } from "../pages/client/tests/TypeWhatYoyHear";
 import { TestBestTitle } from "../pages/client/tests/TestBestTitle";
 import { TestMainIdea } from "../pages/client/tests/TestMainIdea";
+import { CompleteTest } from "../pages/client/tests/CompleteTest";
 // import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
@@ -115,6 +116,10 @@ export const AppRoutes = () => {
         {
           path: "theMainIdea",
           element: <TestMainIdea />,
+        },
+        {
+          path: "completeTest",
+          element: <CompleteTest />,
         },
       ],
     },
