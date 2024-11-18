@@ -52,7 +52,6 @@ export const AudioRecordingInterface = () => {
         setIsRecording(false);
         setIsRecorded(true);
 
-        // Создаем объект с данными записанного аудио
         const audioData = {
           blob: wavBlob,
           url: wavUrl,
@@ -60,7 +59,6 @@ export const AudioRecordingInterface = () => {
           size: wavBlob.size,
         };
 
-        // Отправляем объект в консоль
         console.log("Записанный аудиофайл:", audioData);
 
         audioContextRef.current.close();
@@ -186,6 +184,8 @@ export const AudioRecordingInterface = () => {
 
         {isRecording && (
           <div>
+            <hr style={styles.separator} />
+
             <StyledDiv>
               <img src={recording} alt="" />
               <canvas
@@ -202,25 +202,29 @@ export const AudioRecordingInterface = () => {
         )}
 
         {isRecorded && audioUrl && (
-          <StyledDiv2>
-            <audio
-              ref={audioRef}
-              controls
-              src={audioUrl}
-              onPlay={startVisualizationForPlayback}
-              onPause={() => cancelAnimationFrame(animationIdRef.current)}
-              onEnded={() => cancelAnimationFrame(animationIdRef.current)}
-            />
-            <canvas
-              ref={canvasRef}
-              width={300}
-              height={100}
-              style={styles.canvas}
-            />
-            <StyledButton variant={"contained"} onClick={reRecord}>
-              RE-RECORD
-            </StyledButton>
-          </StyledDiv2>
+          <div>
+            <hr style={styles.separator} />
+
+            <StyledDiv2>
+              <StyledAudio
+                ref={audioRef}
+                controls
+                src={audioUrl}
+                onPlay={startVisualizationForPlayback}
+                onPause={() => cancelAnimationFrame(animationIdRef.current)}
+                onEnded={() => cancelAnimationFrame(animationIdRef.current)}
+              />
+              <canvas
+                ref={canvasRef}
+                width={300}
+                height={100}
+                style={styles.canvas}
+              />
+              <StyledButton variant={"contained"} onClick={reRecord}>
+                RE-RECORD
+              </StyledButton>
+            </StyledDiv2>
+          </div>
         )}
       </div>
     </ContentWrapper>
@@ -304,4 +308,7 @@ const StyledSpeak = styled("div")({
 const StyledP = styled("p")({
   marginLeft: "3%",
   fontFamily: "inherit",
+});
+const StyledAudio = styled("audio")({
+  marginTop: "3rem",
 });
