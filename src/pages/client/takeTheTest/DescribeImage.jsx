@@ -5,7 +5,7 @@ import Img from "../../../assets/images/user5.png";
 import { Button } from "../../../components/UI/button/Button";
 import { useState } from "react";
 
-export const DescribeImage = () => {
+export const DescribeImage = ({ onNext }) => {
   const [text, setText] = useState("");
 
   const handleTextChange = (event) => {
@@ -14,7 +14,7 @@ export const DescribeImage = () => {
   return (
     <ContentWrapper>
       <MainContent>
-        <Duration time={100} />
+        <Duration time={5} onComplete={onNext} />
 
         <WrapperContent>
           <h1>Write one or more sentences that describe the image</h1>
@@ -27,7 +27,9 @@ export const DescribeImage = () => {
             />
           </ContainerImg>
         </WrapperContent>
-        <StyledButton disabled={!text}>next</StyledButton>
+        <StyledButton disabled={!text} onClick={onNext}>
+          next
+        </StyledButton>
       </MainContent>
     </ContentWrapper>
   );
