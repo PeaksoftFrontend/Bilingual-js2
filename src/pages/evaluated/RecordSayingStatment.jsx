@@ -7,7 +7,7 @@ import recording from "../../assets/images/recording.png";
 import { styled } from "@mui/material";
 import { Button } from "../../components/UI/button/Button";
 
-export const AudioRecordingInterface = () => {
+export const RecordSayingStatment = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isRecorded, setIsRecorded] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
