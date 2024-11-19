@@ -5,7 +5,6 @@ import { ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { AppRoutes } from "./routes/routes";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
