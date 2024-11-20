@@ -110,7 +110,7 @@ export const RecordSayingStatement = () => {
 
       analyserRef.current.getByteFrequencyData(dataArray);
 
-      canvasCtx.fillStyle = "#f9f9f9";
+      canvasCtx.fillStyle = "#ffffff";
       canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
       const barCount = 16;
@@ -192,6 +192,7 @@ export const RecordSayingStatement = () => {
                 ref={canvasRef}
                 width={300}
                 height={100}
+                backgroundColor={"#ffffff"}
                 style={styles.canvas}
               />
               <StyledButton variant={"contained"} onClick={stopRecording}>
@@ -219,6 +220,7 @@ export const RecordSayingStatement = () => {
                 width={300}
                 height={100}
                 style={styles.canvas}
+                backgroundColor={"#ffffff"}
               />
               <StyledButton variant={"contained"} onClick={reRecord}>
                 RE-RECORD
@@ -278,6 +280,7 @@ const styles = {
 const StyledDiv = styled("div")({
   display: "flex",
   alignItems: "center",
+  backgroundColor: "#ffffff",
   ">img": {
     width: "136px",
     height: "20px",
