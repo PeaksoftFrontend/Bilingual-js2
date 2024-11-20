@@ -44,11 +44,16 @@ import SoundBlue from "./icon/SoundBlue.svg";
 import Layer from "./icon/Layer.svg";
 import Frame from "./icon/Frame.svg";
 import Google from "./icon/Google.svg";
+import NoteBook from "./icon/Notebook.svg";
+import Time from "./icon/Time.svg";
+import PhotoId from "./icon/PhotoId.svg";
 import VolumeUp from "./icon/VolumeUp.svg";
 import Check from "./icon/check.svg";
 import HoverCheck from "./icon/hoverCheck.svg";
+import clickChecked from "./icon/clickChecked.svg";
 
 export const Icons = {
+  clickChecked,
   Google,
   Frame,
   Layer,
@@ -95,6 +100,9 @@ export const Icons = {
   SoundBlue,
   playSmall,
   PlayCircle,
+  NoteBook,
+  Time,
+  PhotoId,
   VolumeUp,
   Check,
   HoverCheck,

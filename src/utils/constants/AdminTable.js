@@ -51,6 +51,32 @@ export const USERINFO = [
     accessor: "icon",
   },
 ];
+export const RESULTDATA = [
+  {
+    Header: "#",
+    accessor: "id",
+  },
+  {
+    Header: "Date of Submition",
+    accessor: "dateOfSubmition",
+  },
+  {
+    Header: "Test Name",
+    accessor: "testName",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
+  {
+    Header: "Score",
+    accessor: "score",
+  },
+  {
+    Header: "",
+    accessor: "icon",
+  },
+];
 
 export const RESULT = [
   {
@@ -98,6 +124,40 @@ export const testData = [
     icon: false,
   },
 ];
+export const userResultData = [
+  {
+    id: 1,
+    dateOfSubmition: "08:15 20.11.2021",
+    testName: "English advanced test",
+    status: "Not evaluated",
+    score: "0",
+    icon: true,
+  },
+  {
+    id: 2,
+    dateOfSubmition: "08:15 20.11.2021",
+    testName: "English advanced test",
+    status: "Not evaluated",
+    score: "0",
+    icon: true,
+  },
+  {
+    id: 3,
+    dateOfSubmition: "08:15 20.11.2021",
+    testName: "English advanced test",
+    status: "Evaluated",
+    score: "7",
+    icon: false,
+  },
+  {
+    id: 4,
+    dateOfSubmition: "08:15 20.11.2021",
+    testName: "English advanced test",
+    status: "Evaluated",
+    score: "7",
+    icon: false,
+  },
+];
 
 export const userInfoData = [
   {
@@ -124,7 +184,7 @@ export const userInfoData = [
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
-    score: "0",
+    score: "7",
     icon: false,
   },
   {
@@ -133,7 +193,7 @@ export const userInfoData = [
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
-    score: "0",
+    score: "7",
     icon: false,
   },
 ];

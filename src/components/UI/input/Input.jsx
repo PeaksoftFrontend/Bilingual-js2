@@ -12,6 +12,8 @@ export const Input = ({
   error,
   fullWidth,
   accepr,
+  multiline,
+  rows,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,8 @@ export const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
+      multiline={multiline}
+      rows={rows}
       type={type === "password" && showPassword ? "text" : type}
       error={error}
       {...props}

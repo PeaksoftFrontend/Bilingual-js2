@@ -36,4 +36,4 @@ const adminSlice = createSlice({
 
 export const { addTest, trueValid, falseValid, deleteTest, updateTest } =
   adminSlice.actions;
-export const AdminReducer = adminSlice.reducer;
+export const adminReducer = adminSlice.reducer;
