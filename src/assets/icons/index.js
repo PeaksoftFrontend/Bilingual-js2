@@ -50,8 +50,10 @@ import PhotoId from "./icon/PhotoId.svg";
 import VolumeUp from "./icon/VolumeUp.svg";
 import Check from "./icon/check.svg";
 import HoverCheck from "./icon/hoverCheck.svg";
+import clickChecked from "./icon/clickChecked.svg";
 
 export const Icons = {
+  clickChecked,
   Google,
   Frame,
   Layer,
