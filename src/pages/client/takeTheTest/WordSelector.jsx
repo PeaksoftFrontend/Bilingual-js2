@@ -39,11 +39,6 @@ export const WordSelector = ({ onNext }) => {
     setIsOverDropArea(false);
   };
 
-  // const handleNextClick = () => {
-  //   console.log("All selected words:", selectedWords);
-
-  // };
-
   return (
     <ContentWrapper>
       <Duration time={5} onComplete={onNext} />

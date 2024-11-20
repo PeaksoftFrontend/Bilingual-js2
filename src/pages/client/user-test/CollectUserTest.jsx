@@ -5,6 +5,8 @@ import { UserSelectRealWords } from "../takeTheTest/UserSelectRealWords";
 import { DescribeImage } from "../takeTheTest/DescribeImage";
 import { Words } from "../takeTheTest/Words";
 import { Highlight } from "../takeTheTest/Highlight";
+import { CompletePractice } from "../takeTheTest/CompletePractice";
+import { RecordSayingStatement } from "../takeTheTest/RecordSayingStatement";
 
 export const CollectUserTest = () => {
   const { state } = useLocation();
@@ -28,7 +30,7 @@ export const CollectUserTest = () => {
 
   useEffect(() => {
     if (!id) {
-      setSelectedComponent(<p>Test completed!</p>);
+      setSelectedComponent(<CompletePractice />);
       return;
     }
 
@@ -46,7 +48,7 @@ export const CollectUserTest = () => {
         setSelectedComponent(<DescribeImage onNext={handleNext} />);
         break;
       case "s5":
-        setSelectedComponent(<WordSelector onNext={handleNext} />);
+        setSelectedComponent(<RecordSayingStatement onNext={handleNext} />);
         break;
       case "s6":
         setSelectedComponent(<Words onNext={handleNext} />);
@@ -64,10 +66,6 @@ export const CollectUserTest = () => {
         setSelectedComponent(<p>No component available for this test ID.</p>);
     }
   }, [id]);
-
-  if (!id) {
-    return <p>Test not found or ID is missing.</p>;
-  }
 
   return <div>{selectedComponent}</div>;
 };
