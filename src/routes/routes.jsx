@@ -18,6 +18,7 @@ import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
 import { Highlight } from "../pages/client/user-test/Highlight";
 import { CompletePractice } from "../pages/client/test/CompletePractice";
+import { TypeHearTest } from "../pages/client/test/TypeHearTest";
 // import { Words } from "../pages/client/user-test/Words";
 
 export const AppRoutes = () => {
@@ -101,6 +102,10 @@ export const AppRoutes = () => {
         {
           path: "complete",
           element: <CompletePractice />,
+        },
+        {
+          path: "TypeYouHear",
+          element: <TypeHearTest />,
         },
         {
           path: "highlight",
