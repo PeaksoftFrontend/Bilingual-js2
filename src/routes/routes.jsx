@@ -7,18 +7,16 @@ import { LayoutPage } from "../layout/LayoutPage";
 import { PrivateRouter } from "./PrivateRouter";
 import { AdminPage } from "../layout/AdminPage";
 import { UserLayout } from "../layout/UserLayout";
-import { ResultPage } from "../pages/client/ResultPage";
-import { UserTestPage } from "../pages/client/UserTestPage";
 import { CreateTest } from "../pages/admin/createTest/CreateTest";
 import { SubmittedResults } from "../pages/admin/submitted Results/SubmittedResults";
 import { NotFoundPage } from "../pages/404/NotFoundPage";
-import { StartTest } from "../pages/client/StartTest";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
-import { Highlight } from "../pages/client/user-test/Highlight";
-import { CompletePractice } from "../pages/client/test/CompletePractice";
-// import { Words } from "../pages/client/user-test/Words";
+import { ResultPage } from "../pages/client/user-test/ResultPage";
+import { UserTestPage } from "../pages/client/user-test/UserTestPage";
+import { StartTest } from "../pages/client/user-test/StartTest";
+import { CollectUserTest } from "../pages/client/user-test/CollectUserTest";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -94,17 +92,9 @@ export const AppRoutes = () => {
           path: "test/start-test",
           element: <StartTest />,
         },
-        // {
-        //   path: "words",
-        //   element: <Words />,
-        // },
         {
-          path: "complete",
-          element: <CompletePractice />,
-        },
-        {
-          path: "highlight",
-          element: <Highlight />,
+          path: "test/start-test/user-test/:userTestId",
+          element: <CollectUserTest />,
         },
       ],
     },

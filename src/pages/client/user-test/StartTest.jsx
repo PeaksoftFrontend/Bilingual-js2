@@ -1,13 +1,19 @@
-import { Button } from "../../components/UI/button/Button";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
-import SearchInfo from "../../assets/images/searchInfo.png";
-import { Icons } from "../../assets/icons";
+import { Button } from "../../../components/UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import SearchInfo from "../../../assets/images/searchInfo.png";
+import { Icons } from "../../../assets/icons";
 import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const handlerNavigate = (selectedId) => {
+    navigate(`/main/test/start-test/user-test/${selectedId}`, {
+      state: { id: selectedId },
+    });
+  };
 
   return (
     <ContentWrapper>
@@ -39,7 +45,7 @@ export const StartTest = () => {
         <Button variant="outlined" onClick={() => navigate("/main/test")}>
           CANCEL
         </Button>
-        <Button>PRACTICE TEST</Button>
+        <Button onClick={() => handlerNavigate(state.id)}>PRACTICE TEST</Button>
       </BtnBlock>
     </ContentWrapper>
   );

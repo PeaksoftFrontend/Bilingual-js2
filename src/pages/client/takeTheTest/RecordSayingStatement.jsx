@@ -1,13 +1,13 @@
 import { useState, useRef } from "react";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import * as wavEncoder from "wav-encoder";
-import { Duration } from "../../components/UI/duration/Duration";
-import speakIcon from "../../assets/images/img-speak 1.png";
-import recording from "../../assets/images/recording.png";
+import { Duration } from "../../../components/UI/duration/Duration";
+import speakIcon from "../../../assets/images/img-speak 1.png";
+import recording from "../../../assets/images/recording.png";
 import { styled } from "@mui/material";
-import { Button } from "../../components/UI/button/Button";
+import { Button } from "../../../components/UI/button/Button";
 
-export const RecordSayingStatement = () => {
+export const RecordSayingStatement = ({ onNext }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isRecorded, setIsRecorded] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -79,11 +79,11 @@ export const RecordSayingStatement = () => {
     mediaRecorderRef.current.stop();
   };
 
-  const reRecord = () => {
-    setAudioUrl(null);
-    setIsRecorded(false);
-    startRecording();
-  };
+  // const reRecord = () => {
+  //   setAudioUrl(null);
+  //   setIsRecorded(false);
+  //   startRecording();
+  // };
 
   const convertToWav = async (audioBlob) => {
     const arrayBuffer = await audioBlob.arrayBuffer();
@@ -222,8 +222,8 @@ export const RecordSayingStatement = () => {
                 style={styles.canvas}
                 backgroundColor={"#ffffff"}
               />
-              <StyledButton variant={"contained"} onClick={reRecord}>
-                RE-RECORD
+              <StyledButton variant={"contained"} onClick={onNext}>
+                next
               </StyledButton>
             </StyledDiv2>
           </div>

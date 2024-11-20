@@ -5,7 +5,7 @@ import { Duration } from "../../../components/UI/duration/Duration";
 import { Input } from "../../../components/UI/input/Input";
 import { useEffect, useState } from "react";
 
-export const Words = () => {
+export const Words = ({ onNext }) => {
   const wordN = { n: 5 };
   const [response, setResponse] = useState("");
   const [wordCount, setWordCount] = useState(0);
@@ -21,7 +21,7 @@ export const Words = () => {
   return (
     <ContentWrapper>
       <StyledDiv>
-        <Duration time={120} />
+        <Duration time={5} onComplete={onNext} />
         <Text>Respond to the question in at least {wordN.n} words</Text>
         <InputBlock>
           <StyledTextQuestion>
@@ -39,7 +39,9 @@ export const Words = () => {
           </ContainerInput>
         </InputBlock>
         <ButtonBlock>
-          <Button disabled={wordCount < wordN.n}>NEXT</Button>
+          <Button disabled={wordCount < wordN.n} onClick={onNext}>
+            NEXT
+          </Button>
         </ButtonBlock>
       </StyledDiv>
     </ContentWrapper>

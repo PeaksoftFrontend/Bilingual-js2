@@ -119,13 +119,13 @@ const IconContainer = styled("div")(() => ({
 }));
 
 const StyledTitle = styled("p")(() => ({
-  fontWeight: "600",
+  fontWeight: "500",
   color: "#4C4859",
   fontSize: "22px",
 }));
 
 const StyledDescription = styled("p")(() => ({
-  fontWeight: "600",
+  fontWeight: "400",
   color: "#4C4859",
 }));
 

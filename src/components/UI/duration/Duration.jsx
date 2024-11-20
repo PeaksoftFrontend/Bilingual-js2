@@ -1,19 +1,21 @@
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 
-export const Duration = ({ minutes = 0, time = 0 }) => {
+export const Duration = ({ minutes = 0, time = 0, onComplete }) => {
   const initialTime = minutes * 60 + time;
   const [remainingTime, setRemainingTime] = useState(initialTime);
 
   useEffect(() => {
     if (remainingTime > 0) {
       const timerId = setInterval(() => {
-        setRemainingTime((prevTime) => prevTime - 1);
+        setRemainingTime((prevTime) => Math.max(prevTime - 1, 0));
       }, 1000);
 
       return () => clearInterval(timerId);
+    } else if (remainingTime === 0 && onComplete) {
+      onComplete();
     }
-  }, [remainingTime]);
+  }, [remainingTime, onComplete]);
 
   const progress = (remainingTime / initialTime) * 100;
   const displayMinutes = Math.floor(remainingTime / 60);

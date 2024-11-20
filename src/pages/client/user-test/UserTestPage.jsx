@@ -1,9 +1,9 @@
 import { styled } from "@mui/material";
-import { Button } from "../../components/UI/button/Button";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
-import { userTest } from "../../utils/constants/userTest";
+import { Button } from "../../../components/UI/button/Button";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { userTest } from "../../../utils/constants/userTest";
 import { useNavigate } from "react-router-dom";
-import { TestNotFound } from "../404/TestNotFound";
+import { TestNotFound } from "../../404/TestNotFound";
 
 export const UserTestPage = () => {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ export const UserTestPage = () => {
 
 const StyledContainer = styled("div")(() => ({
   display: "flex",
-  gap: "257px",
   alignItems: "end",
   justifyContent: "space-between",
 }));
