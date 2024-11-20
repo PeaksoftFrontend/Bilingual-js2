@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
-import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import * as wavEncoder from "wav-encoder";
-import { Duration } from "../../../components/UI/duration/Duration";
 import speakIcon from "../../../assets/images/img-speak 1.png";
 import recording from "../../../assets/images/recording.png";
 import { styled } from "@mui/material";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { Duration } from "../../../components/UI/duration/Duration";
 import { Button } from "../../../components/UI/button/Button";
 
 export const RecordSayingStatement = ({ onNext }) => {
@@ -79,12 +79,6 @@ export const RecordSayingStatement = ({ onNext }) => {
     mediaRecorderRef.current.stop();
   };
 
-  // const reRecord = () => {
-  //   setAudioUrl(null);
-  //   setIsRecorded(false);
-  //   startRecording();
-  // };
-
   const convertToWav = async (audioBlob) => {
     const arrayBuffer = await audioBlob.arrayBuffer();
     const audioContext = new AudioContext();
@@ -155,14 +149,17 @@ export const RecordSayingStatement = ({ onNext }) => {
 
   return (
     <ContentWrapper>
-      <Duration time={120} />
+      <Duration time={120} onComplete={onNext} />
       <div style={styles.container}>
         <StyledSpeak>
           <h1 style={styles.h1}>Record yourself saying the statement below:</h1>
           <div
             style={{
               ...styles.speakContainer,
-              transform: isSpeakClicked ? "scale(1.2)" : "scale(1)",
+              transform: isSpeakClicked ? "scale(1)" : "scale(1)",
+              marginTop: "2rem",
+              fontWeight: "800",
+              color: "#4C4859",
             }}
             onClick={handleSpeakClick}
           >
@@ -170,63 +167,53 @@ export const RecordSayingStatement = ({ onNext }) => {
             <StyledP>"My uncle is at work”.</StyledP>
           </div>
         </StyledSpeak>
+        <hr style={styles.separator} />
 
-        {!isRecording && !isRecorded && (
-          <div style={styles.state}>
-            <hr style={styles.separator} />
-            <div style={styles.footer}>
-              <StyledButton2 variant={"contained"} onClick={startRecording}>
-                RECORD NOW
-              </StyledButton2>
-            </div>
-          </div>
-        )}
+        <div style={styles.footer}>
+          {!isRecording && !isRecorded && (
+            <Button variant={"contained"} onClick={startRecording}>
+              RECORD NOW
+            </Button>
+          )}
+        </div>
 
         {isRecording && (
-          <div>
-            <hr style={styles.separator} />
-
-            <StyledDiv>
-              <img src={recording} alt="" />
-              <canvas
-                ref={canvasRef}
-                width={300}
-                height={100}
-                backgroundColor={"#ffffff"}
-                style={styles.canvas}
-              />
-              <StyledButton variant={"contained"} onClick={stopRecording}>
-                STOP RECORDING
-              </StyledButton>
-            </StyledDiv>
-          </div>
+          <StyledDiv>
+            <img src={recording} alt="" />
+            <canvas
+              ref={canvasRef}
+              width={125}
+              height={46}
+              backgroundColor={"#ffffff"}
+              style={styles.canvas}
+            />
+            <StyledButton variant={"contained"} onClick={stopRecording}>
+              STOP RECORDING
+            </StyledButton>
+          </StyledDiv>
         )}
 
         {isRecorded && audioUrl && (
-          <div>
-            <hr style={styles.separator} />
-
-            <StyledDiv2>
-              <StyledAudio
-                ref={audioRef}
-                controls
-                src={audioUrl}
-                onPlay={startVisualizationForPlayback}
-                onPause={() => cancelAnimationFrame(animationIdRef.current)}
-                onEnded={() => cancelAnimationFrame(animationIdRef.current)}
-              />
-              <canvas
-                ref={canvasRef}
-                width={300}
-                height={100}
-                style={styles.canvas}
-                backgroundColor={"#ffffff"}
-              />
-              <StyledButton variant={"contained"} onClick={onNext}>
-                next
-              </StyledButton>
-            </StyledDiv2>
-          </div>
+          <StyledDiv2>
+            <audio
+              ref={audioRef}
+              controls
+              src={audioUrl}
+              onPlay={startVisualizationForPlayback}
+              onPause={() => cancelAnimationFrame(animationIdRef.current)}
+              onEnded={() => cancelAnimationFrame(animationIdRef.current)}
+            />
+            <canvas
+              ref={canvasRef}
+              width={125}
+              height={46}
+              style={styles.canvas}
+              backgroundColor={"#ffffff"}
+            />
+            <Button variant={"contained"} onClick={onNext}>
+              next
+            </Button>
+          </StyledDiv2>
         )}
       </div>
     </ContentWrapper>
@@ -235,28 +222,21 @@ export const RecordSayingStatement = ({ onNext }) => {
 
 const styles = {
   container: {
-    fontFamily: "Arial, sans-serif",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
-    margin: 0,
     backgroundColor: "#ffffff",
   },
   h1: {
     color: "#4C4859",
+    marginTop: "50px",
   },
-  state: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  },
+
   footer: {
     marginTop: "20px",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "end",
     width: "100%",
   },
   separator: {
@@ -268,50 +248,38 @@ const styles = {
   speakContainer: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     cursor: "pointer",
     marginBottom: "6rem",
-    marginLeft: "6rem",
   },
   canvas: {
-    marginTop: "20px",
     backgroundColor: "#ffffff",
   },
 };
 const StyledDiv = styled("div")({
   display: "flex",
   alignItems: "center",
-  backgroundColor: "#ffffff",
+  gap: "197px",
   ">img": {
     width: "136px",
     height: "20px",
-    marginTop: "7%",
-    marginRight: "20%",
   },
 });
 const StyledDiv2 = styled("div")({
   display: "flex",
+  alignItems: "center",
+  gap: "133px",
 });
 const StyledButton = styled(Button)({
-  marginTop: "6%",
-  width: "20rem",
-  height: "3rem",
-  fontFamily: "inherit",
+  width: "11rem",
 });
-const StyledButton2 = styled(Button)({
-  marginTop: "6%",
-  marginLeft: "50%",
-  width: "12rem",
-  height: "3rem",
-  fontFamily: "inherit",
-});
+
 const StyledSpeak = styled("div")({
   display: "flex",
   flexDirection: "column",
+  gap: "20px",
 });
 const StyledP = styled("p")({
   marginLeft: "3%",
   fontFamily: "inherit",
-});
-const StyledAudio = styled("audio")({
-  marginTop: "3rem",
 });
