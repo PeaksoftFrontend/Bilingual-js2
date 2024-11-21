@@ -11,8 +11,20 @@ export const Experiense = () => {
     <StyledFon>
       <StyledAllWrapper>
         <StyledWrapper>
-          <StyledName>Unparalleled user experience</StyledName>
-          <StyledPharagraph>
+          <StyledName
+            variants={FADE_IN_UP}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true }}
+          >
+            Unparalleled user experience
+          </StyledName>
+          <StyledPharagraph
+            variants={FADE_IN}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true }}
+          >
             The most effective way to perfect a language is by immersing
             yourself in it. Rosetta Stone for Enterprise delivers an effective
             end-to-end experience, founded on a wealth of carefully structured
@@ -21,9 +33,14 @@ export const Experiense = () => {
             schedule and language learning goals.
           </StyledPharagraph>
         </StyledWrapper>
-        <StyledContainer>
+        <StyledContainer
+          variants={STAGGER_CONTAINER}
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true }}
+        >
           {data.map((item) => (
-            <StyleDiv key={item.id}>
+            <StyleDiv key={item.id} variants={FADE_IN}>
               <StyleImg src={item.img} alt="" />
               <p>{item.des}</p>
             </StyleDiv>
@@ -69,20 +86,22 @@ export const Experiense = () => {
   );
 };
 
-const StyledPharagraph = styled("p")`
+const StyledPharagraph = styled(motion.p)`
   font-size: 1rem;
   font-weight: 400;
   line-height: 2rem;
   width: 40rem;
   height: 7.5rem;
 `;
-const StyledName = styled("h2")`
+
+const StyledName = styled(motion.h2)`
   width: 20.5rem;
   height: 6rem;
   color: #3752b4;
   font-size: 2.5rem;
   font-family: Gilroy;
 `;
+
 const StyledFon = styled("div")`
   width: 100%;
   height: 80vh;
@@ -92,11 +111,13 @@ const StyledFon = styled("div")`
   justify-content: center;
   align-items: center;
 `;
+
 const StyleImg = styled("img")`
   width: 2.7575rem;
   object-fit: cover;
 `;
-const StyleDiv = styled("div")`
+
+const StyleDiv = styled(motion.div)`
   width: 14.3825rem;
   height: 3.125rem;
   gap: 1.625rem;
@@ -107,17 +128,20 @@ const StyleDiv = styled("div")`
     height: 2.75rem;
   }
 `;
-const StyledContainer = styled("div")`
+
+const StyledContainer = styled(motion.div)`
   width: 31.25rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.875rem;
 `;
+
 const StyledWrapper = styled("div")`
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
 `;
+
 const StyledAllWrapper = styled("div")`
   display: flex;
   flex-direction: column;
@@ -171,37 +195,48 @@ const StyledReadingImage = styled(motion.img)(() => ({
   top: "7rem",
 }));
 
-const ANIMATE = {
-  offscreen: {
-    opacity: 0,
-  },
-
+// Анимации
+const FADE_IN = {
+  offscreen: { opacity: 0, y: 50 },
   onscreen: {
     opacity: 1,
+    y: 0,
+    transition: { duration: 0.8 },
+  },
+};
+
+const FADE_IN_UP = {
+  offscreen: { opacity: 0, y: 100 },
+  onscreen: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1 },
+  },
+};
+
+const STAGGER_CONTAINER = {
+  onscreen: {
     transition: {
-      duration: 1,
-      damping: 3,
+      staggerChildren: 0.3,
     },
   },
+};
 
+const ANIMATE = {
+  offscreen: { opacity: 0 },
+  onscreen: {
+    opacity: 1,
+    transition: { duration: 1, damping: 3 },
+  },
   animate: {
     rotate: [-2, 3, -7, 4, 4],
-
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "reverse",
-    },
+    transition: { duration: 2, repeat: Infinity, repeatType: "reverse" },
   },
 };
 
 const PULSE_ANIMATION = {
   animate: {
     scale: [0.9, 0.95, 0.9],
-
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-    },
+    transition: { duration: 2, repeat: Infinity },
   },
 };
