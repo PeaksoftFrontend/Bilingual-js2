@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
+import { motion } from "framer-motion";
 import BgImage from "../../assets/images/bgImage.png";
-import { Icons } from "../../assets/icons/index";
 import BooksFat from "../../assets/images/booksAndFat.png";
 import { LandingButton } from "../UI/button/LandingButton";
 import { Button } from "../UI/button/Button";
@@ -14,6 +14,7 @@ import {
   openSignUpModal,
 } from "../../store/slices/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "../../assets/icons";
 
 export const Header = () => {
   const { openSignIn, openSignUp, isAuth, role } = useSelector(
@@ -59,15 +60,39 @@ export const Header = () => {
       </Container>
       <MainBlock>
         <TextContainer>
-          <article>
-            <h1>Prove your English proficiency today with</h1>
-            <h2>BILINGUAL</h2>
-          </article>
-          <section>
-            <p>
+          <motion.article
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <motion.h1
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2 }}
+            >
+              Prove your English proficiency today with
+            </motion.h1>
+            <motion.h2
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0.3 }}
+            >
+              BILINGUAL
+            </motion.h2>
+          </motion.article>
+          <motion.section
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
               For nearly 30 years, learners have turned to Rosetta Stone to
               build the fluency and confidence they need to speak new languages.
-            </p>
+            </motion.p>
             <StyledLandingButton
               variant="team"
               onClick={
@@ -78,9 +103,15 @@ export const Header = () => {
             >
               to begin
             </StyledLandingButton>
-          </section>
+          </motion.section>
         </TextContainer>
-        <img src={BooksFat} alt="Books" />
+        <motion.img
+          src={BooksFat}
+          alt="Books"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5 }}
+        />
       </MainBlock>
       {isAuth ||
         (openSignIn && <SignIn open={openSignIn} onClose={handleCloseModal} />)}
@@ -139,13 +170,20 @@ const SecondBtn = styled(Button)({
   },
 });
 
+const MainBlock = styled("div")({
+  display: "flex",
+  gap: "18px",
+});
+
+const StyledLandingButton = styled(LandingButton)({
+  fontSize: "14px",
+});
 const TextContainer = styled("div")({
   width: "635px",
   height: "219px",
   display: "flex",
   flexDirection: "column",
   gap: "26px",
-
   "& h1, h2": {
     fontSize: "60px",
     fontFamily: "Gilroy",
@@ -168,13 +206,4 @@ const TextContainer = styled("div")({
       fontFamily: "Poppins",
     },
   },
-});
-
-const MainBlock = styled("div")({
-  display: "flex",
-  gap: "18px",
-});
-
-const StyledLandingButton = styled(LandingButton)({
-  fontSize: "14px",
 });

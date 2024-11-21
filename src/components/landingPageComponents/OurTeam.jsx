@@ -1,17 +1,32 @@
 import { styled } from "@mui/material";
 import { userData } from "../../utils/constants/general";
-
+import { motion } from "framer-motion";
 export const OurTeam = () => {
   return (
     <StyledAllContainer>
-      <StyledName>Our team</StyledName>
+      <StyledName
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        Our team
+      </StyledName>
       <StyledContainer>
         {userData.map((item) => (
           <StyledWrapper key={item.id}>
-            <StyledImage src={item.img} alt="" />
-            <StyledWrapperDescription>
-              <h5>{item.name}</h5>
-              <p>{item.description}</p>
+            <StyledImage
+              src={item.img}
+              alt=""
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            />
+            <StyledWrapperDescription
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.4 }}
+            >
+              <h5>{item.name}</h5> <p>{item.description}</p>{" "}
             </StyledWrapperDescription>
           </StyledWrapper>
         ))}
@@ -19,11 +34,11 @@ export const OurTeam = () => {
     </StyledAllContainer>
   );
 };
-const StyledImage = styled("img")`
+const StyledImage = styled(motion.img)`
   width: 10.25rem;
   height: 10.25rem;
 `;
-const StyledName = styled("h1")`
+const StyledName = styled(motion.h1)`
   width: 11.25rem;
   font-family: Gilroy;
   height: 3.25rem;
@@ -52,7 +67,7 @@ const StyledWrapper = styled("div")`
   align-items: center;
   gap: 0.9375rem;
 `;
-const StyledWrapperDescription = styled("div")`
+const StyledWrapperDescription = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: center;
