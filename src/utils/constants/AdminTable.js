@@ -171,7 +171,7 @@ export const userInfoData = [
   },
   {
     id: 2,
-    userName: "Kubanov Farid",
+    userName: "Azatov Ulan",
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Not evaluated",
@@ -180,7 +180,7 @@ export const userInfoData = [
   },
   {
     id: 3,
-    userName: "Kubanov Farid",
+    userName: "Maratova Aijan",
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",
@@ -189,7 +189,7 @@ export const userInfoData = [
   },
   {
     id: 4,
-    userName: "Kubanov Farid",
+    userName: "Bekova Aliza",
     dateOfSubmition: "08:15 20.11.2021",
     testName: "Test number 1",
     status: "Evaluated",

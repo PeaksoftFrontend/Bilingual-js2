@@ -22,7 +22,7 @@ const StatusCell = styled("span")(({ status }) => ({
   fontWeight: "bold",
 }));
 
-export const AdminTable = ({ columns, data: initialData }) => {
+export const AdminTable = ({ columns, data: initialData, onNavigate }) => {
   const [data, setData] = useState(initialData);
 
   const getTableType = () => {
@@ -123,6 +123,7 @@ export const AdminTable = ({ columns, data: initialData }) => {
               <StyledRow {...row.getRowProps()} key={rowIndex}>
                 {row.cells.map((cell, cellIndex) => (
                   <StyledCell
+                    onClick={() => onNavigate(row.original)}
                     {...cell.getCellProps()}
                     key={cellIndex}
                     data-column={cell.column.id}
@@ -166,6 +167,7 @@ const StyledRow = styled(TableRow)({
 
 const StyledCell = styled(TableCell)({
   borderBottom: "none",
+  cursor: "pointer",
   "&:first-of-type": {
     borderTopLeftRadius: "8px",
     borderBottomLeftRadius: "8px",
