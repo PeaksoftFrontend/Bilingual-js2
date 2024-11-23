@@ -1,4 +1,5 @@
 import Sheet from "../../assets/images/sheet.png";
+import audio from "../../assets/audio/music.mp3";
 
 export const userTest = [
   {
@@ -63,5 +64,11 @@ export const userTest = [
     duration: 11,
     title: "Select best title",
     description: "Train as much as you like.",
+  },
+];
+export const dataTests = [
+  {
+    audioData: audio,
+    numOfWords: 4,
   },
 ];
