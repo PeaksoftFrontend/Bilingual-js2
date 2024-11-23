@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { words } from "../../utils/constants/words";
-import { Duration } from "../../components/UI/duration/Duration";
-import { ContentWrapper } from "../../components/UI/content_wrapper/ContentWrapper";
+import { words } from "../../../utils/constants/words";
+import { Duration } from "../../../components/UI/duration/Duration";
+import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 
-export const WordSelector = () => {
+export const WordSelector = ({ onNext }) => {
   const [selectedWords, setSelectedWords] = useState([]);
   const [draggedWord, setDraggedWord] = useState(null);
   const [isOverDropArea, setIsOverDropArea] = useState(false);
@@ -39,13 +39,9 @@ export const WordSelector = () => {
     setIsOverDropArea(false);
   };
 
-  const handleNextClick = () => {
-    console.log("All selected words:", selectedWords);
-  };
-
   return (
     <ContentWrapper>
-      <Duration time={120} />
+      <Duration time={5} onComplete={onNext} />
 
       <Typography
         variant="h6"
@@ -94,7 +90,7 @@ export const WordSelector = () => {
         <StyledDiv></StyledDiv>
         <StyledBtn
           variant={selectedWords.length > 0 ? "contained" : "disabled"}
-          onClick={handleNextClick}
+          onClick={onNext}
           disabled={selectedWords.length === 0}
         >
           Next

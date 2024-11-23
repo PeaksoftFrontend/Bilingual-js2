@@ -6,12 +6,11 @@ import { UserTestWords } from "../../../utils/constants/selectWords";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
 
-export const UserSelectRealWords = () => {
+export const UserSelectRealWords = ({ onNext }) => {
   const [words, setWords] = useState(UserTestWords);
   const [isAnySelected, setIsAnySelected] = useState(false);
 
   useEffect(() => {
-    // Проверяем, выбран ли хотя бы один элемент
     setIsAnySelected(words.some((word) => word.isChecked));
   }, [words]);
 
@@ -25,7 +24,7 @@ export const UserSelectRealWords = () => {
   return (
     <ContentWrapper>
       <MainContent>
-        <Duration time={100} />
+        <Duration time={5} onComplete={onNext} />
 
         <WrapperWords>
           <h1>Select the real English words in this list</h1>
@@ -49,7 +48,9 @@ export const UserSelectRealWords = () => {
             ))}
           </ContainerWords>
         </WrapperWords>
-        <StyledButton disabled={!isAnySelected}>next</StyledButton>
+        <StyledButton disabled={!isAnySelected} onClick={onNext}>
+          next
+        </StyledButton>
       </MainContent>
     </ContentWrapper>
   );
