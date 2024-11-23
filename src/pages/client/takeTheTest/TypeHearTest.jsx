@@ -69,13 +69,16 @@ export const TypeHearTest = () => {
           <StyledTitle>Type the statement you hear</StyledTitle>
           {audioDataList.map((item, index) => (
             <StyledMain key={index}>
-              <div onClick={() => handlePlayAudio(index)}>
+              <StyledIconWrapper
+                className={item.isPlaying ? "playing" : ""}
+                onClick={() => handlePlayAudio(index)}
+              >
                 {item.isPlaying ? (
                   <Icons.SoundOfHover />
                 ) : (
                   <Icons.SoundOnHover />
                 )}
-              </div>
+              </StyledIconWrapper>
               <audio
                 ref={(el) => (audioRefs.current[index] = el)}
                 src={item.audioData}
@@ -173,5 +176,26 @@ const StyledTextArea = styled(TextareaAutosize)({
   "&:focus": {
     border: "1.53px solid #3a10e5",
     outline: "none",
+  },
+});
+
+const StyledIconWrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+  "&.playing": {
+    animation: "pulse 1s infinite",
+  },
+  "@keyframes pulse": {
+    "0%": {
+      transform: "scale(1)",
+    },
+    "50%": {
+      transform: "scale(1.2)",
+    },
+    "100%": {
+      transform: "scale(1)",
+    },
   },
 });

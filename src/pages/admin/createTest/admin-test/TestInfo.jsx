@@ -39,9 +39,7 @@ export const TestInfo = ({ duration = "15" }) => {
         </Button>
       </ButtonContainer>
 
-      <StyledAdminTable>
-        <AdminTable columns={TEST} data={testData} />
-      </StyledAdminTable>
+      <AdminTable columns={TEST} data={testData} />
     </ContentWrapper>
   );
 };
@@ -71,8 +69,4 @@ const ButtonContainer = styled("div")(() => ({
   "& button": {
     width: "213px",
   },
-}));
-
-const StyledAdminTable = styled("div")(() => ({
-  // padding: "10px",
 }));
