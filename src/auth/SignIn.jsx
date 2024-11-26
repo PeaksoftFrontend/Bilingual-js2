@@ -5,11 +5,17 @@ import { Icons } from "../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openSignUpModal } from "../store/slices/auth/authSlice";
+import { signInRequest } from "../store/thunks/authThunk";
 import { useNavigate } from "react-router-dom";
-import { openSignUpModal, setRole } from "../store/slices/auth/authSlice";
+import { useEffect } from "react";
+import { Loading } from "../components/UI/loading/Loading";
 
 export const SignIn = ({ open, onClose }) => {
+  const { isAuth, role, isError, isLoading } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,14 +33,7 @@ export const SignIn = ({ open, onClose }) => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
-      const { email } = values;
-      if (email === "admin@gmail.com") {
-        dispatch(setRole("ADMIN"));
-        navigate("/admin");
-      } else {
-        dispatch(setRole("USER"));
-        navigate("/user");
-      }
+      dispatch(signInRequest(values));
     },
   });
 
@@ -42,8 +41,19 @@ export const SignIn = ({ open, onClose }) => {
     dispatch(openSignUpModal());
   };
 
+  useEffect(() => {
+    if (isAuth) {
+      if (role === "USER") {
+        navigate("/main");
+      } else if (role === "ADMIN") {
+        navigate("/admin");
+      }
+    }
+  }, [isAuth, role, navigate]);
+
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
+      {isLoading && <Loading />}
       <Background>
         <SignUpForm onSubmit={formik.handleSubmit}>
           <Container>
@@ -75,6 +85,7 @@ export const SignIn = ({ open, onClose }) => {
             <StyledButton variant="contained" type="submit">
               Sign In
             </StyledButton>
+            {isError && <ErrorText>{isError}</ErrorText>}
             <StyledBtn variant="text">
               <Icons.Google />
               <p>Sign up with google</p>
@@ -234,3 +245,32 @@ export const StyledLink = styled("span")(({ theme }) => ({
   fontWeight: "bold",
   marginLeft: "5px",
 }));
+
+const ErrorText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.error.main,
+  marginTop: theme.spacing(2),
+  textAlign: "center",
+}));
+
+// const LoaderOverlay = styled("div")(() => ({
+//   position: "absolute",
+//   top: 0,
+//   left: 0,
+//   width: "100%",
+//   height: "100%",
+//   backgroundColor: "rgba(0, 0, 0, 0.6)",
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   zIndex: 1000,
+//   backdropFilter: "blur(5px)",
+//   animation: "fadeIn 0.5s ease-in-out",
+//   "@keyframes fadeIn": {
+//     from: {
+//       opacity: 0,
+//     },
+//     to: {
+//       opacity: 1,
+//     },
+//   },
+// }));

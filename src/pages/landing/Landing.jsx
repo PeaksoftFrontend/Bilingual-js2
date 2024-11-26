@@ -8,11 +8,13 @@ import { InfoSlider } from "../../components/landingPageComponents/InfoSlider";
 import { LearningRoadmap } from "../../components/landingPageComponents/LearningRoadmap";
 import { OurTeam } from "../../components/landingPageComponents/OurTeam";
 import { VideoGallery } from "../../components/landingPageComponents/VideoGallery";
+import { Snackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const Landing = () => {
   return (
     <>
       <Header />
+      <Snackbar />
       <InfoCards />
       <Experiense />
       <OurTeam />

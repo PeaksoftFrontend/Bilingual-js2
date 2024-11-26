@@ -6,13 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { openSignInModal, setRole } from "../store/slices/auth/authSlice";
+import { openSignInModal } from "../store/slices/auth/authSlice";
 import { SignUpForm, StyledBtn, StyledLink, StyledText, Title } from "./SignIn";
+import { signUpRequest } from "../store/thunks/authThunk";
 
 export const SignUp = ({ open, onClose }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -36,14 +35,7 @@ export const SignUp = ({ open, onClose }) => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
-      const { email } = values;
-      if (email === "admin@gmail.com") {
-        dispatch(setRole("ADMIN"));
-        navigate("/admin");
-      } else {
-        dispatch(setRole("USER"));
-        navigate("/user");
-      }
+      dispatch(signUpRequest(values));
     },
   });
 
