@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STORAGE_KEY } from "../../../utils/constants/auth";
-import { signInRequest, signUpRequest } from "../../thunks/authThunk";
+import {
+  authWithGoogle,
+  signInRequest,
+  signUpRequest,
+} from "../../thunks/authThunk";
 
 const getInitialState = () => {
   const json = localStorage.getItem(STORAGE_KEY.BILINGUAL_STORAGE_KEY);
@@ -15,6 +19,7 @@ const getInitialState = () => {
       id: userData.id,
       openSignIn: false,
       openSignUp: false,
+      email: null,
     };
   }
 
@@ -26,6 +31,7 @@ const getInitialState = () => {
     isError: null,
     openSignIn: false,
     openSignUp: false,
+    email: null,
   };
 };
 
@@ -101,6 +107,21 @@ const authSlice = createSlice({
       .addCase(signUpRequest.rejected, (state, action) => {
         state.isAuth = false;
         state.isError = action.payload;
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(authWithGoogle.fulfilled, (state, payload) => {
+        state.role = payload?.role;
+        state.email = payload?.email;
+        state.token = payload?.token;
+        state.isAuth = true;
+        state.isLoading = false;
+      })
+      .addCase(authWithGoogle.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(authWithGoogle.rejected, (state) => {
         state.isLoading = false;
       });
   },

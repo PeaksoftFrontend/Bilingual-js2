@@ -7,10 +7,13 @@ import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch, useSelector } from "react-redux";
 import { openSignUpModal } from "../store/slices/auth/authSlice";
-import { signInRequest } from "../store/thunks/authThunk";
+import { authWithGoogle, signInRequest } from "../store/thunks/authThunk";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Loading } from "../components/UI/loading/Loading";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../config/fireBaseAuth";
+import { ShowSnackbar } from "../components/UI/snackbar/SnackBar";
 
 export const SignIn = ({ open, onClose }) => {
   const { isAuth, role, isError, isLoading } = useSelector(
@@ -51,6 +54,38 @@ export const SignIn = ({ open, onClose }) => {
     }
   }, [isAuth, role, navigate]);
 
+  // const handleClickWithGoogle = async () => {
+  //   await signInWithPopup(auth, provider)
+  //     .then((data) => {
+  //       dispatch(
+  //         authWithGoogle({
+  //           tokenId: data?.user?.accessToken,
+  //           navigate,
+  //           isSignUp: true,
+  //         })
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       return error;
+  //     });
+  // };
+  const handleClickWithGoogle = async () => {
+    try {
+      return await signInWithPopup(auth, provider).then((data) => {
+        dispatch(authWithGoogle({ payload: data.user.accessToken, navigate }))
+          .unwrap()
+          .then(() => {
+            ShowSnackbar("Registration successful!", "success");
+          })
+          .catch((error) => {
+            ShowSnackbar(error, "success");
+          });
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
       {isLoading && <Loading />}
@@ -86,7 +121,7 @@ export const SignIn = ({ open, onClose }) => {
               Sign In
             </StyledButton>
             {isError && <ErrorText>{isError}</ErrorText>}
-            <StyledBtn variant="text">
+            <StyledBtn variant="text" onClick={handleClickWithGoogle}>
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>
@@ -251,26 +286,3 @@ const ErrorText = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(2),
   textAlign: "center",
 }));
-
-// const LoaderOverlay = styled("div")(() => ({
-//   position: "absolute",
-//   top: 0,
-//   left: 0,
-//   width: "100%",
-//   height: "100%",
-//   backgroundColor: "rgba(0, 0, 0, 0.6)",
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   zIndex: 1000,
-//   backdropFilter: "blur(5px)",
-//   animation: "fadeIn 0.5s ease-in-out",
-//   "@keyframes fadeIn": {
-//     from: {
-//       opacity: 0,
-//     },
-//     to: {
-//       opacity: 1,
-//     },
-//   },
-// }));

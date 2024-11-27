@@ -8,10 +8,14 @@ import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch } from "react-redux";
 import { openSignInModal } from "../store/slices/auth/authSlice";
 import { SignUpForm, StyledBtn, StyledLink, StyledText, Title } from "./SignIn";
-import { signUpRequest } from "../store/thunks/authThunk";
+import { authWithGoogle, signUpRequest } from "../store/thunks/authThunk";
+import { auth, provider } from "../config/fireBaseAuth";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = ({ open, onClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +45,22 @@ export const SignUp = ({ open, onClose }) => {
 
   const handleSwitchSignIn = () => {
     dispatch(openSignInModal());
+  };
+
+  const handleClickWithGoogle = async () => {
+    await signInWithPopup(auth, provider)
+      .then((data) => {
+        dispatch(
+          authWithGoogle({
+            tokenId: data?.user?.accessToken,
+            navigate,
+            isSignUp: true,
+          })
+        );
+      })
+      .catch((error) => {
+        return error;
+      });
   };
 
   return (
@@ -94,7 +114,7 @@ export const SignUp = ({ open, onClose }) => {
             <StyledButton variant="contained" type="submit">
               Sign Up
             </StyledButton>
-            <StyledBtn variant="text">
+            <StyledBtn variant="text" onClick={handleClickWithGoogle}>
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>

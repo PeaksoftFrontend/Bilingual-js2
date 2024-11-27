@@ -10,6 +10,7 @@ import { SignUp } from "../../auth/SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeModal,
+  logOut,
   openSignInModal,
   openSignUpModal,
 } from "../../store/slices/auth/authSlice";
@@ -40,6 +41,7 @@ export const Header = () => {
   const handleOpenSignInModal = () => {
     dispatch(openSignInModal());
   };
+
   const handleOpenSignUpModal = () => {
     dispatch(openSignUpModal());
   };
@@ -48,13 +50,23 @@ export const Header = () => {
     dispatch(closeModal());
   };
 
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
+
   return (
     <HeaderStyled $bgImg={BgImage}>
       <Container isScroled={isScroled}>
         <Icons.FullLogo />
         <BtnContainer>
-          <StyledBtn onClick={handleOpenSignInModal}>to come in</StyledBtn>
-          <SecondBtn onClick={handleOpenSignUpModal}>register</SecondBtn>
+          {isAuth ? (
+            <StyledBtn onClick={handleLogOut}>log out</StyledBtn>
+          ) : (
+            <>
+              <StyledBtn onClick={handleOpenSignInModal}>to come in</StyledBtn>
+              <SecondBtn onClick={handleOpenSignUpModal}>register</SecondBtn>
+            </>
+          )}
         </BtnContainer>
       </Container>
       <MainBlock>
@@ -82,10 +94,8 @@ export const Header = () => {
         </TextContainer>
         <img src={BooksFat} alt="Books" />
       </MainBlock>
-      {isAuth ||
-        (openSignIn && <SignIn open={openSignIn} onClose={handleCloseModal} />)}
-      {isAuth ||
-        (openSignUp && <SignUp open={openSignUp} onClose={handleCloseModal} />)}
+      {isAuth || <SignIn open={openSignIn} onClose={handleCloseModal} />}
+      {isAuth || <SignUp open={openSignUp} onClose={handleCloseModal} />}
     </HeaderStyled>
   );
 };
