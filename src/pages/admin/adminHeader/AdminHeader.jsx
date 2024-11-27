@@ -3,10 +3,10 @@ import { Icons } from "../../../assets/icons";
 import { Button } from "../../../components/UI/button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logOut } from "../../../store/slices/auth/authSlice";
 import { UiModal } from "../../../components/UI/modal/UiModal";
 import { useState } from "react";
 import { Loading } from "../../../components/UI/loading/Loading";
+import { logOut } from "../../../store/auth/authSlice";
 
 export const AdminHeader = () => {
   const { role, isLoading } = useSelector((store) => store.auth);

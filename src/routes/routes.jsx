@@ -30,18 +30,13 @@ export const AppRoutes = () => {
         <PrivateRouter
           Component={<LayoutPage />}
           allowedRoles={["GUEST", "USER"]}
-          // fallbackPath={"/main"}
         />
       ),
     },
     {
       path: "/admin",
       element: (
-        <PrivateRouter
-          Component={<AdminPage />}
-          allowedRoles={["ADMIN"]}
-          // fallbackPath={"/"}
-        />
+        <PrivateRouter Component={<AdminPage />} allowedRoles={["ADMIN"]} />
       ),
       children: [
         {
@@ -73,11 +68,7 @@ export const AppRoutes = () => {
     {
       path: "/main",
       element: (
-        <PrivateRouter
-          Component={<UserLayout />}
-          allowedRoles={["USER"]}
-          // fallbackPath={"/"}
-        />
+        <PrivateRouter Component={<UserLayout />} allowedRoles={["USER"]} />
       ),
       children: [
         {

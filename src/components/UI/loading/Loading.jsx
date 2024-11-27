@@ -1,7 +1,6 @@
 import { Box, styled, keyframes } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-// Анимации для каждой страницы
 const rotatePage2 = keyframes`
   0% {
     transform: rotateY(180deg);
@@ -66,7 +65,6 @@ const rotatePage5 = keyframes`
   }
 `;
 
-// Функция для выбора нужной анимации
 const getAnimation = (index) => {
   switch (index) {
     case 1:
@@ -88,8 +86,8 @@ const StyledContainer = styled(Box)({
   left: 0,
   width: "100%",
   height: "100%",
-  backgroundColor: "rgba(12, 12, 12, 0.4)", // Фон сделан более светлым
-  zIndex: 2000, // Установлен высокий z-index для отображения поверх контента
+  backgroundColor: "rgba(12, 12, 12, 0.4)",
+  zIndex: 2000,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -98,7 +96,7 @@ const StyledContainer = styled(Box)({
 const Loader = styled(Box)({
   "--background": "linear-gradient(135deg, #833fac, #3a10e5)",
   "--shadow": "#3b10e550",
-  "--page": "rgba(255, 255, 255, 0.9)", // Сделал страницы чуть более яркими
+  "--page": "rgba(255, 255, 255, 0.9)",
   "--page-fold": "rgba(255, 255, 255, 0.6)",
   "--duration": "1s",
   width: "160px",
