@@ -12,6 +12,7 @@ import { authWithGoogle, signUpRequest } from "../store/thunks/authThunk";
 import { auth, provider } from "../config/fireBaseAuth";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { ShowSnackbar } from "../components/UI/snackbar/SnackBar";
 
 export const SignUp = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -48,19 +49,20 @@ export const SignUp = ({ open, onClose }) => {
   };
 
   const handleClickWithGoogle = async () => {
-    await signInWithPopup(auth, provider)
-      .then((data) => {
-        dispatch(
-          authWithGoogle({
-            tokenId: data?.user?.accessToken,
-            navigate,
-            isSignUp: true,
+    try {
+      return await signInWithPopup(auth, provider).then((data) => {
+        dispatch(authWithGoogle({ payload: data.user.accessToken, navigate }))
+          .unwrap()
+          .then(() => {
+            ShowSnackbar("Registration successful!", "success");
           })
-        );
-      })
-      .catch((error) => {
-        return error;
+          .catch((error) => {
+            ShowSnackbar(error, "error");
+          });
       });
+    } catch (error) {
+      return error;
+    }
   };
 
   return (

@@ -54,21 +54,6 @@ export const SignIn = ({ open, onClose }) => {
     }
   }, [isAuth, role, navigate]);
 
-  // const handleClickWithGoogle = async () => {
-  //   await signInWithPopup(auth, provider)
-  //     .then((data) => {
-  //       dispatch(
-  //         authWithGoogle({
-  //           tokenId: data?.user?.accessToken,
-  //           navigate,
-  //           isSignUp: true,
-  //         })
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       return error;
-  //     });
-  // };
   const handleClickWithGoogle = async () => {
     try {
       return await signInWithPopup(auth, provider).then((data) => {
@@ -76,9 +61,10 @@ export const SignIn = ({ open, onClose }) => {
           .unwrap()
           .then(() => {
             ShowSnackbar("Registration successful!", "success");
+            navigate("/main");
           })
           .catch((error) => {
-            ShowSnackbar(error, "success");
+            ShowSnackbar(error, "error");
           });
       });
     } catch (error) {
