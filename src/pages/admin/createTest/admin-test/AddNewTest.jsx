@@ -4,11 +4,11 @@ import { Input } from "../../../../components/UI/input/Input";
 import { Button } from "../../../../components/UI/button/Button";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   addTest,
   updateTest,
-} from "../../../../store/slices/adminSlice/adminSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+} from "../../../../store/admin create test/adminSlice";
 
 export const AddNewTest = () => {
   const dispatch = useDispatch();

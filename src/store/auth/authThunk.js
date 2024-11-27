@@ -50,13 +50,10 @@ export const authWithGoogle = createAsyncThunk(
   "auth/authWithGoogle",
   async ({ payload, navigate }, { rejectWithValue }) => {
     try {
-      console.log("Отправка tokenId на сервер:", payload);
-
       const { data } = await axiosInstance.post(
         `auth/signInWithGoogle?token=${payload}`
       );
 
-      console.log("Ответ от сервера:", data);
       localStorage.setItem(
         STORAGE_KEY.BILINGUAL_STORAGE_KEY,
         JSON.stringify(data)
@@ -65,7 +62,6 @@ export const authWithGoogle = createAsyncThunk(
       navigate("/main");
       return data;
     } catch (error) {
-      console.error("Ошибка запроса authWithGoogle:", error.response || error);
       return rejectWithValue(
         error.response?.data?.message || "Произошла ошибка"
       );
