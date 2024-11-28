@@ -4,13 +4,16 @@ import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
 import { IconButton, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
+import { useDispatch } from "react-redux";
+import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const EnglishWords = ({ onReset }) => {
+export const EnglishWords = ({ onReset, duration, selectedValue, title }) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
   const [isTrueValue, setIsTrueValue] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const disptach = useDispatch();
 
   const handleInputChange = (e) => {
     setWordsValue(e.target.value);
@@ -25,8 +28,9 @@ export const EnglishWords = ({ onReset }) => {
 
   const saveWordsHandler = () => {
     const data = {
-      word: wordsValue,
+      title: wordsValue,
       isTrue: isTrueValue,
+      audioUrl: "",
       id: Date.now().toString(),
     };
     setWords([...words, data]);
@@ -61,6 +65,19 @@ export const EnglishWords = ({ onReset }) => {
       onReset();
     }
   };
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const wordsWithoutId = words.map(({ id, ...rest }) => rest);
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      options: wordsWithoutId,
+    };
+
+    disptach(questionsPostRequest({ data, selectedValue }));
+  };
 
   return (
     <>
@@ -76,7 +93,7 @@ export const EnglishWords = ({ onReset }) => {
             <DivContainer key={word.id}>
               <TitleContent>
                 <span>{index + 1}</span>
-                <p>{word.word}</p>
+                <p>{word.title}</p>
               </TitleContent>
               <IconContent>
                 <div>
@@ -104,7 +121,9 @@ export const EnglishWords = ({ onReset }) => {
             <Button variant="outlined" onClick={resetValues}>
               go back
             </Button>
-            <Button variant="sucsses">save</Button>
+            <Button variant="sucsses" onClick={addOptionHandler}>
+              saved
+            </Button>
           </StyledShowButton>
         )}
       </StyledMap>
