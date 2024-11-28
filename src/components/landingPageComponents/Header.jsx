@@ -10,16 +10,19 @@ import { SignUp } from "../../auth/SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeModal,
+  logOut,
   openSignInModal,
   openSignUpModal,
-} from "../../store/slices/auth/authSlice";
+} from "../../store/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { UiModal } from "../UI/modal/UiModal";
 
 export const Header = () => {
   const { openSignIn, openSignUp, isAuth, role } = useSelector(
     (state) => state.auth
   );
   const [isScroled, setIsScroled] = useState(false);
+  const [logOutModal, setLogOutModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,6 +43,7 @@ export const Header = () => {
   const handleOpenSignInModal = () => {
     dispatch(openSignInModal());
   };
+
   const handleOpenSignUpModal = () => {
     dispatch(openSignUpModal());
   };
@@ -48,13 +52,47 @@ export const Header = () => {
     dispatch(closeModal());
   };
 
+  const handleLogOut = () => {
+    dispatch(logOut());
+    setLogOutModal(false);
+  };
+
+  const openModal = () => {
+    setLogOutModal(!logOutModal);
+  };
+
+  const closeLogOutModal = () => {
+    setLogOutModal(false);
+  };
+
   return (
     <HeaderStyled $bgImg={BgImage}>
       <Container isScroled={isScroled}>
         <Icons.FullLogo />
         <BtnContainer>
-          <StyledBtn onClick={handleOpenSignInModal}>to come in</StyledBtn>
-          <SecondBtn onClick={handleOpenSignUpModal}>register</SecondBtn>
+          {logOutModal && (
+            <UiModal onClose={closeLogOutModal} open={logOutModal}>
+              <StyledModal>
+                <p>Are you sure you want to log out?</p>
+                <ButtonBlock>
+                  <Button variant="outlined" onClick={closeLogOutModal}>
+                    CANCEL
+                  </Button>
+                  <StyledButton variant="contained" onClick={handleLogOut}>
+                    YES
+                  </StyledButton>
+                </ButtonBlock>
+              </StyledModal>
+            </UiModal>
+          )}
+          {isAuth ? (
+            <StyledBtn onClick={() => openModal()}>log out</StyledBtn>
+          ) : (
+            <>
+              <StyledBtn onClick={handleOpenSignInModal}>to come in</StyledBtn>
+              <SecondBtn onClick={handleOpenSignUpModal}>register</SecondBtn>
+            </>
+          )}
         </BtnContainer>
       </Container>
       <MainBlock>
@@ -82,10 +120,8 @@ export const Header = () => {
         </TextContainer>
         <img src={BooksFat} alt="Books" />
       </MainBlock>
-      {isAuth ||
-        (openSignIn && <SignIn open={openSignIn} onClose={handleCloseModal} />)}
-      {isAuth ||
-        (openSignUp && <SignUp open={openSignUp} onClose={handleCloseModal} />)}
+      {isAuth || <SignIn open={openSignIn} onClose={handleCloseModal} />}
+      {isAuth || <SignUp open={openSignUp} onClose={handleCloseModal} />}
     </HeaderStyled>
   );
 };
@@ -178,3 +214,26 @@ const MainBlock = styled("div")({
 const StyledLandingButton = styled(LandingButton)({
   fontSize: "14px",
 });
+
+const StyledModal = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "24px",
+  padding: "14px 80px",
+
+  p: {
+    fontWeight: "400",
+    color: "#4C4859",
+    fontSize: "18px",
+  },
+}));
+
+const ButtonBlock = styled("div")(() => ({
+  display: "flex",
+  gap: "20px",
+}));
+
+const StyledButton = styled(Button)(() => ({
+  width: "73px",
+}));

@@ -6,9 +6,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { openSignInModal, setRole } from "../store/slices/auth/authSlice";
+import { openSignInModal } from "../store/auth/authSlice";
 import { SignUpForm, StyledBtn, StyledLink, StyledText, Title } from "./SignIn";
+import { authWithGoogle, signUpRequest } from "../store/auth/authThunk";
+import { auth, provider } from "../config/fireBaseAuth";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { ShowSnackbar } from "../components/UI/snackbar/SnackBar";
 
 export const SignUp = ({ open, onClose }) => {
   const dispatch = useDispatch();
@@ -36,19 +40,29 @@ export const SignUp = ({ open, onClose }) => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
-      const { email } = values;
-      if (email === "admin@gmail.com") {
-        dispatch(setRole("ADMIN"));
-        navigate("/admin");
-      } else {
-        dispatch(setRole("USER"));
-        navigate("/user");
-      }
+      dispatch(signUpRequest(values));
     },
   });
 
   const handleSwitchSignIn = () => {
     dispatch(openSignInModal());
+  };
+
+  const handleClickWithGoogle = async () => {
+    try {
+      return await signInWithPopup(auth, provider).then((data) => {
+        dispatch(authWithGoogle({ payload: data.user.accessToken, navigate }))
+          .unwrap()
+          .then(() => {
+            ShowSnackbar("Registration successful!", "success");
+          })
+          .catch((error) => {
+            ShowSnackbar(error, "error");
+          });
+      });
+    } catch (error) {
+      return error;
+    }
   };
 
   return (
@@ -102,7 +116,7 @@ export const SignUp = ({ open, onClose }) => {
             <StyledButton variant="contained" type="submit">
               Sign Up
             </StyledButton>
-            <StyledBtn variant="text">
+            <StyledBtn variant="text" onClick={handleClickWithGoogle}>
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>

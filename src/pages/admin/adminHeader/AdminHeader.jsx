@@ -1,15 +1,36 @@
 import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { Button } from "../../../components/UI/button/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { UiModal } from "../../../components/UI/modal/UiModal";
+import { useState } from "react";
+import { Loading } from "../../../components/UI/loading/Loading";
+import { logOut } from "../../../store/auth/authSlice";
 
 export const AdminHeader = () => {
-  const { role } = useSelector((store) => store.auth);
+  const { role, isLoading } = useSelector((store) => store.auth);
+  const [logOutModal, setLogOutModal] = useState(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate("/");
+  };
+
+  const openModal = () => {
+    setLogOutModal(!logOutModal);
+  };
+
+  const closeModal = () => {
+    setLogOutModal(false);
+  };
 
   return (
     <StyledHeader>
+      {isLoading && <Loading />}
       <Icons.FullLogo onClick={() => navigate("/")} />
       <DivContainer>
         <StyledNavLink to={role === "USER" ? "/main/test" : "/admin/test-page"}>
@@ -22,7 +43,24 @@ export const AdminHeader = () => {
             submitted results
           </StyledNavLink>
         )}
-        <StyledButton variant="outlined">LOG OUT</StyledButton>
+        {logOutModal && (
+          <UiModal onClose={closeModal} open={logOutModal}>
+            <StyledModal>
+              <p>Are you sure you want to log out?</p>
+              <ButtonBlock>
+                <Button variant="outlined" onClick={closeModal}>
+                  CANCEL
+                </Button>
+                <StyledBtn variant="contained" onClick={handleLogOut}>
+                  YES
+                </StyledBtn>
+              </ButtonBlock>
+            </StyledModal>
+          </UiModal>
+        )}
+        <StyledButton variant="outlined" onClick={() => openModal()}>
+          LOG OUT
+        </StyledButton>
       </DivContainer>
     </StyledHeader>
   );
@@ -70,3 +108,26 @@ const StyledButton = styled(Button)({
     border: "2px solid #4C4859 ",
   },
 });
+
+const StyledModal = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "24px",
+  padding: "14px 80px",
+
+  p: {
+    fontWeight: "400",
+    color: "#4C4859",
+    fontSize: "18px",
+  },
+}));
+
+const ButtonBlock = styled("div")(() => ({
+  display: "flex",
+  gap: "20px",
+}));
+
+const StyledBtn = styled(Button)(() => ({
+  width: "73px",
+}));
