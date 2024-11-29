@@ -4,12 +4,12 @@ import { Button } from "../../../../components/UI/button/Button";
 import { ContentWrapper } from "../../../../components/UI/content_wrapper/ContentWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, styled } from "@mui/material";
+import { TestNotFound } from "../../../404/TestNotFound";
 import {
   deleteTest,
   falseValid,
   trueValid,
-} from "../../../../store/slices/adminSlice/adminSlice";
-import { TestNotFound } from "../../../404/TestNotFound";
+} from "../../../../store/admin create test/adminSlice";
 
 export const TestPage = () => {
   const navigate = useNavigate();

@@ -15,10 +15,12 @@ import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
 import { Highlight } from "../pages/client/user-test/Highlight";
 import { CompletePractice } from "../pages/client/test/CompletePractice";
+// import { Words } from "../pages/client/user-test/Words";
 import { ResultPage } from "../pages/client/user-test/ResultPage";
 import { UserTestPage } from "../pages/client/user-test/UserTestPage";
 import { StartTest } from "../pages/client/user-test/StartTest";
 import { CollectUserTest } from "../pages/client/user-test/CollectUserTest";
+import { TypeHearTest } from "../pages/client/takeTheTest/TypeHearTest";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -28,18 +30,13 @@ export const AppRoutes = () => {
         <PrivateRouter
           Component={<LayoutPage />}
           allowedRoles={["GUEST", "USER"]}
-          fallbackPath={"/user"}
         />
       ),
     },
     {
       path: "/admin",
       element: (
-        <PrivateRouter
-          Component={<AdminPage />}
-          allowedRoles={["ADMIN"]}
-          fallbackPath={"/"}
-        />
+        <PrivateRouter Component={<AdminPage />} allowedRoles={["ADMIN"]} />
       ),
       children: [
         {
@@ -71,11 +68,7 @@ export const AppRoutes = () => {
     {
       path: "/main",
       element: (
-        <PrivateRouter
-          Component={<UserLayout />}
-          allowedRoles={["USER"]}
-          fallbackPath={"/"}
-        />
+        <PrivateRouter Component={<UserLayout />} allowedRoles={["USER"]} />
       ),
       children: [
         {
@@ -97,6 +90,10 @@ export const AppRoutes = () => {
         {
           path: "complete",
           element: <CompletePractice />,
+        },
+        {
+          path: "TypeYouHear",
+          element: <TypeHearTest />,
         },
         {
           path: "highlight",

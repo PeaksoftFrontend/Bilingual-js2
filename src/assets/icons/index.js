@@ -20,6 +20,7 @@ import PlayLightSmall from "./icon/PlayLightSmall.svg";
 import Sound from "./icon/Sound.svg";
 import SoundSmall from "./icon/SoundSmall.svg";
 import SoundOnHover from "./icon/SoundOnHover.svg";
+import SoundOfHover from "./icon/soundOfHover.svg";
 import Tick from "./icon/Tick.svg";
 import TickXL from "./icon/TickXL.svg";
 import TickOnHover from "./icon/TickOnHover.svg";
@@ -86,6 +87,7 @@ export const Icons = {
   Sound,
   SoundSmall,
   SoundOnHover,
+  SoundOfHover,
   Tick,
   TickXL,
   TickOnHover,

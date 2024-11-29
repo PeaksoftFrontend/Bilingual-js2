@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { AdminHeader } from "../pages/admin/adminHeader/AdminHeader";
 import { styled } from "@mui/material";
+import { Snackbar } from "../components/UI/snackbar/SnackBar";
 
 export const UserLayout = () => {
   return (
     <StyledDiv>
+      <Snackbar />
       <StyledAdminHeader />
       <ContentWrapper>
         <Outlet />
