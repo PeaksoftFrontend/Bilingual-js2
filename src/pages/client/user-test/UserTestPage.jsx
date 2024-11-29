@@ -1,12 +1,32 @@
 import { styled } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
-import { userTest } from "../../../utils/constants/userTest";
 import { useNavigate } from "react-router-dom";
 import { TestNotFound } from "../../404/TestNotFound";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { testRequest } from "../../../store/user create test/userThunk";
+import { Loading } from "../../../components/UI/loading/Loading";
+import Sheet from "../../../assets/images/sheet.png";
 
 export const UserTestPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userTest, isLoading, isError } = useSelector(
+    (state) => state.userTest
+  );
+
+  useEffect(() => {
+    dispatch(testRequest());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <div>Error loading tests</div>;
+  }
 
   return (
     <StyledDiv>
@@ -15,9 +35,11 @@ export const UserTestPage = () => {
           <ContentWrapper key={index}>
             <StyledContainer>
               <BlockImg>
-                <img src={item.img} alt="" />
+                <img src={Sheet} alt={item.tit} />
                 <TextBlock>
-                  <StyledDuration>{item.duration} minutes</StyledDuration>
+                  <StyledDuration>
+                    {Math.ceil(item.duration / 60)} minutes
+                  </StyledDuration>
                   <StyledTitle>{item.title}</StyledTitle>
                   <StyledDescription>{item.description}</StyledDescription>
                 </TextBlock>

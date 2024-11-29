@@ -13,3 +13,18 @@ export const userTestRequest = createAsyncThunk(
     }
   }
 );
+
+export const testByIdRequest = createAsyncThunk(
+  "testById/userTestByIdRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `tests/getById?testId=${payload}`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
