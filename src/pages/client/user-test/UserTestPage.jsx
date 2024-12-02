@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { TestNotFound } from "../../404/TestNotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { testRequest } from "../../../store/user create test/userThunk";
 import { Loading } from "../../../components/UI/loading/Loading";
 import Sheet from "../../../assets/images/sheet.png";
+import { userTestRequest } from "../../../store/user create test/userThunk";
 
 export const UserTestPage = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const UserTestPage = () => {
   );
 
   useEffect(() => {
-    dispatch(testRequest());
+    dispatch(userTestRequest());
   }, [dispatch]);
 
   if (isLoading) {
@@ -47,7 +47,7 @@ export const UserTestPage = () => {
               <Button
                 variant="outlined"
                 onClick={() =>
-                  navigate("/main/test/start-test", { state: item })
+                  navigate(`/main/test/${item.id}/start-test`, { state: item })
                 }
               >
                 try test

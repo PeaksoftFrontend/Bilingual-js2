@@ -41,7 +41,7 @@ export const WordSelector = ({ onNext }) => {
 
   return (
     <ContentWrapper>
-      <Duration time={5} onComplete={onNext} />
+      <Duration time={115} onComplete={onNext} />
 
       <Typography
         variant="h6"

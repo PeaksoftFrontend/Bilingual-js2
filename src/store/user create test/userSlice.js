@@ -31,6 +31,8 @@ export const userSlice = createSlice({
         state.isError = false;
       })
       .addCase(testByIdRequest.fulfilled, (state, action) => {
+        console.log(action);
+
         state.isLoading = false;
         state.testQuestions = action.payload;
       })

@@ -3,23 +3,27 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import SearchInfo from "../../../assets/images/searchInfo.png";
 import { Icons } from "../../../assets/icons";
 import { styled } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { testByIdRequest } from "../../../store/user create test/userThunk";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useDispatch,
+  //  useSelector
+} from "react-redux";
+import { questionsByIdRequest } from "../../../store/user create test/userThunk";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { state } = useLocation();
-  const { testQuestions, isLoading, isError } = useSelector(
-    (store) => store.userTest
-  );
+  const { testId } = useParams();
+  console.log(testId);
 
-  const handlerNavigate = async (selectedId) => {
+  // const {} = useSelector((store) => store.userTest);
+
+  const handlerNavigate = async () => {
     try {
-      const result = await dispatch(testByIdRequest(selectedId)).unwrap();
-      navigate(`/main/test/start-test/user-test/${selectedId}`, {
-        state: { id: selectedId, questions: result },
+      const result = await dispatch(questionsByIdRequest(testId)).unwrap();
+      navigate(`/main/test/${testId}/start-test/user-test/`, {
+        state: { id: testId, questions: result },
       });
     } catch (error) {
       return error;
@@ -56,7 +60,7 @@ export const StartTest = () => {
         <Button variant="outlined" onClick={() => navigate("/main/test")}>
           CANCEL
         </Button>
-        <Button onClick={() => handlerNavigate(state.id)}>PRACTICE TEST</Button>
+        <Button onClick={() => handlerNavigate()}>PRACTICE TEST</Button>
       </BtnBlock>
     </ContentWrapper>
   );
