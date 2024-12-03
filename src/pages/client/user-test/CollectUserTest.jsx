@@ -7,22 +7,11 @@ import { Words } from "../takeTheTest/Words";
 import { Highlight } from "../takeTheTest/Highlight";
 import { CompletePractice } from "../takeTheTest/CompletePractice";
 import { RecordSayingStatement } from "../takeTheTest/RecordSayingStatement";
-import { useDispatch, useSelector } from "react-redux";
-import { questionsByIdRequest } from "../../../store/user create test/userThunk";
-import { Loading } from "../../../components/UI/loading/Loading";
-import { TypeHearTest } from "../takeTheTest/TypeHearTest";
 
 export const CollectUserTest = () => {
   const { state } = useLocation();
-  console.log(state);
-
-  const dispatch = useDispatch();
-  const [questionType, setQuestionType] = useState(state?.id || "s1");
+  const [id, setId] = useState(state?.id || "s1");
   const [selectedComponent, setSelectedComponent] = useState(null);
-  const [questionData, setQuestionData] = useState(null);
-
-  const { testQuestions, isError } = useSelector((store) => store.userTest);
-  console.log(testQuestions);
 
   const handleNext = () => {
     const nextIdMap = {
@@ -37,32 +26,16 @@ export const CollectUserTest = () => {
       s9: "SELECT_THE_BEST_TITLE",
       s10: null,
     };
-    setQuestionType(nextIdMap[questionType] || null);
+    setId(nextIdMap[id] || null);
   };
 
   useEffect(() => {
-    if (questionType) {
-      dispatch(questionsByIdRequest(questionType))
-        .unwrap()
-        .then((data) => setQuestionData(data))
-        .catch((error) =>
-          console.error("Error fetching question data:", error)
-        );
-    }
-  }, [questionType, dispatch]);
-
-  useEffect(() => {
-    if (!questionType) {
+    if (!id) {
       setSelectedComponent(<CompletePractice />);
       return;
     }
 
-    if (!questionData) {
-      setSelectedComponent(<Loading />);
-      return;
-    }
-
-    switch (questionType) {
+    switch (id) {
       case "s1":
         setSelectedComponent(<WordSelector onNext={handleNext} />);
         break;
@@ -70,7 +43,7 @@ export const CollectUserTest = () => {
         setSelectedComponent(<UserSelectRealWords onNext={handleNext} />);
         break;
       case "s3":
-        setSelectedComponent(<TypeHearTest onNext={handleNext} />);
+        setSelectedComponent(<WordSelector onNext={handleNext} />);
         break;
       case "s4":
         setSelectedComponent(<DescribeImage onNext={handleNext} />);
@@ -93,11 +66,7 @@ export const CollectUserTest = () => {
       default:
         setSelectedComponent(<p>No component available for this test ID.</p>);
     }
-  }, [questionType, questionData]);
-
-  if (isError) {
-    return <p>Error loading test data.</p>;
-  }
+  }, [id]);
 
   return <div>{selectedComponent}</div>;
 };

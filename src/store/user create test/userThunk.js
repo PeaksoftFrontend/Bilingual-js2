@@ -19,24 +19,7 @@ export const testByIdRequest = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get(
-        `tests/getById?testId=${payload}`
-      );
-
-      console.log(data);
-
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
-
-export const questionsByIdRequest = createAsyncThunk(
-  "testById/questionsByIdRequest",
-  async (payload, { rejectWithValue }) => {
-    try {
-      const { data } = await axiosInstance.get(
-        `questions?questionId=${payload}`
+        `tests/getAllQuestionsByTestId?testId=${payload}`
       );
 
       return data;
