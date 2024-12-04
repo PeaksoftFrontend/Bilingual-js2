@@ -7,7 +7,7 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import { Duration } from "../../../components/UI/duration/Duration";
 import { Button } from "../../../components/UI/button/Button";
 
-export const RecordSayingStatement = ({ onNext }) => {
+export const RecordSayingStatement = ({ onNext, duration }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isRecorded, setIsRecorded] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -149,7 +149,7 @@ export const RecordSayingStatement = ({ onNext }) => {
 
   return (
     <ContentWrapper>
-      <Duration time={120} onComplete={onNext} />
+      <Duration time={duration} onComplete={onNext} />
       <div style={styles.container}>
         <StyledSpeak>
           <h1 style={styles.h1}>Record yourself saying the statement below:</h1>

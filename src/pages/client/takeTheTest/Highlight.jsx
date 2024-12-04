@@ -4,7 +4,7 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import { Duration } from "../../../components/UI/duration/Duration";
 import { useState } from "react";
 
-export const Highlight = ({ onNext }) => {
+export const Highlight = ({ onNext, duration }) => {
   const [highlightedText, setHighlightedText] = useState("");
   const [isInputDisabled, setIsInputDisabled] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -21,7 +21,7 @@ export const Highlight = ({ onNext }) => {
   return (
     <ContentWrapper>
       <MainBlock>
-        <Duration time={5} onComplete={onNext} />
+        <Duration time={duration} onComplete={onNext} />
         <Container>
           <StyledTextBlock>
             <StyledPassage>PASSAGE</StyledPassage>

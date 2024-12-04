@@ -7,7 +7,7 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import { styled, TextareaAutosize } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 
-export const TypeHearTest = () => {
+export const TypeHearTest = ({ onNext, duration }) => {
   const [audioDataList, setAudioDataList] = useState(
     dataTests.map((data) => ({
       ...data,
@@ -65,7 +65,7 @@ export const TypeHearTest = () => {
     <StyledBackdrop>
       <ContentWrapper>
         <StyledContentWrapper>
-          <Duration time={120} />
+          <Duration time={duration} onComplete={onNext} />
           <StyledTitle>Type the statement you hear</StyledTitle>
           {audioDataList.map((item, index) => (
             <StyledMain key={index}>
@@ -99,7 +99,11 @@ export const TypeHearTest = () => {
           ))}
           <StyledWrapperContent>
             <hr />
-            <StyledBtn variant="text" disabled={isButtonDisabled}>
+            <StyledBtn
+              variant="text"
+              disabled={isButtonDisabled}
+              onClick={onNext}
+            >
               Next
             </StyledBtn>
           </StyledWrapperContent>

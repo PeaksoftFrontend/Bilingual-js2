@@ -12,13 +12,12 @@ export const StartTest = () => {
   const dispatch = useDispatch();
   const { state } = useLocation();
 
-  const handlerNavigate = async (selectedId) => {
-    // Dispatch request to fetch test details
-    const result = await dispatch(testByIdRequest(selectedId));
+  const handlerNavigate = async () => {
+    const result = await dispatch(testByIdRequest(state.id));
     if (!result.error) {
-      // Navigate to the next page with the selected test's data
-      navigate(`/main/test/${selectedId}/start-test/user-test/${selectedId}`, {
-        state: { id: selectedId },
+      const testData = result.payload; // Полученные данные теста
+      navigate(`/main/test/${state.id}/start-test/user-test/`, {
+        state: { testData }, // Передача данных теста
       });
     } else {
       console.error("Failed to fetch test details");

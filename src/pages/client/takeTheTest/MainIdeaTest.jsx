@@ -5,7 +5,7 @@ import { dataMainIdea } from "../../../utils/constants/userTest";
 import { Button } from "../../../components/UI/button/Button";
 import { styled } from "@mui/material";
 
-export const MainIdeaTest = () => {
+export const MainIdeaTest = ({ onNext, duration }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
@@ -15,7 +15,7 @@ export const MainIdeaTest = () => {
   return (
     <ContentWrapper>
       <MainBlock>
-        <Duration time={120} />
+        <Duration time={duration} onComplete={onNext} />
         <Container>
           <StyledTextBlock>
             <StyledPassage>PASSAGE</StyledPassage>
@@ -45,7 +45,11 @@ export const MainIdeaTest = () => {
                 </ContainerVariant>
               ))}
             </StyledWrapperVariants>
-            <StyledBtn variant="text" disabled={!selectedOption}>
+            <StyledBtn
+              variant="text"
+              disabled={!selectedOption}
+              onClick={onNext}
+            >
               Next
             </StyledBtn>
           </StyledWrapper>

@@ -6,7 +6,7 @@ import { UserTestWords } from "../../../utils/constants/selectWords";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
 
-export const UserSelectRealWords = ({ onNext }) => {
+export const UserSelectRealWords = ({ onNext, duration }) => {
   const [words, setWords] = useState(UserTestWords);
   const [isAnySelected, setIsAnySelected] = useState(false);
 
@@ -24,7 +24,7 @@ export const UserSelectRealWords = ({ onNext }) => {
   return (
     <ContentWrapper>
       <MainContent>
-        <Duration time={5} onComplete={onNext} />
+        <Duration time={duration} onComplete={onNext} />
 
         <WrapperWords>
           <h1>Select the real English words in this list</h1>

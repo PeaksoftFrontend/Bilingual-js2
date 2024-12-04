@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { words } from "../../../utils/constants/words";
+// import { words } from "../../../utils/constants/words";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 
-export const WordSelector = ({ onNext }) => {
+export const WordSelector = ({ onNext, duration, optionList = [] }) => {
+  console.log(optionList);
+
   const [selectedWords, setSelectedWords] = useState([]);
   const [draggedWord, setDraggedWord] = useState(null);
   const [isOverDropArea, setIsOverDropArea] = useState(false);
@@ -41,7 +43,7 @@ export const WordSelector = ({ onNext }) => {
 
   return (
     <ContentWrapper>
-      <Duration time={115} onComplete={onNext} />
+      <Duration time={duration} onComplete={onNext} />
 
       <Typography
         variant="h6"
@@ -59,17 +61,17 @@ export const WordSelector = ({ onNext }) => {
         spacing={0.9}
         sx={{ marginBottom: "2rem" }}
       >
-        {words.map((word, index) => (
+        {optionList.map((word, index) => (
           <Grid item key={index}>
             <WordButton
               id={`word-${word}`}
               draggable
-              onDragStart={() => handleDragStart(word)}
-              onDragEnd={() => handleDragEnd(word)}
-              active={activeWords.includes(word)}
-              className={draggedWord === word ? "dragging" : ""}
+              onDragStart={() => handleDragStart(word.title)}
+              onDragEnd={() => handleDragEnd(word.title)}
+              active={activeWords.includes(word.title)}
+              className={draggedWord === word.title ? "dragging" : ""}
             >
-              {word}
+              {word.title}
             </WordButton>
           </Grid>
         ))}
