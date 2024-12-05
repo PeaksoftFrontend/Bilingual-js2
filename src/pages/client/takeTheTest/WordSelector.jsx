@@ -4,14 +4,21 @@ import { styled } from "@mui/system";
 // import { words } from "../../../utils/constants/words";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { userPostQuestion } from "../../../store/user create test/userThunk";
+import { useDispatch } from "react-redux";
 
-export const WordSelector = ({ onNext, duration, optionList = [] }) => {
-  console.log(optionList);
-
+export const WordSelector = ({
+  onNext,
+  duration,
+  optionList = [],
+  questionId,
+}) => {
   const [selectedWords, setSelectedWords] = useState([]);
   const [draggedWord, setDraggedWord] = useState(null);
   const [isOverDropArea, setIsOverDropArea] = useState(false);
   const [activeWords, setActiveWords] = useState([]);
+  const [selectedWordIds, setSelectedWordIds] = useState([]);
+  const dispatch = useDispatch();
 
   const handleDragStart = (word) => {
     setDraggedWord(word);
@@ -33,12 +40,32 @@ export const WordSelector = ({ onNext, duration, optionList = [] }) => {
   const handleDrop = (e) => {
     e.preventDefault();
     if (draggedWord && !selectedWords.includes(draggedWord)) {
-      const updatedSelectedWords = [...selectedWords, draggedWord];
+      console.log("selectedWords: ", selectedWords);
+
+      const updatedSelectedWords = [...selectedWords, draggedWord.title];
       setSelectedWords(updatedSelectedWords);
-      setActiveWords([...activeWords, draggedWord]);
+      setActiveWords([...activeWords, draggedWord.title]);
+
+      setSelectedWordIds((prev) =>
+        prev.includes(draggedWord.id) ? prev : [...prev, +draggedWord.id]
+      );
     }
     setDraggedWord(null);
     setIsOverDropArea(false);
+  };
+
+  const handleUserAnswer = () => {
+    const data = [
+      {
+        statement: "",
+        optionsId: selectedWordIds,
+        questionId: questionId,
+        audioUrl: "",
+        count: 0,
+      },
+    ];
+    console.log(data);
+    dispatch(userPostQuestion(data));
   };
 
   return (
@@ -61,15 +88,15 @@ export const WordSelector = ({ onNext, duration, optionList = [] }) => {
         spacing={0.9}
         sx={{ marginBottom: "2rem" }}
       >
-        {optionList.map((word, index) => (
-          <Grid item key={index}>
+        {optionList.map((word) => (
+          <Grid item key={word.id}>
             <WordButton
-              id={`word-${word}`}
+              id={`word-${word.id}`}
               draggable
-              onDragStart={() => handleDragStart(word.title)}
-              onDragEnd={() => handleDragEnd(word.title)}
-              active={activeWords.includes(word.title)}
-              className={draggedWord === word.title ? "dragging" : ""}
+              onDragStart={() => handleDragStart(word)} // Передаем объект
+              onDragEnd={handleDragEnd}
+              active={activeWords.includes(word.title)} // Проверяем по title
+              className={draggedWord?.id === word.id ? "dragging" : ""}
             >
               {word.title}
             </WordButton>
@@ -92,7 +119,7 @@ export const WordSelector = ({ onNext, duration, optionList = [] }) => {
         <StyledDiv></StyledDiv>
         <StyledBtn
           variant={selectedWords.length > 0 ? "contained" : "disabled"}
-          onClick={onNext}
+          onClick={handleUserAnswer}
           disabled={selectedWords.length === 0}
         >
           Next

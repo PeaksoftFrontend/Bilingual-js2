@@ -28,3 +28,13 @@ export const testByIdRequest = createAsyncThunk(
     }
   }
 );
+export const userPostQuestion = createAsyncThunk(
+  "testById/userPostQuestion",
+  async (payload, { rejectWithValue }) => {
+    try {
+      await axiosInstance.post(`answer/`, payload);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

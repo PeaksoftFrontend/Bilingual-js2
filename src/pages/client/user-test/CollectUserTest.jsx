@@ -16,7 +16,13 @@ export const CollectUserTest = () => {
   const { testQuestions } = useSelector((state) => state.userTest);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const renderComponent = (typeQuestion, duration, onNext, optionList) => {
+  const renderComponent = (
+    typeQuestion,
+    duration,
+    onNext,
+    optionList,
+    questionId
+  ) => {
     switch (typeQuestion) {
       case "SELECT_REAL_ENGLISH_WORD":
         return (
@@ -24,6 +30,7 @@ export const CollectUserTest = () => {
             optionList={optionList}
             duration={duration}
             onNext={onNext}
+            questionId={questionId}
           />
         );
       case "LISTEN_AND_SELECT_ENGLISH_WORDS":
@@ -62,9 +69,9 @@ export const CollectUserTest = () => {
       if (currentQuestion) {
         console.log(currentQuestion);
 
-        const { questionType, duration, optionList } = currentQuestion;
+        const { questionType, duration, optionList, id } = currentQuestion;
         setSelectedComponent(
-          renderComponent(questionType, duration, handleNext, optionList)
+          renderComponent(questionType, duration, handleNext, optionList, id)
         );
       }
     }
