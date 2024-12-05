@@ -5,30 +5,34 @@ import { ContentWrapper } from "../../../../components/UI/content_wrapper/Conten
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, styled } from "@mui/material";
 import { TestNotFound } from "../../../404/TestNotFound";
+import { useEffect } from "react";
 import {
-  deleteTest,
-  falseValid,
-  trueValid,
-} from "../../../../store/admin create test/adminSlice";
+  deleteTestRequest,
+  getTestRequest,
+  putSwitchRequest,
+} from "../../../../store/admin create test/adminCreatetestThunk";
 
 export const TestPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { tests } = useSelector((state) => state.test);
 
-  const isTrueHandler = (event, id) => {
-    event.stopPropagation();
-    dispatch(trueValid(id));
-  };
+  // const isFalseHandler = (event, item) => {
+  //   event.stopPropagation();
+  //   const { id } = item;
+  //   dispatch(putSwitchRequest({ id, action: { isEnabled: false } }));
+  // };
 
-  const isFalseHandler = (event, id) => {
+  const isTrueHandler = (event, item) => {
     event.stopPropagation();
-    dispatch(falseValid(id));
+    const { id } = item;
+
+    dispatch(putSwitchRequest({ id, action: !item.enable }));
   };
 
   const deleteHandler = (event, id) => {
     event.stopPropagation();
-    dispatch(deleteTest(id));
+    dispatch(deleteTestRequest(id));
   };
 
   const updateHandler = (event, test) => {
@@ -40,6 +44,9 @@ export const TestPage = () => {
     navigate(`/admin/test-page/test-info/${selectedId}`);
   };
 
+  useEffect(() => {
+    dispatch(getTestRequest());
+  }, []);
   return (
     <ContentWrapper>
       <ContainerButton>
@@ -60,16 +67,12 @@ export const TestPage = () => {
                 <StyledDescription>{item.description}</StyledDescription>
               </TextContainer>
               <IconContainer>
-                {item.isChecked ? (
-                  <IconButton
-                    onClick={(event) => isFalseHandler(event, item.id)}
-                  >
+                {item.enable ? (
+                  <IconButton onClick={(event) => isTrueHandler(event, item)}>
                     <Icons.SwitchOff />
                   </IconButton>
                 ) : (
-                  <IconButton
-                    onClick={(event) => isTrueHandler(event, item.id)}
-                  >
+                  <IconButton onClick={(event) => isTrueHandler(event, item)}>
                     <Icons.SwitchOn />
                   </IconButton>
                 )}
