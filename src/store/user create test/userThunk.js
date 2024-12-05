@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
+import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const userTestRequest = createAsyncThunk(
   "test/userTestRequest",

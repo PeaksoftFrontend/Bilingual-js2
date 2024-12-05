@@ -8,6 +8,7 @@ import { RecordStatement } from "../testvariants/RecordStatement";
 import { UploadImage } from "../testvariants/UploadImage";
 import { SelectMainIdea } from "../testvariants/ SelectMainIdea";
 import { HighLightTheAnswer } from "../testvariants/HighLightTheAnswer";
+import { Snackbar } from "../../../components/UI/snackbar/SnackBar";
 
 export const CreateTest = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -25,6 +26,7 @@ export const CreateTest = () => {
       onSelectChange={handleSelectChange}
       onResetForm={handleResetForm}
     >
+      <Snackbar />
       {selectedType === "1" && <EnglishWords onReset={handleResetForm} />}
       {selectedType === "2" && <ListenEnglishWords onReset={handleResetForm} />}
       {selectedType === "3" && <VariantAudio />}

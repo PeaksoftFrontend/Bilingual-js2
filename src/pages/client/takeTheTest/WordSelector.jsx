@@ -6,6 +6,7 @@ import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { userPostQuestion } from "../../../store/user create test/userThunk";
 import { useDispatch } from "react-redux";
+import { ShowSnackbar } from "../../../components/UI/snackbar/SnackBar";
 
 export const WordSelector = ({
   onNext,
@@ -40,8 +41,6 @@ export const WordSelector = ({
   const handleDrop = (e) => {
     e.preventDefault();
     if (draggedWord && !selectedWords.includes(draggedWord)) {
-      console.log("selectedWords: ", selectedWords);
-
       const updatedSelectedWords = [...selectedWords, draggedWord.title];
       setSelectedWords(updatedSelectedWords);
       setActiveWords([...activeWords, draggedWord.title]);
@@ -64,8 +63,15 @@ export const WordSelector = ({
         count: 0,
       },
     ];
-    console.log(data);
-    dispatch(userPostQuestion(data));
+    dispatch(userPostQuestion(data))
+      .then(() => {
+        ShowSnackbar("test uspeshno dobavleno!", "success");
+        onNext();
+      })
+      .catch((error) => {
+        console.error("Request failed", error);
+        onNext();
+      });
   };
 
   return (

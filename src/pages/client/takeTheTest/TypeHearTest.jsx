@@ -1,41 +1,76 @@
-import { useRef } from "react";
+// import { useRef } from "react";
 import { useState } from "react";
-import { dataTests } from "../../../utils/constants/userTest";
+// import { dataTests } from "../../../utils/constants/userTest";
 import { Icons } from "../../../assets/icons";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { styled, TextareaAutosize } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 
-export const TypeHearTest = ({ onNext, duration }) => {
+export const TypeHearTest = ({
+  onNext,
+  // duration,
+  currentQuestion,
+  questionId,
+}) => {
+  console.log("currentQuestion: ", currentQuestion);
+  console.log("questionId: ", questionId);
+
   const [audioDataList, setAudioDataList] = useState(
-    dataTests.map((data) => ({
+    [currentQuestion].map((data) => ({
       ...data,
       isPlaying: false,
-      remainingPlays: data.numOfWords,
+      remainingPlays: data.attempts,
       response: "",
     }))
   );
 
-  const audioRefs = useRef([]);
+  // const audioRefs = useRef([]);
+
+  // const handlePlayAudio = (index) => {
+  //   setAudioDataList((prevData) =>
+  //     prevData.map((item, i) => {
+  //       if (i === index && audioRefs.current[index]) {
+  //         const audioRef = audioRefs.current[index];
+  //         if (item.isPlaying) {
+  //           audioRef.pause();
+  //           audioRef.currentTime = 0;
+  //           return { ...item, isPlaying: false };
+  //         } else if (item.remainingPlays > 0) {
+  //           audioRef.currentTime = 0;
+  //           audioRef.play();
+  //           return {
+  //             ...item,
+  //             isPlaying: true,
+  //             remainingPlays: item.remainingPlays - 1,
+  //           };
+  //         }
+  //       }
+  //       return item;
+  //     })
+  //   );
+  // };
 
   const handlePlayAudio = (index) => {
     setAudioDataList((prevData) =>
       prevData.map((item, i) => {
-        if (i === index && audioRefs.current[index]) {
-          const audioRef = audioRefs.current[index];
-          if (item.isPlaying) {
-            audioRef.pause();
-            audioRef.currentTime = 0;
-            return { ...item, isPlaying: false };
-          } else if (item.remainingPlays > 0) {
-            audioRef.currentTime = 0;
-            audioRef.play();
-            return {
-              ...item,
-              isPlaying: true,
-              remainingPlays: item.remainingPlays - 1,
-            };
+        if (i === index) {
+          const audioUrl = item.fileUrl; // Берём URL аудио
+          console.log("audioUrl: ", audioUrl);
+          if (audioUrl) {
+            const audio = new Audio(audioUrl); // Создаём объект Audio
+            if (item.isPlaying) {
+              audio.pause(); // Если уже играет, ставим на паузу
+              return { ...item, isPlaying: false };
+            } else if (item.remainingPlays > 0) {
+              audio.play().catch((err) => console.error("Audio error:", err)); // Воспроизведение
+              audio.onended = () => handleAudioEnd(index); // Событие окончания воспроизведения
+              return {
+                ...item,
+                isPlaying: true,
+                remainingPlays: item.remainingPlays - 1,
+              };
+            }
           }
         }
         return item;
@@ -65,9 +100,9 @@ export const TypeHearTest = ({ onNext, duration }) => {
     <StyledBackdrop>
       <ContentWrapper>
         <StyledContentWrapper>
-          <Duration time={duration} onComplete={onNext} />
+          <Duration time={2000} onComplete={onNext} />
           <StyledTitle>Type the statement you hear</StyledTitle>
-          {audioDataList.map((item, index) => (
+          {/* {audioDataList.map((item, index) => (
             <StyledMain key={index}>
               <StyledIconWrapper
                 className={item.isPlaying ? "playing" : ""}
@@ -81,7 +116,7 @@ export const TypeHearTest = ({ onNext, duration }) => {
               </StyledIconWrapper>
               <audio
                 ref={(el) => (audioRefs.current[index] = el)}
-                src={item.audioData}
+                src={item.fileUrl}
                 onEnded={() => handleAudioEnd(index)}
               />
               <StyledSecondContainer>
@@ -96,7 +131,33 @@ export const TypeHearTest = ({ onNext, duration }) => {
                 </StyledSecondTitle>
               </StyledSecondContainer>
             </StyledMain>
+          ))} */}
+          {audioDataList.map((item, index) => (
+            <StyledMain key={index}>
+              <StyledIconWrapper
+                className={item.isPlaying ? "playing" : ""}
+                onClick={() => handlePlayAudio(index)} // Вызов обработчика
+              >
+                {item.isPlaying ? (
+                  <Icons.SoundOfHover />
+                ) : (
+                  <Icons.SoundOnHover />
+                )}
+              </StyledIconWrapper>
+              <StyledSecondContainer>
+                <StyledTextArea
+                  aria-label="minimum height"
+                  placeholder="Your response"
+                  value={item.response}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                />
+                <StyledSecondTitle>
+                  Number of replays left: {item.remainingPlays}
+                </StyledSecondTitle>
+              </StyledSecondContainer>
+            </StyledMain>
           ))}
+
           <StyledWrapperContent>
             <hr />
             <StyledBtn

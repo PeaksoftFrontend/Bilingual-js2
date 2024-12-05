@@ -21,7 +21,8 @@ export const CollectUserTest = () => {
     duration,
     onNext,
     optionList,
-    questionId
+    questionId,
+    currentQuestion
   ) => {
     switch (typeQuestion) {
       case "SELECT_REAL_ENGLISH_WORD":
@@ -34,9 +35,23 @@ export const CollectUserTest = () => {
           />
         );
       case "LISTEN_AND_SELECT_ENGLISH_WORDS":
-        return <UserSelectRealWords duration={duration} onNext={onNext} />;
+        return (
+          <UserSelectRealWords
+            duration={duration}
+            onNext={onNext}
+            questionId={questionId}
+            optionList={optionList}
+          />
+        );
       case "TYPE_WHAT_YOU_HEAR":
-        return <TypeHearTest duration={duration} onNext={onNext} />;
+        return (
+          <TypeHearTest
+            duration={duration}
+            onNext={onNext}
+            currentQuestion={currentQuestion}
+            questionId={questionId}
+          />
+        );
       case "DESCRIBE_IMAGE":
         return <DescribeImage duration={duration} onNext={onNext} />;
       case "RECORD_SAYING_STATEMENT":
@@ -67,11 +82,18 @@ export const CollectUserTest = () => {
     if (Array.isArray(testQuestions) && testQuestions.length > 0) {
       const currentQuestion = testQuestions[currentQuestionIndex];
       if (currentQuestion) {
-        console.log(currentQuestion);
+        // console.log(currentQuestion);
 
         const { questionType, duration, optionList, id } = currentQuestion;
         setSelectedComponent(
-          renderComponent(questionType, duration, handleNext, optionList, id)
+          renderComponent(
+            questionType,
+            duration,
+            handleNext,
+            optionList,
+            id,
+            currentQuestion
+          )
         );
       }
     }
