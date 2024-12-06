@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
+import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const questionsPostRequest = createAsyncThunk(
   "questions/questionsPostRequest",
@@ -10,13 +11,49 @@ export const questionsPostRequest = createAsyncThunk(
         data
       );
 
-      //   ShowSnackbar("Authorization successful!", "success");
+      ShowSnackbar("Test question added !", "success");
 
       return response.data;
     } catch (error) {
-      //   ShowSnackbar(error.response?.data?.message, "error");
+      ShowSnackbar(error.message, "error");
 
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const s3AudioPostRequest = createAsyncThunk(
+  "questions/s3AudioPostRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        `s3file`,
+        {
+          multipartFile: payload,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const s3AudioDeleteRequest = createAsyncThunk(
+  "questions/s3AudioDeleteRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.delete(
+        `s3file/delete?fileName=${payload}`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );

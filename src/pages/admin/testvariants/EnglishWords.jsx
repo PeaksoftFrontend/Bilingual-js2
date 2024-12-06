@@ -7,7 +7,14 @@ import { Icons } from "../../../assets/icons";
 import { useDispatch } from "react-redux";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const EnglishWords = ({ onReset, duration, selectedValue, title }) => {
+export const EnglishWords = ({
+  onReset,
+  duration,
+  selectedValue,
+  title,
+  setTitle,
+  setDuration,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
@@ -77,6 +84,9 @@ export const EnglishWords = ({ onReset, duration, selectedValue, title }) => {
     };
 
     disptach(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
   };
 
   return (

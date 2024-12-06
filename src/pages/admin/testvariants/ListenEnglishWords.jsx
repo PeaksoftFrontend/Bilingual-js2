@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { useRef, useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
 import { IconButton, styled } from "@mui/material";
@@ -13,17 +14,33 @@ import {
   StyledText,
   WrapperButtons,
 } from "./EnglishWords";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  questionsPostRequest,
+  s3AudioDeleteRequest,
+  s3AudioPostRequest,
+} from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const ListenEnglishWords = ({ onReset }) => {
+export const ListenEnglishWords = ({
+  onReset,
+  setTitle,
+  setDuration,
+  title,
+  duration,
+  selectedValue,
+}) => {
+  console.log(title, duration, selectedValue);
+
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
   const [isTrueValue, setIsTrueValue] = useState(false);
-  const [audioFile, setAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [playingWordId, setPlayingWordId] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const { audioLink, isLoading } = useSelector((state) => state.questions);
+  const dispatch = useDispatch();
 
   const audioRef = useRef(null);
 
@@ -34,8 +51,8 @@ export const ListenEnglishWords = ({ onReset }) => {
   const handleAudioChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAudioFile(file);
       setAudioFileName(file.name);
+      dispatch(s3AudioPostRequest(file));
     }
   };
 
@@ -43,27 +60,17 @@ export const ListenEnglishWords = ({ onReset }) => {
     setOpenModal((state) => !state);
   };
 
-  const saveWordsHandler = () => {
-    const data = {
-      word: wordsValue,
-      isTrue: isTrueValue,
-      audio: URL.createObjectURL(audioFile),
-      audioFileName: audioFileName,
-      id: Date.now().toString(),
-    };
-    setWords([...words, data]);
-
-    setWordsValue("");
-    setIsTrueValue(false);
-    setAudioFile(null);
-    setAudioFileName("");
-    handleOpenCloseModal();
-    setShowButton(true);
-  };
-
   const deleteWordHandler = (wordId) => {
-    const updatedWords = words.filter((word) => word.id !== wordId);
-    setWords(updatedWords);
+    const wordToDelete = words.find((word) => word.id === wordId);
+
+    if (wordToDelete && wordToDelete.audioUrl) {
+      dispatch(s3AudioDeleteRequest(wordToDelete.audioUrl));
+
+      const updatedWords = words.filter((word) => word.id !== wordId);
+      setWords(updatedWords);
+    } else {
+      console.error("Word not found or audioUrl is missing");
+    }
   };
 
   const updateWordHandler = (wordId) => {
@@ -116,6 +123,45 @@ export const ListenEnglishWords = ({ onReset }) => {
     }
   };
 
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const wordsWithoutAudioFileName = words.map(
+      ({ audioFileName, ...rest }) => rest
+    );
+    const wordsWithoutId = wordsWithoutAudioFileName.map(
+      ({ id, ...rest }) => rest
+    );
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      options: wordsWithoutId,
+    };
+
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
+  };
+  const saveWordsHandler = () => {
+    const data = {
+      word: wordsValue,
+      isTrue: isTrueValue,
+      audioUrl: audioLink,
+      audioFileName: audioFileName,
+      id: Date.now().toString(),
+    };
+    setWords([...words, data]);
+
+    setWordsValue("");
+    setIsTrueValue(false);
+    setAudioFileName("");
+    handleOpenCloseModal();
+    setShowButton(true);
+  };
+
   return (
     <>
       <StyledButtonContainer>
@@ -123,16 +169,15 @@ export const ListenEnglishWords = ({ onReset }) => {
           <Icons.Plus /> add options
         </Button>
       </StyledButtonContainer>
-
       <StyledMap>
         <BlockMap>
           {words.map((word, index) => (
             <DivContainer key={word.id}>
               <TitleContent>
                 <span>{index + 1}</span>
-                {word.audio && (
+                {word?.audioUrl && (
                   <IconButton
-                    onClick={() => handlePlayAudio(word.audio, word.id)}
+                    onClick={() => handlePlayAudio(word?.audioUrl, word.id)}
                   >
                     {playingWordId === word.id && isPlaying ? (
                       <Icons.SoundBlue />
@@ -170,7 +215,9 @@ export const ListenEnglishWords = ({ onReset }) => {
             <Button variant="outlined" onClick={resetValues}>
               go back
             </Button>
-            <Button variant="sucsses">save</Button>
+            <Button variant="sucsses" onClick={addOptionHandler}>
+              saved
+            </Button>
           </StyledShowButton>
         )}
       </StyledMap>
@@ -180,42 +227,46 @@ export const ListenEnglishWords = ({ onReset }) => {
         onClose={handleOpenCloseModal}
         role={"ADMIN"}
       >
-        <StyledContainer>
-          <StyledText>
-            <p>Title</p>
-            <StyledInput
-              type="text"
-              placeholder="Select real English words"
-              value={wordsValue}
-              onChange={handleInputChange}
-            />
-            <StyledFileInputWrapper>
-              <StyledButton as="label" htmlFor="fileInput">
-                Upload audio file
-              </StyledButton>
-              <HiddenFileInput
-                id="fileInput"
-                type="file"
-                accept="audio/*"
-                onChange={handleAudioChange}
+        {isLoading ? (
+          <h1>loading...</h1>
+        ) : (
+          <StyledContainer>
+            <StyledText>
+              <p>Title</p>
+              <StyledInput
+                type="text"
+                placeholder="Select real English words"
+                value={wordsValue}
+                onChange={handleInputChange}
               />
-              {audioFileName && <p>{audioFileName}</p>}
-            </StyledFileInputWrapper>
-          </StyledText>
+              <StyledFileInputWrapper>
+                <StyledButton as="label" htmlFor="fileInput">
+                  Upload audio file
+                </StyledButton>
+                <HiddenFileInput
+                  id="fileInput"
+                  type="file"
+                  accept="audio/*"
+                  onChange={handleAudioChange}
+                />
+                {audioFileName && <p>{audioFileName}</p>}
+              </StyledFileInputWrapper>
+            </StyledText>
 
-          <WrapperButtons>
-            <Button variant="outlined" onClick={handleOpenCloseModal}>
-              go back
-            </Button>
-            <Button
-              variant="sucsses"
-              onClick={saveWordsHandler}
-              disabled={!wordsValue}
-            >
-              save
-            </Button>
-          </WrapperButtons>
-        </StyledContainer>
+            <WrapperButtons>
+              <Button variant="outlined" onClick={handleOpenCloseModal}>
+                go back
+              </Button>
+              <Button
+                variant="sucsses"
+                onClick={saveWordsHandler}
+                disabled={!wordsValue}
+              >
+                save
+              </Button>
+            </WrapperButtons>
+          </StyledContainer>
+        )}
       </StyledModalBox>
     </>
   );

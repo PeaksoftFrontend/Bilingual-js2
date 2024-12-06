@@ -21,6 +21,9 @@ export const CreateTest = () => {
 
   const handleResetForm = () => {
     setSelectedType("");
+    selectedValue("");
+    setDuration("15:00");
+    setTitle("");
   };
 
   return (
@@ -40,12 +43,31 @@ export const CreateTest = () => {
           duration={duration}
           selectedValue={selectedValue}
           title={title}
+          setTitle={setTitle}
+          setDuration={setDuration}
         />
       )}
       {selectedType === "LISTEN_AND_SELECT_ENGLISH_WORDS" && (
-        <ListenEnglishWords onReset={handleResetForm} />
+        <ListenEnglishWords
+          onReset={handleResetForm}
+          title={title}
+          duration={duration}
+          selectedValue={selectedValue}
+          setTitle={setTitle}
+          setDuration={setDuration}
+        />
       )}
-      {selectedType === "TYPE_WHAT_YOU_HEAR" && <VariantAudio />}
+      {selectedType === "TYPE_WHAT_YOU_HEAR" && (
+        <VariantAudio
+          title={title}
+          duration={duration}
+          selectedValue={selectedValue}
+          setTitle={setTitle}
+          setDuration={setDuration}
+          // onReset={handleResetForm}
+          setSelectedType={setSelectedType}
+        />
+      )}
       {selectedType === "DESCRIBE_IMAGE" && <UploadImage />}
       {selectedType === "RECORD_SAYING_STATEMENT" && <RecordStatement />}
       {selectedType === "RESPOND_AT_LEAST_N_WORDS" && <Respons />}

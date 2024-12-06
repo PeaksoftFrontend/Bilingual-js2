@@ -5,13 +5,30 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "../../../components/UI/button/Button";
 import play from "../../../assets/images/play.png";
 import pause from "../../../assets/images/pause.png";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  questionsPostRequest,
+  s3AudioDeleteRequest,
+  s3AudioPostRequest,
+} from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const VariantAudio = () => {
+export const VariantAudio = ({
+  title,
+  duration,
+  selectedValue,
+  setTitle,
+  setDuration,
+  setSelectedType,
+}) => {
+  console.log(title, duration, selectedValue);
+
   const [file, setFile] = useState(null);
   const [audioURL, setAudioURL] = useState("");
   const [answer, setAnswer] = useState("");
   const [replays, setReplays] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const dispatch = useDispatch();
+  const { audioLink, isLoading } = useSelector((state) => state.questions);
 
   const audioRef = useRef(null);
 
@@ -19,6 +36,8 @@ export const VariantAudio = () => {
     const uploadedFile = acceptedFiles[0];
     if (uploadedFile) {
       setFile(uploadedFile);
+      dispatch(s3AudioPostRequest(uploadedFile));
+
       setAudioURL(URL.createObjectURL(uploadedFile));
     }
   };
@@ -47,62 +66,108 @@ export const VariantAudio = () => {
   };
 
   const handleReplays = (e) => {
-    const value = parseInt(e.target.value, 10);
-    if (value >= 0) {
-      setReplays(value);
+    const value = e.target.value; // Получаем строку из инпута
+    if (value === "" || (/^\d+$/.test(value) && parseInt(value, 10) <= 10)) {
+      setReplays(value === "" ? "" : parseInt(value, 10));
     }
+  };
+  const handleDeleteAudio = () => {
+    if (file) {
+      dispatch(s3AudioDeleteRequest(audioLink));
+      setFile(null); // Сбрасываем файл
+      setAudioURL(""); // Удаляем URL аудио
+    }
+  };
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+    console.log("totalDurationInSeconds: ", totalDurationInSeconds);
+
+    // const wordsWithoutAudioFileName = words.map(
+    //   ({ audioFileName, ...rest }) => rest
+    // );
+    // const wordsWithoutId = wordsWithoutAudioFileName.map(
+    //   ({ id, ...rest }) => rest
+    // );
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      fileUrl: audioLink,
+      correctAnswer: answer,
+    };
+    console.log(data);
+
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    setSelectedType("");
   };
 
   return (
-    <>
-      <audio ref={audioRef} src={audioURL} />
-      <StyledDiv>
-        <StyledReplays>
-          <StyledH4>Number of Replays</StyledH4>
-          <StyledInputNumber
-            type="number"
-            value={replays >= 0 ? replays : 0}
-            onChange={handleReplays}
-          />
-        </StyledReplays>
-        <StyledPlayButton>
-          <DropzoneStyle {...getRootProps()}>
-            <Button variant="contained">{file ? "Replace" : "Upload"}</Button>
-          </DropzoneStyle>
-          {audioURL && (
-            <>
-              {!isPlaying ? (
-                <StyledButton2 onClick={handlePlayAudio} variant="text">
-                  <img src={play} alt="play" />
-                </StyledButton2>
-              ) : (
-                <StyledButton2 onClick={handlePauseAudio} variant="text">
-                  <img src={pause} alt="pause" />
-                </StyledButton2>
+    <div>
+      {isLoading ? (
+        <h1>loading...</h1>
+      ) : (
+        <>
+          <audio ref={audioRef} src={audioURL} />
+          <StyledDiv>
+            <StyledReplays>
+              <StyledH4>Number of Replays</StyledH4>
+              <StyledInputNumber
+                type="number"
+                value={replays >= 0 ? replays : 0}
+                onChange={handleReplays}
+              />
+            </StyledReplays>
+            <StyledPlayButton>
+              <DropzoneStyle {...getRootProps()}>
+                <Button variant="contained" onClick={handleDeleteAudio}>
+                  {file ? "Replace" : "Upload"}
+                </Button>
+              </DropzoneStyle>
+              {audioURL && (
+                <>
+                  {!isPlaying ? (
+                    <StyledButton2 onClick={handlePlayAudio} variant="text">
+                      <img src={play} alt="play" />
+                    </StyledButton2>
+                  ) : (
+                    <StyledButton2 onClick={handlePauseAudio} variant="text">
+                      <img src={pause} alt="pause" />
+                    </StyledButton2>
+                  )}
+                </>
               )}
-            </>
-          )}
-          {file && <p>{file.name}</p>}
-          <input {...getInputProps()} />
-        </StyledPlayButton>
-      </StyledDiv>
+              {file && <p>{file.name}</p>}
+              <input {...getInputProps()} />
+            </StyledPlayButton>
+          </StyledDiv>
 
-      <StyledAnsver>
-        <StyledCorrectAnswer>Correct answer</StyledCorrectAnswer>
-        <div>
-          <StyledTextField2 value={answer} onChange={handleAnswerChange} />
-        </div>
+          <StyledAnsver>
+            <StyledCorrectAnswer>Correct answer</StyledCorrectAnswer>
+            <div>
+              <StyledTextField2 value={answer} onChange={handleAnswerChange} />
+            </div>
 
-        <StyledDev>
-          <StyledBorder>
-            <StyledButtonOutlined variant="outlined">
-              Go Back
-            </StyledButtonOutlined>
-          </StyledBorder>
-          <StyledButton variant="sucsses">Save</StyledButton>
-        </StyledDev>
-      </StyledAnsver>
-    </>
+            <StyledDev>
+              <StyledBorder>
+                <StyledButtonOutlined variant="outlined">
+                  Go Back
+                </StyledButtonOutlined>
+              </StyledBorder>
+              <StyledButton
+                variant="sucsses"
+                disabled={!answer}
+                onClick={addOptionHandler}
+              >
+                Save
+              </StyledButton>
+            </StyledDev>
+          </StyledAnsver>
+        </>
+      )}
+    </div>
   );
 };
 
@@ -115,7 +180,7 @@ const DropzoneStyle = styled("div")({
 });
 
 const StyledInputNumber = styled(Input)({
-  width: "57.5px",
+  width: "87.5px",
   "& .MuiOutlinedInput-input": {
     padding: "12px 20px",
     "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
@@ -125,7 +190,7 @@ const StyledInputNumber = styled(Input)({
     "-moz-appearance": "textfield",
   },
   "& .MuiOutlinedInput-root": {
-    padding: "0px",
+    paddingLeft: "0px",
   },
 });
 
