@@ -18,9 +18,9 @@ import { ResultPage } from "../pages/client/user-test/ResultPage";
 import { UserTestPage } from "../pages/client/user-test/UserTestPage";
 import { StartTest } from "../pages/client/user-test/StartTest";
 import { CollectUserTest } from "../pages/client/user-test/CollectUserTest";
+import { TypeHearTest } from "../pages/client/takeTheTest/TypeHearTest";
 import { Highlight } from "../pages/client/takeTheTest/Highlight";
 import { CompletePractice } from "../pages/client/takeTheTest/CompletePractice";
-import { TypeHearTest } from "../pages/client/takeTheTest/TypeHearTest";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([

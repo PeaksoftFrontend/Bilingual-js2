@@ -8,6 +8,7 @@ import { RecordStatement } from "../testvariants/RecordStatement";
 import { UploadImage } from "../testvariants/UploadImage";
 import { SelectMainIdea } from "../testvariants/ SelectMainIdea";
 import { HighLightTheAnswer } from "../testvariants/HighLightTheAnswer";
+import { SelectBestTitle } from "../testvariants/ SelectBestTitle";
 
 export const CreateTest = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -68,7 +69,16 @@ export const CreateTest = () => {
           setSelectedType={setSelectedType}
         />
       )}
-      {selectedType === "DESCRIBE_IMAGE" && <UploadImage />}
+      {selectedType === "DESCRIBE_IMAGE" && (
+        <UploadImage
+          onReset={handleResetForm}
+          title={title}
+          duration={duration}
+          selectedValue={selectedValue}
+          setTitle={setTitle}
+          setDuration={setDuration}
+        />
+      )}
       {selectedType === "RECORD_SAYING_STATEMENT" && (
         <RecordStatement
           selectedValue={selectedValue}
@@ -110,7 +120,7 @@ export const CreateTest = () => {
         />
       )}
       {selectedType === "SELECT_THE_BEST_TITLE" && (
-        <SelectMainIdea
+        <SelectBestTitle
           selectedValue={selectedValue}
           title={title}
           duration={duration}

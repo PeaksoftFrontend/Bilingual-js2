@@ -3,19 +3,46 @@ import { useDropzone } from "react-dropzone";
 import { styled } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 import { Input } from "../../../components/UI/input/Input";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  questionsPostRequest,
+  s3AudioDeleteRequest,
+  s3AudioPostRequest,
+} from "../../../store/adminQuestion/adminQuestionThunk";
+import { Loading } from "../../../components/UI/loading/Loading";
 
-export const UploadImage = () => {
+export const UploadImage = ({
+  title,
+  duration,
+  selectedValue,
+  onReset,
+  setDuration,
+  setTitle,
+}) => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [fileName, setFileName] = useState("");
   const [isDragging, setIsDragging] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const { audioLink, isLoading } = useSelector((state) => state.questions);
+  console.log(audioLink);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
-    const imageUrl = URL.createObjectURL(file);
-    setUploadedImage(imageUrl);
-    setFileName(file.name);
-    setIsDragging(false);
-  }, []);
+  const dispatch = useDispatch();
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      const imageUrl = URL.createObjectURL(file);
+      if (audioLink) {
+        dispatch(s3AudioDeleteRequest(audioLink));
+      }
+      setUploadedImage(imageUrl);
+      setFileName(file.name);
+      dispatch(s3AudioPostRequest(file));
+
+      setIsDragging(false);
+    },
+    [dispatch, audioLink]
+  );
 
   const onDragEnter = () => {
     setIsDragging(true);
@@ -33,9 +60,30 @@ export const UploadImage = () => {
     onDragLeave,
   });
 
+  const inputChangeHandle = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const postImageOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      correctAnswer: inputValue,
+      fileUrl: audioLink,
+    };
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
+  };
+
   return (
     <>
       <ContainerUploadImage>
+        {isLoading && <Loading />}
         <div {...getRootProps()} style={{ cursor: "pointer" }}>
           <input {...getInputProps()} />
           {uploadedImage ? (
@@ -53,12 +101,24 @@ export const UploadImage = () => {
       <WrapperInputAndButtons>
         <InputLabel htmlFor="answer">
           Correct answer
-          <StyledInput type="text" placeholder={"write text"} id={"answer"} />
+          <StyledInput
+            type="text"
+            placeholder={"write text"}
+            id={"answer"}
+            onChange={inputChangeHandle}
+            value={inputValue}
+          />
         </InputLabel>
 
         <WrapperButtons>
           <StyledButton variant="outlined">Go Back</StyledButton>
-          <Button variant="sucsses">Save</Button>
+          <Button
+            variant="sucsses"
+            onClick={postImageOptionHandler}
+            disabled={!inputValue || !uploadedImage}
+          >
+            Save
+          </Button>
         </WrapperButtons>
       </WrapperInputAndButtons>
     </>

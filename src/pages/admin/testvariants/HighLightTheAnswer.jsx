@@ -91,7 +91,7 @@ export const HighLightTheAnswer = ({
         <Button
           variant="sucsses"
           onClick={addOptionHandler}
-          disabled={(!inputValue, !text)}
+          disabled={!inputValue || !text}
         >
           Save
         </Button>

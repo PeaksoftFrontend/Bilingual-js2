@@ -52,8 +52,12 @@ import VolumeUp from "./icon/VolumeUp.svg";
 import Check from "./icon/check.svg";
 import HoverCheck from "./icon/hoverCheck.svg";
 import clickChecked from "./icon/clickChecked.svg";
+import errorClose from "./icon/errorClose.svg";
+import closeModalicon from "./icon/closeModal.svg";
 
 export const Icons = {
+  closeModalicon,
+  errorClose,
   clickChecked,
   Google,
   Frame,
