@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ContentWrapper } from "../../../../components/UI/content_wrapper/ContentWrapper";
 import { Button } from "../../../../components/UI/button/Button";
 import { Icons } from "../../../../assets/icons";
@@ -7,11 +7,23 @@ import { AdminTable } from "../../../../components/UI/admin-table/AdminTable";
 import { TEST, testData } from "../../../../utils/constants/AdminTable";
 import { styled } from "@mui/system";
 import { TestNotFound } from "../../../404/TestNotFound";
+import { useEffect } from "react";
+import { getTestByIdRequest } from "../../../../store/admin create test/adminCreatetestThunk";
 
 export const TestInfo = ({ duration = "15" }) => {
   const navigate = useNavigate();
-  const { tests } = useSelector((state) => state.test);
+  const { tests, testsById } = useSelector((state) => state.test);
+  console.log("testsById: ", testsById);
+  console.log("tests: ", tests);
   const { testInfoId } = useParams();
+  const dispatch = useDispatch();
+  const handleNavigate = () => {
+    navigate(`/admin/test-page/test-info/${testInfoId}/create-test`);
+  };
+
+  useEffect(() => {
+    dispatch(getTestByIdRequest(testInfoId));
+  }, [dispatch]);
 
   const test = tests?.find((item) => item.id === Number(testInfoId));
 
@@ -33,7 +45,7 @@ export const TestInfo = ({ duration = "15" }) => {
         <TestNotFound />
       )}
       <ButtonContainer>
-        <Button onClick={() => navigate("/admin/test-page/create-test")}>
+        <Button onClick={handleNavigate}>
           <Icons.Plus />
           ADD MORE QUESTIONS
         </Button>

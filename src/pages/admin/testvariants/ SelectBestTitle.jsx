@@ -6,6 +6,7 @@ import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
 import { useDispatch } from "react-redux";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const SelectBestTitle = ({
   selectedValue,
@@ -21,7 +22,9 @@ export const SelectBestTitle = ({
   const [isTrueValue, setIsTrueValue] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState("");
+  const { testInfoId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setWordsValue(e.target.value);
@@ -92,7 +95,9 @@ export const SelectBestTitle = ({
       passage: textAreaValue,
       options: wordsWithoutId,
     };
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

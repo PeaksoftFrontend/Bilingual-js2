@@ -4,6 +4,7 @@ import { styled } from "@mui/material";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
 import { useDispatch } from "react-redux";
 import { StyledInput } from "./EnglishWords";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const RecordStatement = ({
   selectedValue,
@@ -15,6 +16,8 @@ export const RecordStatement = ({
 }) => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
+  const { testInfoId } = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -27,10 +30,12 @@ export const RecordStatement = ({
     const data = {
       title,
       duration: totalDurationInSeconds,
-      correctAnswer: value,
+      statement: value,
     };
 
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

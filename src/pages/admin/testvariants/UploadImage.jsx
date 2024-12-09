@@ -10,6 +10,7 @@ import {
   s3AudioPostRequest,
 } from "../../../store/adminQuestion/adminQuestionThunk";
 import { Loading } from "../../../components/UI/loading/Loading";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const UploadImage = ({
   title,
@@ -24,7 +25,8 @@ export const UploadImage = ({
   const [isDragging, setIsDragging] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { audioLink, isLoading } = useSelector((state) => state.questions);
-  console.log(audioLink);
+  const { testInfoId } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -74,7 +76,9 @@ export const UploadImage = ({
       correctAnswer: inputValue,
       fileUrl: audioLink,
     };
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

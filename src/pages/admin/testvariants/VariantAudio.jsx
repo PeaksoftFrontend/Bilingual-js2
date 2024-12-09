@@ -11,6 +11,7 @@ import {
   s3AudioDeleteRequest,
   s3AudioPostRequest,
 } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const VariantAudio = ({
   title,
@@ -27,8 +28,9 @@ export const VariantAudio = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const dispatch = useDispatch();
   const { audioLink, isLoading } = useSelector((state) => state.questions);
-
+  const { testInfoId } = useParams();
   const audioRef = useRef(null);
+  const navigate = useNavigate();
 
   const onDrop = (acceptedFiles) => {
     const uploadedFile = acceptedFiles[0];
@@ -94,7 +96,9 @@ export const VariantAudio = ({
       correctAnswer: answer,
     };
 
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     setSelectedType("");

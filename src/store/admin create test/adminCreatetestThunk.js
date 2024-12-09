@@ -56,3 +56,17 @@ export const deleteTestRequest = createAsyncThunk(
     }
   }
 );
+
+export const getTestByIdRequest = createAsyncThunk(
+  "test/getTestByIdRequest",
+  async (testInfoId, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/tests/getById?testId=${testInfoId}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

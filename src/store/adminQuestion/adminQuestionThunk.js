@@ -4,14 +4,18 @@ import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const questionsPostRequest = createAsyncThunk(
   "questions/questionsPostRequest",
-  async ({ data, selectedValue }, { rejectWithValue }) => {
+  async (
+    { data, selectedValue, testInfoId, navigate },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axiosInstance.post(
-        `questions?testId=1&questionType=${selectedValue}`,
+        `questions?testId=${testInfoId}&questionType=${selectedValue}`,
         data
       );
 
       ShowSnackbar("Test question added !", "success");
+      navigate(`/admin/test-page/test-info/${testInfoId}`);
 
       return response.data;
     } catch (error) {

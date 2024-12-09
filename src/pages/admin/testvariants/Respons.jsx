@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Input } from "../../../components/UI/input/Input";
 import { useDispatch } from "react-redux";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Respons = ({
   selectedValue,
@@ -16,6 +17,8 @@ export const Respons = ({
   const [num, setNum] = useState(0);
   const [titleValue, setTitleValue] = useState("");
   const dispatch = useDispatch();
+  const { testInfoId } = useParams();
+  const navigate = useNavigate();
 
   const handleChangeNumber = (e) => {
     const value = e.target.value;
@@ -35,11 +38,13 @@ export const Respons = ({
     const data = {
       title,
       duration: totalDurationInSeconds,
-      correctAnswer: titleValue,
+      statement: titleValue,
       attempts: num,
     };
 
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

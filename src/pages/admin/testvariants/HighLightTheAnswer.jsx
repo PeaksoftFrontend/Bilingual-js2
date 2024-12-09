@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
 import { useDispatch } from "react-redux";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const HighLightTheAnswer = ({
   selectedValue,
@@ -17,7 +18,9 @@ export const HighLightTheAnswer = ({
   const [highlightedText, setHighlightedText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [selectedText, setSelectedText] = useState("");
+  const { testInfoId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -52,7 +55,9 @@ export const HighLightTheAnswer = ({
       passage: text,
       correctAnswer: selectedText,
     };
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

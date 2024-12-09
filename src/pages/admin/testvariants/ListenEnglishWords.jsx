@@ -20,6 +20,7 @@ import {
   s3AudioDeleteRequest,
   s3AudioPostRequest,
 } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ListenEnglishWords = ({
   onReset,
@@ -38,7 +39,9 @@ export const ListenEnglishWords = ({
   const [playingWordId, setPlayingWordId] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const { audioLink, isLoading } = useSelector((state) => state.questions);
+  const { testInfoId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const audioRef = useRef(null);
 
@@ -138,7 +141,9 @@ export const ListenEnglishWords = ({
       options: wordsWithoutId,
     };
 
-    dispatch(questionsPostRequest({ data, selectedValue }));
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();

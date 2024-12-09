@@ -6,6 +6,7 @@ import { IconButton, styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { useDispatch } from "react-redux";
 import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const EnglishWords = ({
   onReset,
@@ -21,6 +22,8 @@ export const EnglishWords = ({
   const [isTrueValue, setIsTrueValue] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const disptach = useDispatch();
+  const { testInfoId } = useParams();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setWordsValue(e.target.value);
@@ -83,7 +86,9 @@ export const EnglishWords = ({
       options: wordsWithoutId,
     };
 
-    disptach(questionsPostRequest({ data, selectedValue }));
+    disptach(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
     setTitle("");
     setDuration("15:00");
     onReset();
