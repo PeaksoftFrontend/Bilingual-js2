@@ -66,7 +66,6 @@ export const userTest = [
     description: "Train as much as you like.",
   },
 ];
-<<<<<<< HEAD
 export const dataBestTitle = [
   {
     title: "The Village’s Growth",
@@ -95,11 +94,11 @@ export const dataMainIdea = [
   {
     title:
       "There are many ofLorem variations of passages ofLorem Ipsum available2,",
-=======
+  },
+];
 export const dataTests = [
   {
     audioData: audio,
     numOfWords: 4,
->>>>>>> 017069fac4a15d5de91f19448cb758e6c3765f61
   },
 ];
