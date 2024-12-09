@@ -40,8 +40,8 @@ export const EnglishWords = ({
       audioUrl: "",
       id: Date.now().toString(),
     };
-    setWords([...words, data]);
 
+    setWords([...words, data]);
     setWordsValue("");
     setIsTrueValue(false);
     handleOpenCloseModal();

@@ -20,8 +20,6 @@ export const VariantAudio = ({
   setDuration,
   setSelectedType,
 }) => {
-  console.log(title, duration, selectedValue);
-
   const [file, setFile] = useState(null);
   const [audioURL, setAudioURL] = useState("");
   const [answer, setAnswer] = useState("");
@@ -66,7 +64,7 @@ export const VariantAudio = ({
   };
 
   const handleReplays = (e) => {
-    const value = e.target.value; // Получаем строку из инпута
+    const value = e.target.value;
     if (value === "" || (/^\d+$/.test(value) && parseInt(value, 10) <= 10)) {
       setReplays(value === "" ? "" : parseInt(value, 10));
     }
@@ -74,14 +72,13 @@ export const VariantAudio = ({
   const handleDeleteAudio = () => {
     if (file) {
       dispatch(s3AudioDeleteRequest(audioLink));
-      setFile(null); // Сбрасываем файл
-      setAudioURL(""); // Удаляем URL аудио
+      setFile(null);
+      setAudioURL("");
     }
   };
   const addOptionHandler = () => {
     const [minutes, seconds] = duration.split(":").map(Number);
     const totalDurationInSeconds = minutes * 60 + (seconds || 0);
-    console.log("totalDurationInSeconds: ", totalDurationInSeconds);
 
     // const wordsWithoutAudioFileName = words.map(
     //   ({ audioFileName, ...rest }) => rest
@@ -96,7 +93,6 @@ export const VariantAudio = ({
       fileUrl: audioLink,
       correctAnswer: answer,
     };
-    console.log(data);
 
     dispatch(questionsPostRequest({ data, selectedValue }));
     setTitle("");

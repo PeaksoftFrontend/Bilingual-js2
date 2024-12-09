@@ -69,14 +69,55 @@ export const CreateTest = () => {
         />
       )}
       {selectedType === "DESCRIBE_IMAGE" && <UploadImage />}
-      {selectedType === "RECORD_SAYING_STATEMENT" && <RecordStatement />}
-      {selectedType === "RESPOND_AT_LEAST_N_WORDS" && <Respons />}
-      {selectedType === "HIGHLIGHT_THE_ANSWER" && <HighLightTheAnswer />}
+      {selectedType === "RECORD_SAYING_STATEMENT" && (
+        <RecordStatement
+          selectedValue={selectedValue}
+          title={title}
+          duration={duration}
+          onReset={handleResetForm}
+          setDuration={setDuration}
+          setTitle={setTitle}
+        />
+      )}
+      {selectedType === "RESPOND_AT_LEAST_N_WORDS" && (
+        <Respons
+          selectedValue={selectedValue}
+          title={title}
+          duration={duration}
+          onReset={handleResetForm}
+          setDuration={setDuration}
+          setTitle={setTitle}
+        />
+      )}
+      {selectedType === "HIGHLIGHT_THE_ANSWER" && (
+        <HighLightTheAnswer
+          selectedValue={selectedValue}
+          title={title}
+          duration={duration}
+          onReset={handleResetForm}
+          setDuration={setDuration}
+          setTitle={setTitle}
+        />
+      )}
       {selectedType === "SELECT_THE_MAIN_IDEA" && (
-        <SelectMainIdea onReset={handleResetForm} />
+        <SelectMainIdea
+          selectedValue={selectedValue}
+          title={title}
+          duration={duration}
+          onReset={handleResetForm}
+          setDuration={setDuration}
+          setTitle={setTitle}
+        />
       )}
       {selectedType === "SELECT_THE_BEST_TITLE" && (
-        <SelectMainIdea onReset={handleResetForm} />
+        <SelectMainIdea
+          selectedValue={selectedValue}
+          title={title}
+          duration={duration}
+          onReset={handleResetForm}
+          setDuration={setDuration}
+          setTitle={setTitle}
+        />
       )}
     </AdminForm>
   );

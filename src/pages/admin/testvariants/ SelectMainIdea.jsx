@@ -4,16 +4,31 @@ import { Icons } from "../../../assets/icons";
 import { IconButton, styled, TextareaAutosize } from "@mui/material";
 import { UiModal } from "../../../components/UI/modal/UiModal";
 import { Input } from "../../../components/UI/input/Input";
+import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useDispatch } from "react-redux";
 
-export const SelectMainIdea = ({ onReset }) => {
+export const SelectMainIdea = ({
+  selectedValue,
+  title,
+  duration,
+  onReset,
+  setDuration,
+  setTitle,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");
   const [isTrueValue, setIsTrueValue] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     setWordsValue(e.target.value);
+  };
+
+  const handleAreaChange = (e) => {
+    setTextAreaValue(e.target.value);
   };
 
   const handleOpenCloseModal = () => {
@@ -32,6 +47,7 @@ export const SelectMainIdea = ({ onReset }) => {
     const data = {
       word: wordsValue,
       isTrue: !alreadyTrue && isTrueValue,
+      audioUrl: "",
       id: Date.now().toString(),
     };
 
@@ -67,11 +83,29 @@ export const SelectMainIdea = ({ onReset }) => {
     }
   };
 
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const wordsWithoutId = words.map(({ id, ...rest }) => rest);
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      passage: textAreaValue,
+      options: wordsWithoutId,
+    };
+
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
+  };
+
   return (
     <div>
       <StyledLabe>
         Passage
-        <StyledTextArea />
+        <StyledTextArea onChange={handleAreaChange} value={textAreaValue} />
       </StyledLabe>
 
       <>
@@ -117,8 +151,11 @@ export const SelectMainIdea = ({ onReset }) => {
               <Button variant="outlined" onClick={resetValues}>
                 go back
               </Button>
-              <Button variant="sucsses" disabled={words.length < 4}>
-                {" "}
+              <Button
+                variant="sucsses"
+                disabled={words.length < 4}
+                onClick={addOptionHandler}
+              >
                 save
               </Button>
             </StyledShowButton>

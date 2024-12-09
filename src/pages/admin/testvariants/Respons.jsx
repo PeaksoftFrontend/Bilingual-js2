@@ -2,10 +2,20 @@ import { styled } from "@mui/system";
 import { Button } from "../../../components/UI/button/Button";
 import { useState } from "react";
 import { Input } from "../../../components/UI/input/Input";
+import { useDispatch } from "react-redux";
+import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const Respons = () => {
+export const Respons = ({
+  selectedValue,
+  title,
+  duration,
+  onReset,
+  setDuration,
+  setTitle,
+}) => {
   const [num, setNum] = useState(0);
-  const [title, setTitle] = useState("");
+  const [titleValue, setTitleValue] = useState("");
+  const dispatch = useDispatch();
 
   const handleChangeNumber = (e) => {
     const value = e.target.value;
@@ -15,14 +25,31 @@ export const Respons = () => {
   };
 
   const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
+    setTitleValue(e.target.value);
+  };
+
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      correctAnswer: titleValue,
+      attempts: num,
+    };
+
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
   };
 
   return (
     <StyledContainer>
       <div>
         <StyledH4>Question statement</StyledH4>
-        <StyledInput onChange={handleChangeTitle} value={title} />
+        <StyledInput onChange={handleChangeTitle} value={titleValue} />
       </div>
       <div>
         <StyledH1>Number off Words</StyledH1>
@@ -34,7 +61,13 @@ export const Respons = () => {
         />
         <StyledButton>
           <StyledButtonGoBeck variant="outlined">Go Back</StyledButtonGoBeck>
-          <Button variant="sucsses">Save</Button>
+          <Button
+            variant="sucsses"
+            onClick={addOptionHandler}
+            disabled={!titleValue}
+          >
+            Save
+          </Button>
         </StyledButton>
       </div>
     </StyledContainer>

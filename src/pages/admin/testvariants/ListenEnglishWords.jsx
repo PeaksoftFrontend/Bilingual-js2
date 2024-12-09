@@ -29,8 +29,6 @@ export const ListenEnglishWords = ({
   duration,
   selectedValue,
 }) => {
-  console.log(title, duration, selectedValue);
-
   const [openModal, setOpenModal] = useState(false);
   const [words, setWords] = useState([]);
   const [wordsValue, setWordsValue] = useState("");

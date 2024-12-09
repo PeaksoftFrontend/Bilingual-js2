@@ -2,12 +2,22 @@ import { styled, TextareaAutosize } from "@mui/material";
 import { Input } from "../../../components/UI/input/Input";
 import { useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
+import { useDispatch } from "react-redux";
+import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
 
-export const HighLightTheAnswer = () => {
+export const HighLightTheAnswer = ({
+  selectedValue,
+  title,
+  duration,
+  onReset,
+  setDuration,
+  setTitle,
+}) => {
   const [text, setText] = useState("");
   const [highlightedText, setHighlightedText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [selectedText, setSelectedText] = useState("");
+  const dispatch = useDispatch();
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -31,10 +41,21 @@ export const HighLightTheAnswer = () => {
     }
   };
 
-  const handleSave = () => {
-    console.log("Выделенный текст:", selectedText);
-    console.log("Инпут:", inputValue);
-    console.log("Text:", text);
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      statement: inputValue,
+      passage: text,
+      correctAnswer: selectedText,
+    };
+    dispatch(questionsPostRequest({ data, selectedValue }));
+    setTitle("");
+    setDuration("15:00");
+    onReset();
   };
 
   return (
@@ -67,9 +88,13 @@ export const HighLightTheAnswer = () => {
 
       <WrapperButtons>
         <StyledButton variant="outlined">Go Back</StyledButton>
-        <Button variant="sucsses" onClick={handleSave}>
+        <Button
+          variant="sucsses"
+          onClick={addOptionHandler}
+          disabled={(!inputValue, !text)}
+        >
           Save
-        </Button>{" "}
+        </Button>
       </WrapperButtons>
     </ContainerHighligh>
   );
