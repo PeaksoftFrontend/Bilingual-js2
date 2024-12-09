@@ -5,48 +5,55 @@ import { ContentWrapper } from "../../../../components/UI/content_wrapper/Conten
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, styled } from "@mui/material";
 import { TestNotFound } from "../../../404/TestNotFound";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   deleteTestRequest,
   getTestRequest,
   putSwitchRequest,
 } from "../../../../store/admin create test/adminCreatetestThunk";
+import { UiModal } from "../../../../components/UI/modal/UiModal";
 
 export const TestPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { tests } = useSelector((state) => state.test);
+  const [openModal, setOpenModal] = useState(false);
+  const [testId, setTestId] = useState(null);
 
-  // const isFalseHandler = (event, item) => {
-  //   event.stopPropagation();
-  //   const { id } = item;
-  //   dispatch(putSwitchRequest({ id, action: { isEnabled: false } }));
-  // };
-
-  const isTrueHandler = (event, item) => {
-    event.stopPropagation();
-    const { id } = item;
-
-    dispatch(putSwitchRequest({ id, action: !item.enable }));
-  };
-
-  const deleteHandler = (event, id) => {
-    event.stopPropagation();
-    dispatch(deleteTestRequest(id));
-  };
-
-  const updateHandler = (event, test) => {
-    event.stopPropagation();
-    navigate("/admin/test-page/add-new-test", { state: { test } });
-  };
-
-  const handlerNavigate = (selectedId) => {
-    navigate(`/admin/test-page/test-info/${selectedId}`);
-  };
+  const { tests, isLoading, error } = useSelector((state) => state.test);
 
   useEffect(() => {
     dispatch(getTestRequest());
+  }, [dispatch]);
+
+  const openModalHandler = useCallback((event, item) => {
+    event.stopPropagation();
+    setTestId(item.id);
+    setOpenModal(true);
   }, []);
+
+  const closeModalHandler = useCallback(() => {
+    setOpenModal(false);
+    setTestId(null);
+  }, []);
+
+  const deleteHandler = useCallback(() => {
+    if (testId) {
+      dispatch(deleteTestRequest(testId));
+      closeModalHandler();
+    }
+  }, [dispatch, testId, closeModalHandler]);
+
+  const isTrueHandler = useCallback(
+    (event, item) => {
+      event.stopPropagation();
+      dispatch(putSwitchRequest({ id: item.id, action: !item.enable }));
+    },
+    [dispatch]
+  );
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading tests. Please try again.</p>;
+
   return (
     <ContentWrapper>
       <ContainerButton>
@@ -58,40 +65,92 @@ export const TestPage = () => {
       <MapBlock>
         {tests.length > 0 ? (
           tests.map((item) => (
-            <StyledContainer
-              key={item.id}
-              onClick={() => handlerNavigate(item.id)}
-            >
+            <StyledContainer key={item.id}>
               <TextContainer>
                 <StyledTitle>{item.title}</StyledTitle>
-                <StyledDescription>{item.description}</StyledDescription>
+                <StyledDescription
+                  onClick={() =>
+                    navigate(`/admin/test-page/test-info/${item.id}`)
+                  }
+                >
+                  {item.description}
+                </StyledDescription>
               </TextContainer>
               <IconContainer>
-                {item.enable ? (
-                  <IconButton onClick={(event) => isTrueHandler(event, item)}>
-                    <Icons.SwitchOff />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={(event) => isTrueHandler(event, item)}>
-                    <Icons.SwitchOn />
-                  </IconButton>
-                )}
-                <IconButton onClick={(event) => updateHandler(event, item)}>
+                <IconButton
+                  aria-label={item.enable ? "Disable test" : "Enable test"}
+                  onClick={(event) => isTrueHandler(event, item)}
+                >
+                  {item.enable ? <Icons.SwitchOff /> : <Icons.SwitchOn />}
+                </IconButton>
+                <IconButton
+                  aria-label="Edit test"
+                  onClick={() =>
+                    navigate("/admin/test-page/add-new-test", {
+                      state: { test: item },
+                    })
+                  }
+                >
                   <Icons.Note />
                 </IconButton>
-                <IconButton onClick={(event) => deleteHandler(event, item.id)}>
+                <IconButton
+                  aria-label="Delete test"
+                  onClick={(event) => openModalHandler(event, item)}
+                >
                   <Icons.Trash />
                 </IconButton>
               </IconContainer>
             </StyledContainer>
           ))
         ) : (
-          <TestNotFound />
+          <TestNotFound>
+            <p>No tests found. Click below to create a new test.</p>
+            <Button onClick={() => navigate("/admin/test-page/add-new-test")}>
+              Create Test
+            </Button>
+          </TestNotFound>
         )}
       </MapBlock>
+      <UiModal open={openModal} onClose={closeModalHandler}>
+        <ContainerModal>
+          <CloseIconContainer>
+            <Icons.closeModalicon onClick={closeModalHandler} />
+          </CloseIconContainer>
+          <Icons.errorClose onClick={closeModalHandler} />
+          <ContainerDescriptionModal>
+            <h2>Do you want delete ?</h2>
+            <p>You can’t restore this file </p>
+          </ContainerDescriptionModal>
+          <ContainerButtons>
+            <Button variant="outlined" onClick={closeModalHandler}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="error" onClick={deleteHandler}>
+              Delete
+            </Button>
+          </ContainerButtons>
+        </ContainerModal>
+      </UiModal>
     </ContentWrapper>
   );
 };
+const CloseIconContainer = styled("div")(() => ({
+  position: "absolute",
+  top: "16px",
+  right: "16px",
+  cursor: "pointer",
+}));
+
+const ContainerDescriptionModal = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "10px",
+  flexDirection: "column",
+  fontFamily: "DINNextRoundedLTW01-Regular",
+  fontSize: "16px",
+  fontWeight: "400",
+}));
 
 const StyledContainer = styled("div")(() => ({
   height: "66px",
@@ -102,6 +161,25 @@ const StyledContainer = styled("div")(() => ({
   cursor: "pointer",
   boxShadow:
     "0px 4px 10px 0px rgba(0, 0, 0, 0.06),  0px -4px 10px 0px rgba(0, 0, 0, 0.06)",
+}));
+const ContainerButtons = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "40px",
+  fontFamily: "DINNextRoundedLTW01-Regular",
+  fontSize: "16px",
+  fontWeight: "400",
+}));
+const ContainerModal = styled("div")(() => ({
+  position: "relative", // Добавлено
+  width: "510px",
+  height: "360px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "60px",
 }));
 
 const ContainerButton = styled("div")(() => ({
