@@ -10,62 +10,59 @@ import { RecordSayingStatement } from "../takeTheTest/RecordSayingStatement";
 
 export const CollectUserTest = () => {
   const { state } = useLocation();
-  const [id, setId] = useState(state?.id || "s1");
+  console.log("state: ", state);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedComponent, setSelectedComponent] = useState(null);
 
+  const questions = state?.questions || []; // Массив вопросов
+
   const handleNext = () => {
-    const nextIdMap = {
-      s1: "s2",
-      s2: "s3",
-      s3: "s4",
-      s4: "s5",
-      s5: "s6",
-      s6: "s7",
-      s7: "s8",
-      s8: "s9",
-      s9: null,
-    };
-    setId(nextIdMap[id] || null);
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    } else {
+      setSelectedComponent(<CompletePractice />);
+    }
   };
 
   useEffect(() => {
-    if (!id) {
-      setSelectedComponent(<CompletePractice />);
+    if (currentIndex >= questions.length) {
       return;
     }
 
-    switch (id) {
-      case "s1":
-        setSelectedComponent(<WordSelector onNext={handleNext} />);
+    const question = questions[currentIndex];
+    switch (question.questionType) {
+      case "SELECT_REAL_ENGLISH_WORD":
+        setSelectedComponent(
+          <UserSelectRealWords data={question} onNext={handleNext} />
+        );
         break;
-      case "s2":
-        setSelectedComponent(<UserSelectRealWords onNext={handleNext} />);
+      case "DESCRIBE_IMAGE":
+        setSelectedComponent(
+          <DescribeImage data={question} onNext={handleNext} />
+        );
         break;
-      case "s3":
-        setSelectedComponent(<WordSelector onNext={handleNext} />);
+      case "HIGHLIGHT":
+        setSelectedComponent(<Highlight data={question} onNext={handleNext} />);
         break;
-      case "s4":
-        setSelectedComponent(<DescribeImage onNext={handleNext} />);
+      case "WORD_SELECTOR":
+        setSelectedComponent(
+          <WordSelector data={question} onNext={handleNext} />
+        );
         break;
-      case "s5":
-        setSelectedComponent(<RecordSayingStatement onNext={handleNext} />);
+      case "RECORD_SAYING_STATEMENT":
+        setSelectedComponent(
+          <RecordSayingStatement data={question} onNext={handleNext} />
+        );
         break;
-      case "s6":
-        setSelectedComponent(<Words onNext={handleNext} />);
-        break;
-      case "s7":
-        setSelectedComponent(<Highlight onNext={handleNext} />);
-        break;
-      case "s8":
-        setSelectedComponent(<Words onNext={handleNext} />);
-        break;
-      case "s9":
-        setSelectedComponent(<Highlight onNext={handleNext} />);
+      case "WORDS":
+        setSelectedComponent(<Words data={question} onNext={handleNext} />);
         break;
       default:
-        setSelectedComponent(<p>No component available for this test ID.</p>);
+        setSelectedComponent(
+          <p>Unknown question type: {question.questionType}</p>
+        );
     }
-  }, [id]);
+  }, [currentIndex, questions]);
 
   return <div>{selectedComponent}</div>;
 };
