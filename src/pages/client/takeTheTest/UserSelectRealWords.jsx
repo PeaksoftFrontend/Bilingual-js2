@@ -133,9 +133,9 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import { Duration } from "../../../components/UI/duration/Duration";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
-import { useDispatch } from "react-redux";
-import { ShowSnackbar } from "../../../components/UI/snackbar/SnackBar";
-import { userPostQuestion } from "../../../store/user create test/userThunk";
+// import { useDispatch } from "react-redux";
+// import { ShowSnackbar } from "../../../components/UI/snackbar/SnackBar";
+// import { userPostQuestion } from "../../../store/user create test/userThunk";
 
 export const UserSelectRealWords = ({
   onNext,
@@ -146,7 +146,7 @@ export const UserSelectRealWords = ({
   console.log("questionId: ", questionId);
   const [words, setWords] = useState(optionList);
   const [isAnySelected, setIsAnySelected] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     setIsAnySelected(words.some((word) => word.isTrue));
@@ -179,16 +179,17 @@ export const UserSelectRealWords = ({
         count: 0,
       },
     ];
+    console.log(data);
 
-    dispatch(userPostQuestion(data))
-      .then(() => {
-        ShowSnackbar("test uspeshno dobavleno!", "success");
-        onNext();
-      })
-      .catch((error) => {
-        console.error("Request failed", error);
-        onNext();
-      });
+    // dispatch(userPostQuestion(data))
+    //   .then(() => {
+    //     ShowSnackbar("test uspeshno dobavleno!", "success");
+    //     onNext();
+    //   })
+    //   .catch((error) => {
+    //     console.error("Request failed", error);
+    //     onNext();
+    //   });
   };
 
   return (

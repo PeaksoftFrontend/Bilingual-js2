@@ -82,8 +82,6 @@ export const CollectUserTest = () => {
     if (Array.isArray(testQuestions) && testQuestions.length > 0) {
       const currentQuestion = testQuestions[currentQuestionIndex];
       if (currentQuestion) {
-        // console.log(currentQuestion);
-
         const { questionType, duration, optionList, id } = currentQuestion;
         setSelectedComponent(
           renderComponent(

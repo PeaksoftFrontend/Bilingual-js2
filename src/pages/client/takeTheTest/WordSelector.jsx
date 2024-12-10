@@ -4,9 +4,11 @@ import { styled } from "@mui/system";
 // import { words } from "../../../utils/constants/words";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
-import { userPostQuestion } from "../../../store/user create test/userThunk";
+import { useSelector } from "react-redux";
+// import { userPostQuestion } from "../../../store/user create test/userThunk";
 import { useDispatch } from "react-redux";
-import { ShowSnackbar } from "../../../components/UI/snackbar/SnackBar";
+import { getOptionsByIdRequest } from "../../../store/user create test/userThunk";
+// import { ShowSnackbar } from "../../../components/UI/snackbar/SnackBar";
 
 export const WordSelector = ({
   onNext,
@@ -20,6 +22,10 @@ export const WordSelector = ({
   const [activeWords, setActiveWords] = useState([]);
   const [selectedWordIds, setSelectedWordIds] = useState([]);
   const dispatch = useDispatch();
+
+  useSelector(() => {
+    dispatch(getOptionsByIdRequest(questionId));
+  }, [dispatch]);
 
   const handleDragStart = (word) => {
     setDraggedWord(word);
@@ -63,15 +69,17 @@ export const WordSelector = ({
         count: 0,
       },
     ];
-    dispatch(userPostQuestion(data))
-      .then(() => {
-        ShowSnackbar("test uspeshno dobavleno!", "success");
-        onNext();
-      })
-      .catch((error) => {
-        console.error("Request failed", error);
-        onNext();
-      });
+    console.log(data);
+
+    // dispatch(userPostQuestion(data))
+    //   .then(() => {
+    //     ShowSnackbar("test uspeshno dobavleno!", "success");
+    //     onNext();
+    //   })
+    //   .catch((error) => {
+    //     console.error("Request failed", error);
+    //     onNext();
+    //   });
   };
 
   return (

@@ -6,11 +6,16 @@ import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { testByIdRequest } from "../../../store/user create test/userThunk";
+import { useEffect } from "react";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { state } = useLocation();
+  console.log("state: ", state);
+  useEffect(() => {
+    dispatch(testByIdRequest(state.id));
+  }, []);
 
   const handlerNavigate = async () => {
     const result = await dispatch(testByIdRequest(state.id));

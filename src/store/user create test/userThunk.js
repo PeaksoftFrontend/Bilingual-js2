@@ -39,3 +39,18 @@ export const userPostQuestion = createAsyncThunk(
     }
   }
 );
+
+export const getOptionsByIdRequest = createAsyncThunk(
+  "testById/userTestByIdRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `questions/getOptionsByQuestionId?questionId=${payload}`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
