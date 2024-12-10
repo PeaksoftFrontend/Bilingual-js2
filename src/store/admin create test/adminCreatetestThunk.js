@@ -12,21 +12,6 @@ export const getTestRequest = createAsyncThunk(
     }
   }
 );
-export const getTestUsersRequest = createAsyncThunk(
-  "test/getTesUserstRequest",
-  async (id, { rejectWithValue }) => {
-    try {
-      const { data } = await axiosInstance.get(`/questions`, {
-        params: {
-          questionId: id,
-        },
-      });
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
 export const postTestRequest = createAsyncThunk(
   "test/postTestRequest",
   async (testsData, { rejectWithValue }) => {

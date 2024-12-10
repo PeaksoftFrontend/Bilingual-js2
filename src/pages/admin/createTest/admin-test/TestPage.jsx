@@ -9,7 +9,6 @@ import { useEffect, useState, useCallback } from "react";
 import {
   deleteTestRequest,
   getTestRequest,
-  getTestUsersRequest,
   putSwitchRequest,
 } from "../../../../store/admin create test/adminCreatetestThunk";
 import { UiModal } from "../../../../components/UI/modal/UiModal";
@@ -52,14 +51,6 @@ export const TestPage = () => {
     [dispatch]
   );
 
-  const handleNavigateUsers = (id) => {
-    dispatch(getTestUsersRequest(id)).then((result) => {
-      if (!result.error) {
-        navigate(`/admin/test-page/test-info/${id}`);
-      }
-    });
-  };
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading tests. Please try again.</p>;
 
@@ -76,10 +67,14 @@ export const TestPage = () => {
           tests.map((item) => (
             <StyledContainer key={item.id}>
               <TextContainer>
-                <StyledTitle onClick={() => handleNavigateUsers(item.id)}>
-                  {item.title}
-                </StyledTitle>
-                <StyledDescription>{item.description}</StyledDescription>
+                <StyledTitle>{item.title}</StyledTitle>
+                <StyledDescription
+                  onClick={() =>
+                    navigate(`/admin/test-page/test-info/${item.id}`)
+                  }
+                >
+                  {item.description}
+                </StyledDescription>
               </TextContainer>
               <IconContainer>
                 <IconButton
@@ -130,7 +125,7 @@ export const TestPage = () => {
             <Button variant="outlined" onClick={closeModalHandler}>
               Cancel
             </Button>
-            <Button variant="contained" onClick={deleteHandler}>
+            <Button variant="contained" color="error" onClick={deleteHandler}>
               Delete
             </Button>
           </ContainerButtons>
@@ -139,7 +134,6 @@ export const TestPage = () => {
     </ContentWrapper>
   );
 };
-
 const CloseIconContainer = styled("div")(() => ({
   position: "absolute",
   top: "16px",
