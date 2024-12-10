@@ -20,19 +20,19 @@ export const TypeYouHear = () => {
             <h3>{dataFife.testQuestions}</h3>
             <StyledWrapperDesSecond>
               <StyledTitle>
-                Question Title:{" "}
+                Question Title:
                 <span style={{ color: "black" }}>{dataFife.questionTitle}</span>
               </StyledTitle>
               <StyledTitle>
-                Duration (in minutes):{" "}
+                Duration (in minutes):
                 <span style={{ color: "black" }}>{dataFife.duration}</span>
               </StyledTitle>
               <StyledTitle>
-                Question Type:{" "}
+                Question Type:
                 <span style={{ color: "black" }}>{dataFife.questionType}</span>
               </StyledTitle>
               <StyledTitle>
-                Mimimum number of words:{" "}
+                Mimimum number of words:
                 <span style={{ color: "black" }}>{dataFife.Mimimumnumber}</span>
               </StyledTitle>
             </StyledWrapperDesSecond>

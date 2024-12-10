@@ -26,12 +26,10 @@ export const AnswerCard = ({
           alignItems: "center",
         }}
       >
-        {/* Контейнер для нумерации и текста */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {/* Нумерация */}
           <Typography variant="body1">{number}</Typography>
 
-          {/* Текст с отступом от нумерации */}
           <Typography
             variant="body1"
             sx={{
@@ -51,7 +49,7 @@ export const AnswerCard = ({
             label=""
             onChange={handleChange}
             sx={{
-              marginRight: 0, // убираем отступы слева от радиокнопки
+              marginRight: 0, 
             }}
           />
         )}

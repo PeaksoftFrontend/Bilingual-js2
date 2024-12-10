@@ -7,31 +7,30 @@ export const EvaluteRespond = () => {
   return (
     <>
       <StyledAllContainer>
-        {" "}
         <StyledWrapperTitle>
           <StyledWrapperDes>
             <h3>{dataEight.testQuestions} </h3>
             <StyledWrapperDesSecond>
               <StyledTitle>
-                Question Title:{" "}
+                Question Title:
                 <span style={{ color: "black" }}>
                   {dataEight.questionTitle}
                 </span>
               </StyledTitle>
               <StyledTitle>
-                Duration (in minutes):{" "}
+                Duration (in minutes):
                 <span style={{ color: "black" }}>{dataEight.duration}</span>
               </StyledTitle>
               <StyledTitle>
-                Question Type:{" "}
+                Question Type:
                 <span style={{ color: "black" }}>{dataEight.questionType}</span>
               </StyledTitle>
               <StyledTitle>
-                Mimimum number of words:{" "}
+                Mimimum number of words:
                 <span style={{ color: "black" }}>{dataEight.minNum}</span>
               </StyledTitle>
               <StyledTitle>
-                Question Statement:{" "}
+                Question Statement:
                 <span style={{ color: "black" }}>
                   {dataEight.questionStatement}
                 </span>

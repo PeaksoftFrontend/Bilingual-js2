@@ -69,7 +69,7 @@ export const HighLightTheAnswer = () => {
         <StyledButton variant="outlined">Go Back</StyledButton>
         <Button variant="sucsses" onClick={handleSave}>
           Save
-        </Button>{" "}
+        </Button>
       </WrapperButtons>
     </ContainerHighligh>
   );

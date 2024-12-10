@@ -12,15 +12,15 @@ export const EveluatedDescrib = () => {
           <h3>Test Question</h3>
           <StyledWrapperDesSecond>
             <StyledTitle>
-              Question Title:{" "}
+              Question Title:
               <span style={{ color: "black" }}>{dataSix.questionTitle}</span>
             </StyledTitle>
             <StyledTitle>
-              Duration (in minutes):{" "}
+              Duration (in minutes):
               <span style={{ color: "black" }}>{dataSix.duration}</span>
             </StyledTitle>
             <StyledTitle>
-              Question Type:{" "}
+              Question Type:
               <span style={{ color: "black" }}>{dataSix.questionType}</span>
             </StyledTitle>
           </StyledWrapperDesSecond>

@@ -118,7 +118,6 @@ export const SelectMainIdea = ({ onReset }) => {
                 go back
               </Button>
               <Button variant="sucsses" disabled={words.length < 4}>
-                {" "}
                 save
               </Button>
             </StyledShowButton>

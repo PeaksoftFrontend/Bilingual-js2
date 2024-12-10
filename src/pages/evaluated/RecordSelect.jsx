@@ -19,19 +19,19 @@ export const RecordSelect = () => {
           <h3>{dataSeven.testQuestions}</h3>
           <StyledWrapperDesSecond>
             <StyledTitle>
-              Question Title:{" "}
+              Question Title:
               <span style={{ color: "black" }}>{dataSeven.questionTitle}</span>
             </StyledTitle>
             <StyledTitle>
-              Duration (in minutes):{" "}
+              Duration (in minutes):
               <span style={{ color: "black" }}>{dataSeven.duration}</span>
             </StyledTitle>
             <StyledTitle>
-              Question Type:{" "}
+              Question Type:
               <span style={{ color: "black" }}>{dataSeven.questionType}</span>
             </StyledTitle>
             <StyledTitle>
-              Statement:{" "}
+              Statement:
               <span style={{ color: "black" }}>{dataSeven.statement}</span>
             </StyledTitle>
           </StyledWrapperDesSecond>

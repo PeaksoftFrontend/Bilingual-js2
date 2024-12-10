@@ -13,7 +13,7 @@ export const Slider = ({
   className,
   ...props
 }) => {
-  const [index, setIndex] = useState(0); // Track active slide
+  const [index, setIndex] = useState(0);
   const swiperRef = useRef(null);
 
   const handleNext = () => {
@@ -36,15 +36,13 @@ export const Slider = ({
           disableOnInteraction: false,
         }}
         navigation={true}
-        onSlideChange={(swiper) => setIndex(swiper.realIndex)} // Track current slide index
+        onSlideChange={(swiper) => setIndex(swiper.realIndex)}
         loop={true} // Enable loop to avoid the shadow issue
         modules={[Autoplay, Navigation]}
         {...props}
       >
         {data.map((item, i) => (
-          <SwiperSlide key={item.id}>
-            {renderSlide(item, i, index)} {/* Pass the active index here */}
-          </SwiperSlide>
+          <SwiperSlide key={item.id}>{renderSlide(item, i, index)}</SwiperSlide>
         ))}
       </Swiper>
 

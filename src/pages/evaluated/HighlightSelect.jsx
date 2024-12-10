@@ -13,17 +13,17 @@ export const HighlightSelect = () => {
               <h3>Test Question </h3>
               <StyledContent>
                 <StyledTitle>
-                  Question Title:{" "}
+                  Question Title:
                   <span style={{ color: "black" }}>
                     {dataNine.questionTitle}
                   </span>
                 </StyledTitle>
                 <StyledTitle>
-                  Duration (in minutes):{" "}
+                  Duration (in minutes):
                   <span style={{ color: "black" }}>{dataNine.duration}</span>
                 </StyledTitle>
                 <StyledTitle>
-                  Question Type:{" "}
+                  Question Type:
                   <span style={{ color: "black" }}>
                     {dataNine.questionType}
                   </span>

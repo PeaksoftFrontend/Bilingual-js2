@@ -158,7 +158,7 @@ const StyledBackdrop = styled("div")({
 });
 
 const StyledTextArea = styled(TextareaAutosize)({
-  fontАamily: "DINNextRoundedLTW01-Regular",
+  fontFamily: "DINNextRoundedLTW01-Regular",
   width: "439px",
   padding: "14.5px 20px",
   fontSize: "16px",

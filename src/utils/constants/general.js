@@ -14,11 +14,8 @@ import adama from "../../assets/images/adama.png";
 import basf from "../../assets/images/BASF.png";
 import deklab from "../../assets/images/declab.png";
 import lidea from "../../assets/images/lidea.png";
-//video data
 import videoo from "../../assets/video/1110710_Soap-bubbles_Breathing_1280x720.mp4";
-
 import selectImage from "../../assets/images/ImageSelect.png";
-//data evelute
 export const dataTwo = {
   id: 2,
   Datesubmission: "12.12.2022  16:45",

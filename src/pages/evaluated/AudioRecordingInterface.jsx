@@ -26,7 +26,7 @@ export const EnglishWordsSelect = () => {
           <h3>{dataThree.testQuestions} </h3>
           <StyledWrapperDesSecond>
             <StyledTitle>
-              Question Title:{" "}
+              Question Title:
               <span style={{ color: "black" }}>{dataThree.questionTitle}</span>
             </StyledTitle>
             <StyledTitle>
@@ -34,7 +34,7 @@ export const EnglishWordsSelect = () => {
               <span style={{ color: "black" }}>{dataThree.duration}</span>
             </StyledTitle>
             <StyledTitle>
-              Question Type:{" "}
+              Question Type:
               <span style={{ color: "black" }}>{dataThree.questionType}</span>
             </StyledTitle>
           </StyledWrapperDesSecond>
@@ -43,7 +43,7 @@ export const EnglishWordsSelect = () => {
       <StyledWrapperTitlePosition>
         <h3>Evaluation</h3>
         <StyledTitle>
-          Score:{" "}
+          Score:
           <span style={{ color: dataThree.score > 5 && "green" }}>
             {dataThree.score}
           </span>

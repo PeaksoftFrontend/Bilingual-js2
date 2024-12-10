@@ -14,13 +14,13 @@ export const EvaluteSubRes = () => {
         <StyledContent>
           <div>
             <h4>
-              Final Score:{" "}
+              Final Score:
               <span style={{ color: dataTwo.FinalScore === 0 && "red" }}>
                 {dataTwo.FinalScore}
               </span>
             </h4>
             <h4>
-              Final Status:{" "}
+              Final Status:
               <span
                 style={{
                   color: dataTwo.FinalStatus === "Not Evelauted" && "red",

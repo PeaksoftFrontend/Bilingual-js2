@@ -26,7 +26,7 @@ export const ListenSelect = () => {
           <h3>{dataFour.testQuestions} </h3>
           <StyledWrapperDesSecond>
             <StyledTitle>
-              Question Title:{" "}
+              Question Title:
               <span style={{ color: "black" }}>{dataFour.questionTitle}</span>
             </StyledTitle>
             <StyledTitle>
@@ -34,7 +34,7 @@ export const ListenSelect = () => {
               <span style={{ color: "black" }}>{dataFour.duration}</span>
             </StyledTitle>
             <StyledTitle>
-              Question Type:{" "}
+              Question Type:
               <span style={{ color: "black" }}>{dataFour.questionType}</span>
             </StyledTitle>
           </StyledWrapperDesSecond>
@@ -43,7 +43,7 @@ export const ListenSelect = () => {
       <StyledWrapperTitlePosition>
         <h3>{dataFour.evaluation}</h3>
         <StyledTitle>
-          Score:{" "}
+          Score:
           <span style={{ color: dataFour.score > 5 ? "green" : "black" }}>
             {dataFour.score}
           </span>
