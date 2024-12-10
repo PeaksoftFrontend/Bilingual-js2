@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
-import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
+// import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const userTestRequest = createAsyncThunk(
   "test/userTestRequest",
@@ -20,7 +20,7 @@ export const testByIdRequest = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get(
-        `tests/getAllQuestionsByTestId?testId=${payload}`
+        `tests/getById?testId=${payload}`
       );
 
       return data;
