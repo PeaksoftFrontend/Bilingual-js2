@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { s3AudioPostRequest } from "./adminQuestionThunk";
+import {
+  deleteTestQuestionById,
+  s3AudioPostRequest,
+} from "./adminQuestionThunk";
 
 const adminQuestionSlice = createSlice({
   name: "questions",

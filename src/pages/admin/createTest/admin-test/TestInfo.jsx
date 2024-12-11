@@ -4,28 +4,86 @@ import { ContentWrapper } from "../../../../components/UI/content_wrapper/Conten
 import { Button } from "../../../../components/UI/button/Button";
 import { Icons } from "../../../../assets/icons";
 import { AdminTable } from "../../../../components/UI/admin-table/AdminTable";
-import { TEST, testData } from "../../../../utils/constants/AdminTable";
 import { styled } from "@mui/system";
 import { TestNotFound } from "../../../404/TestNotFound";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getTestByIdRequest } from "../../../../store/admin create test/adminCreatetestThunk";
+import { IconButton } from "@mui/material";
+import { deleteTestQuestionById } from "../../../../store/adminQuestion/adminQuestionThunk";
+import { UiModal } from "../../../../components/UI/modal/UiModal";
 
 export const TestInfo = ({ duration = "15" }) => {
   const navigate = useNavigate();
-  const { tests, testsById } = useSelector((state) => state.test);
-  console.log("testsById: ", testsById);
-  console.log("tests: ", tests);
   const { testInfoId } = useParams();
+  const { tests, testsById } = useSelector((state) => state.test);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [questionId, setQuestionId] = useState(null);
   const dispatch = useDispatch();
+
   const handleNavigate = () => {
     navigate(`/admin/test-page/test-info/${testInfoId}/create-test`);
   };
 
+  const handleDeleteQuestion = (id) => {
+    dispatch(deleteTestQuestionById({ id, testInfoId }));
+    closeModal();
+  };
+
+  const openModal = (id) => {
+    setDeleteModal(true);
+    setQuestionId(id);
+  };
+
+  const closeModal = () => {
+    setDeleteModal(false);
+    setQuestionId(null);
+  };
+
   useEffect(() => {
     dispatch(getTestByIdRequest(testInfoId));
-  }, [dispatch]);
+  }, [dispatch, testInfoId]);
 
   const test = tests?.find((item) => item.id === Number(testInfoId));
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "№",
+        accessor: "row_number",
+      },
+      {
+        Header: "Name",
+        accessor: "title",
+      },
+      {
+        Header: "Duration",
+        accessor: "duration",
+        Cell: ({ row }) => {
+          const seconds = row.original.duration;
+          const minutes = Math.floor(seconds / 60);
+          return <ActionsContainer>{`${minutes} min`}</ActionsContainer>;
+        },
+      },
+      {
+        Header: "Question type",
+        accessor: "questionType",
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: ({ row }) => (
+          <ActionsContainer>
+            {row.original.isActive ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+            <Icons.Note />
+            <IconButton onClick={() => openModal(row.original.id)}>
+              <Icons.Trash />
+            </IconButton>
+          </ActionsContainer>
+        ),
+      },
+    ],
+    []
+  );
 
   return (
     <ContentWrapper>
@@ -51,7 +109,14 @@ export const TestInfo = ({ duration = "15" }) => {
         </Button>
       </ButtonContainer>
 
-      <AdminTable columns={TEST} data={testData} />
+      <AdminTable columns={columns} data={testsById || []} />
+
+      {deleteModal && (
+        <UiModal onClose={closeModal} open={deleteModal}>
+          <Button onClick={() => handleDeleteQuestion(questionId)}>Yes</Button>
+          <Button onClick={closeModal}>No</Button>
+        </UiModal>
+      )}
     </ContentWrapper>
   );
 };
@@ -82,3 +147,9 @@ const ButtonContainer = styled("div")(() => ({
     width: "213px",
   },
 }));
+
+const ActionsContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
+});

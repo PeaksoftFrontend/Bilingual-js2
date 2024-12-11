@@ -21,6 +21,7 @@ import {
   s3AudioPostRequest,
 } from "../../../store/adminQuestion/adminQuestionThunk";
 import { useNavigate, useParams } from "react-router-dom";
+import { Loading } from "../../../components/UI/loading/Loading";
 
 export const ListenEnglishWords = ({
   onReset,
@@ -231,7 +232,7 @@ export const ListenEnglishWords = ({
         role={"ADMIN"}
       >
         {isLoading ? (
-          <h1>loading...</h1>
+          <Loading />
         ) : (
           <StyledContainer>
             <StyledText>

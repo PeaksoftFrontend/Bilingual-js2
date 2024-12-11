@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
 import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
+import { getTestByIdRequest } from "../admin create test/adminCreatetestThunk";
 
 export const questionsPostRequest = createAsyncThunk(
   "questions/questionsPostRequest",
@@ -56,6 +57,20 @@ export const s3AudioDeleteRequest = createAsyncThunk(
       const { data } = await axiosInstance.delete(
         `s3file/delete?fileName=${payload}`
       );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteTestQuestionById = createAsyncThunk(
+  "questions/deleteTestQuestionById",
+  async ({ id, testInfoId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await axiosInstance.delete(`questions?questionId=${id}`);
+      dispatch(getTestByIdRequest(testInfoId));
 
       return data;
     } catch (error) {

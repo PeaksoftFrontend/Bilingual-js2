@@ -12,6 +12,7 @@ import {
   s3AudioPostRequest,
 } from "../../../store/adminQuestion/adminQuestionThunk";
 import { useNavigate, useParams } from "react-router-dom";
+import { Loading } from "../../../components/UI/loading/Loading";
 
 export const VariantAudio = ({
   title,
@@ -107,7 +108,7 @@ export const VariantAudio = ({
   return (
     <div>
       {isLoading ? (
-        <h1>loading...</h1>
+        <Loading />
       ) : (
         <>
           <audio ref={audioRef} src={audioURL} />
