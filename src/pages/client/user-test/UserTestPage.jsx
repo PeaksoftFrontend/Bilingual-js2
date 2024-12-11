@@ -10,11 +10,9 @@ import Sheet from "../../../assets/images/sheet.png";
 
 export const UserTestPage = () => {
   const { userTest } = useSelector((state) => state.userTest);
-  console.log("userTest: ", userTest);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleNavigate = (testId, state) => {
-    console.log("item: ", state);
     navigate(`${testId}/start-test`, state);
   };
 

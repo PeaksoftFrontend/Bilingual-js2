@@ -4,11 +4,14 @@ import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWr
 import { Duration } from "../../../components/UI/duration/Duration";
 import { Input } from "../../../components/UI/input/Input";
 import { useEffect, useState } from "react";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
+import { useDispatch } from "react-redux";
 
-export const Words = ({ onNext }) => {
-  const wordN = { n: 5 };
+export const Words = ({ onNext, currentQuestion }) => {
+  const wordN = { n: currentQuestion?.attempts };
   const [response, setResponse] = useState("");
   const [wordCount, setWordCount] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setWordCount(response.trim().split(/\s+/).filter(Boolean).length);
@@ -17,16 +20,24 @@ export const Words = ({ onNext }) => {
   const handleInputChange = (e) => {
     setResponse(e.target.value);
   };
+  const handleRespondNWords = () => {
+    const data = {
+      statement: response,
+      questionId: currentQuestion.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
+  };
 
   return (
     <ContentWrapper>
       <StyledDiv>
-        <Duration time={5} onComplete={onNext} />
+        <Duration time={currentQuestion.duration} onComplete={onNext} />
         <Text>Respond to the question in at least {wordN.n} words</Text>
         <InputBlock>
-          <StyledTextQuestion>
-            “Describe a time you were surprised. what happened?”
-          </StyledTextQuestion>
+          <StyledTextQuestion>{currentQuestion?.statement}</StyledTextQuestion>
           <ContainerInput wordCount={wordCount} wordN={wordN}>
             <StyledInput
               placeholder={"Your response"}
@@ -39,7 +50,7 @@ export const Words = ({ onNext }) => {
           </ContainerInput>
         </InputBlock>
         <ButtonBlock>
-          <Button disabled={wordCount < wordN.n} onClick={onNext}>
+          <Button disabled={wordCount < wordN.n} onClick={handleRespondNWords}>
             NEXT
           </Button>
         </ButtonBlock>

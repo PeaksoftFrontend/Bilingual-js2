@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { WordSelector } from "../takeTheTest/WordSelector";
 import { UserSelectRealWords } from "../takeTheTest/UserSelectRealWords";
@@ -7,62 +6,88 @@ import { Words } from "../takeTheTest/Words";
 import { Highlight } from "../takeTheTest/Highlight";
 import { CompletePractice } from "../takeTheTest/CompletePractice";
 import { RecordSayingStatement } from "../takeTheTest/RecordSayingStatement";
+import { useSelector } from "react-redux";
+import { TypeHearTest } from "../takeTheTest/TypeHearTest";
+import { MainIdeaTest } from "../takeTheTest/MainIdeaTest";
+import { BestTitleTest } from "../takeTheTest/BestTitleTest";
 
 export const CollectUserTest = () => {
-  const { state } = useLocation();
-  console.log("state: ", state);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { userTestById, userAnswer } = useSelector((state) => state.userTest);
+  console.log("userAnswer: ", userAnswer);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedComponent, setSelectedComponent] = useState(null);
 
-  const questions = state?.questions || []; // Массив вопросов
+  const renderComponent = (typeQuestion, currentQuestion, onNext) => {
+    switch (typeQuestion) {
+      case "SELECT_REAL_ENGLISH_WORD":
+        return (
+          <WordSelector onNext={onNext} currentQuestion={currentQuestion} />
+        );
+      case "LISTEN_AND_SELECT_ENGLISH_WORDS":
+        return (
+          <UserSelectRealWords
+            currentQuestion={currentQuestion}
+            onNext={onNext}
+          />
+        );
+      case "TYPE_WHAT_YOU_HEAR":
+        return (
+          <TypeHearTest currentQuestion={currentQuestion} onNext={onNext} />
+        );
+      case "DESCRIBE_IMAGE":
+        return (
+          <DescribeImage currentQuestion={currentQuestion} onNext={onNext} />
+        );
+      case "RECORD_SAYING_STATEMENT":
+        return (
+          <RecordSayingStatement
+            currentQuestion={currentQuestion}
+            onNext={onNext}
+          />
+        );
+      case "RESPOND_AT_LEAST_N_WORDS":
+        return <Words currentQuestion={currentQuestion} onNext={onNext} />;
+      case "HIGHLIGHT_THE_ANSWER":
+        return <Highlight currentQuestion={currentQuestion} onNext={onNext} />;
+      case "SELECT_THE_MAIN_IDEA":
+        return (
+          <MainIdeaTest currentQuestion={currentQuestion} onNext={onNext} />
+        );
+      case "SELECT_THE_BEST_TITLE":
+        return (
+          <BestTitleTest currentQuestion={currentQuestion} onNext={onNext} />
+        );
+      default:
+        return <p>No component available for this type of question.</p>;
+    }
+  };
 
   const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+    const nextIndex = currentQuestionIndex + 1;
+    if (nextIndex < userTestById.length) {
+      setCurrentQuestionIndex(nextIndex);
     } else {
       setSelectedComponent(<CompletePractice />);
     }
   };
 
   useEffect(() => {
-    if (currentIndex >= questions.length) {
-      return;
+    if (Array.isArray(userTestById) && userTestById.length > 0) {
+      const currentQuestion = userTestById[currentQuestionIndex];
+      console.log("currentQuestion: ", currentQuestion);
+      if (currentQuestion) {
+        const { questionType } = currentQuestion;
+        setSelectedComponent(
+          // renderComponent(questionType, duration, handleNext, id, optionList)
+          renderComponent(questionType, currentQuestion, handleNext)
+        );
+      }
     }
+  }, [currentQuestionIndex, userTestById]);
 
-    const question = questions[currentIndex];
-    switch (question.questionType) {
-      case "SELECT_REAL_ENGLISH_WORD":
-        setSelectedComponent(
-          <UserSelectRealWords data={question} onNext={handleNext} />
-        );
-        break;
-      case "DESCRIBE_IMAGE":
-        setSelectedComponent(
-          <DescribeImage data={question} onNext={handleNext} />
-        );
-        break;
-      case "HIGHLIGHT":
-        setSelectedComponent(<Highlight data={question} onNext={handleNext} />);
-        break;
-      case "WORD_SELECTOR":
-        setSelectedComponent(
-          <WordSelector data={question} onNext={handleNext} />
-        );
-        break;
-      case "RECORD_SAYING_STATEMENT":
-        setSelectedComponent(
-          <RecordSayingStatement data={question} onNext={handleNext} />
-        );
-        break;
-      case "WORDS":
-        setSelectedComponent(<Words data={question} onNext={handleNext} />);
-        break;
-      default:
-        setSelectedComponent(
-          <p>Unknown question type: {question.questionType}</p>
-        );
-    }
-  }, [currentIndex, questions]);
+  if (!userTestById || userTestById.length === 0) {
+    return <p>Loading questions...</p>;
+  }
 
   return <div>{selectedComponent}</div>;
 };

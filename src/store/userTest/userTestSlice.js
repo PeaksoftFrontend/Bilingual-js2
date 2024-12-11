@@ -7,6 +7,12 @@ const userTestSlice = createSlice({
     userTest: [],
     userTestById: [],
     isLoading: false,
+    userAnswer: [],
+  },
+  reducers: {
+    userAnswerHandler: (state, action) => {
+      state.userAnswer.push(action.payload);
+    },
   },
 
   extraReducers: (builder) => {
@@ -35,4 +41,5 @@ const userTestSlice = createSlice({
   },
 });
 
+export const { userAnswerHandler } = userTestSlice.actions;
 export const userTestReducer = userTestSlice.reducer;

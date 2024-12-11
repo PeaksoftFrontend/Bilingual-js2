@@ -6,12 +6,9 @@ import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userTestGetByIdRequest } from "../../../store/userTest/userTestThunk";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export const StartTest = () => {
-  const { userTestById } = useSelector((state) => state.userTest);
-  console.log("userTestById: ", userTestById);
-
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
@@ -23,9 +20,7 @@ export const StartTest = () => {
   const handlerNavigate = (selectedId) => {
     console.log("selectedId: ", selectedId);
     // test/:testId/start-test/user-test/:userTestId
-    navigate(`/main/test/${selectedId}/start-test/user-test/questionId`, {
-      state: { questions: userTestById },
-    });
+    navigate(`/main/test/${selectedId}/start-test/user-test`);
   };
 
   return (

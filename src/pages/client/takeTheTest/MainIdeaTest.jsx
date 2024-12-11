@@ -5,7 +5,7 @@ import { dataMainIdea } from "../../../utils/constants/userTest";
 import { Button } from "../../../components/UI/button/Button";
 import { styled } from "@mui/material";
 
-export const MainIdeaTest = () => {
+export const MainIdeaTest = ({ currentQuestion }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
@@ -15,7 +15,7 @@ export const MainIdeaTest = () => {
   return (
     <ContentWrapper>
       <MainBlock>
-        <Duration time={120} />
+        <Duration time={currentQuestion.duration} />
         <Container>
           <StyledTextBlock>
             <StyledPassage>PASSAGE</StyledPassage>

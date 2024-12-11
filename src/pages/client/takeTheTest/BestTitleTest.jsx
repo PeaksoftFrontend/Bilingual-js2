@@ -5,7 +5,7 @@ import { dataBestTitle } from "../../../utils/constants/userTest";
 import { Button } from "../../../components/UI/button/Button";
 import { styled } from "@mui/material";
 
-export const BestTitleTest = () => {
+export const BestTitleTest = ({ currentQuestion, onNext }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
@@ -15,7 +15,7 @@ export const BestTitleTest = () => {
   return (
     <ContentWrapper>
       <MainBlock>
-        <Duration time={120} />
+        <Duration time={currentQuestion.duration} />
         <Container>
           <StyledTextBlock>
             <StyledPassage>PASSAGE</StyledPassage>
@@ -45,7 +45,11 @@ export const BestTitleTest = () => {
                 </ContainerVariant>
               ))}
             </StyledWrapperVariants>
-            <StyledBtn variant="text" disabled={!selectedOption}>
+            <StyledBtn
+              variant="text"
+              disabled={!selectedOption}
+              onClick={onNext}
+            >
               Next
             </StyledBtn>
           </StyledWrapper>
