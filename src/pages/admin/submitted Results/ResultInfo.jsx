@@ -31,7 +31,7 @@ export const ResultInfo = () => {
         </div>
         <div>
           <p>
-            <span>Статус:</span> {userData.status}
+            <span>Статусc:</span> {userData.status}
           </p>
           <p>
             <span>Оценка:</span> {userData.score}
