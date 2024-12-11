@@ -4,11 +4,11 @@ import { Input } from "../../../../components/UI/input/Input";
 import { Button } from "../../../../components/UI/button/Button";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  addTest,
-  updateTest,
-} from "../../../../store/slices/adminSlice/adminSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  postTestRequest,
+  putTestRequest,
+} from "../../../../store/admin create test/adminCreatetestThunk";
 
 export const AddNewTest = () => {
   const dispatch = useDispatch();
@@ -22,20 +22,44 @@ export const AddNewTest = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setTestValue({
-      ...testValue,
+    setTestValue((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (testEdit) {
-      dispatch(updateTest({ ...testValue, id: testEdit.id }));
+      dispatch(
+        putTestRequest({
+          id: testEdit.id,
+          action: testValue,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          navigate("/admin/test-page");
+        })
+        .catch((error) => {
+          return error;
+        });
     } else {
-      dispatch(addTest({ ...testValue, id: Date.now(), isChecked: false }));
+      dispatch(
+        postTestRequest({
+          ...testValue,
+          id: Date.now(),
+          isChecked: false,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          navigate("/admin/test-page");
+        })
+        .catch((error) => {
+          return error;
+        });
     }
-    navigate("/admin/test-page");
   };
 
   useEffect(() => {
@@ -56,7 +80,7 @@ export const AddNewTest = () => {
             <StyledInput
               type="text"
               name="title"
-              placeholder={"Enter title"}
+              placeholder="Enter title"
               value={testValue.title}
               onChange={handleInputChange}
             />
@@ -66,7 +90,7 @@ export const AddNewTest = () => {
             <StyledInput
               type="text"
               name="description"
-              placeholder={"Enter description"}
+              placeholder="Enter description"
               value={testValue.description}
               onChange={handleInputChange}
             />
@@ -84,7 +108,7 @@ export const AddNewTest = () => {
             type="submit"
             disabled={!testValue.title || !testValue.description}
           >
-            {testEdit ? "Update" : "save"}
+            {testEdit ? "Update" : "Save"}
           </Button>
         </BtnBlock>
       </form>

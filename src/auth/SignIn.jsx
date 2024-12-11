@@ -5,11 +5,20 @@ import { Icons } from "../assets/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UiModal } from "../components/UI/modal/UiModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openSignUpModal } from "../store/auth/authSlice";
+import { authWithGoogle, signInRequest } from "../store/auth/authThunk";
 import { useNavigate } from "react-router-dom";
-import { openSignUpModal, setRole } from "../store/slices/auth/authSlice";
+import { useEffect } from "react";
+import { Loading } from "../components/UI/loading/Loading";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../config/fireBaseAuth";
+import { ShowSnackbar } from "../components/UI/snackbar/SnackBar";
 
 export const SignIn = ({ open, onClose }) => {
+  const { isAuth, role, isError, isLoading } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,14 +36,7 @@ export const SignIn = ({ open, onClose }) => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
-      const { email } = values;
-      if (email === "admin@gmail.com") {
-        dispatch(setRole("ADMIN"));
-        navigate("/admin");
-      } else {
-        dispatch(setRole("USER"));
-        navigate("/user");
-      }
+      dispatch(signInRequest(values));
     },
   });
 
@@ -42,8 +44,37 @@ export const SignIn = ({ open, onClose }) => {
     dispatch(openSignUpModal());
   };
 
+  useEffect(() => {
+    if (isAuth) {
+      if (role === "USER") {
+        navigate("/main");
+      } else if (role === "ADMIN") {
+        navigate("/admin");
+      }
+    }
+  }, [isAuth, role, navigate]);
+
+  const handleClickWithGoogle = async () => {
+    try {
+      return await signInWithPopup(auth, provider).then((data) => {
+        dispatch(authWithGoogle({ payload: data.user.accessToken, navigate }))
+          .unwrap()
+          .then(() => {
+            ShowSnackbar("Registration successful!", "success");
+            navigate("/main");
+          })
+          .catch((error) => {
+            ShowSnackbar(error, "error");
+          });
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <UiModal open={open} onClose={onClose} role={"ADMIN"}>
+      {isLoading && <Loading />}
       <Background>
         <SignUpForm onSubmit={formik.handleSubmit}>
           <Container>
@@ -75,7 +106,8 @@ export const SignIn = ({ open, onClose }) => {
             <StyledButton variant="contained" type="submit">
               Sign In
             </StyledButton>
-            <StyledBtn variant="text">
+            {isError && <ErrorText>{isError}</ErrorText>}
+            <StyledBtn variant="text" onClick={handleClickWithGoogle}>
               <Icons.Google />
               <p>Sign up with google</p>
             </StyledBtn>
@@ -233,4 +265,10 @@ export const StyledLink = styled("span")(({ theme }) => ({
   cursor: "pointer",
   fontWeight: "bold",
   marginLeft: "5px",
+}));
+
+const ErrorText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.error.main,
+  marginTop: theme.spacing(2),
+  textAlign: "center",
 }));
