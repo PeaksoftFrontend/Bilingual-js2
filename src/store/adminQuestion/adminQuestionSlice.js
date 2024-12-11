@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   deleteTestQuestionById,
   s3AudioPostRequest,
+  updateTestQuestionById,
 } from "./adminQuestionThunk";
 
 const adminQuestionSlice = createSlice({
@@ -10,6 +11,7 @@ const adminQuestionSlice = createSlice({
     questions: [],
     audioLink: "",
     isLoading: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -23,6 +25,30 @@ const adminQuestionSlice = createSlice({
       })
       .addCase(s3AudioPostRequest.rejected, (state) => {
         state.isLoading = false;
+      });
+
+    builder
+      .addCase(deleteTestQuestionById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTestQuestionById.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteTestQuestionById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(updateTestQuestionById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTestQuestionById.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateTestQuestionById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

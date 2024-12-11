@@ -9,13 +9,18 @@ import { TestNotFound } from "../../../404/TestNotFound";
 import { useEffect, useMemo, useState } from "react";
 import { getTestByIdRequest } from "../../../../store/admin create test/adminCreatetestThunk";
 import { IconButton } from "@mui/material";
-import { deleteTestQuestionById } from "../../../../store/adminQuestion/adminQuestionThunk";
+import {
+  deleteTestQuestionById,
+  updateTestQuestionById,
+} from "../../../../store/adminQuestion/adminQuestionThunk";
 import { UiModal } from "../../../../components/UI/modal/UiModal";
+import { Loading } from "../../../../components/UI/loading/Loading";
 
 export const TestInfo = ({ duration = "15" }) => {
   const navigate = useNavigate();
   const { testInfoId } = useParams();
   const { tests, testsById } = useSelector((state) => state.test);
+  const { isLoading } = useSelector((state) => state.questions);
   const [deleteModal, setDeleteModal] = useState(false);
   const [questionId, setQuestionId] = useState(null);
   const dispatch = useDispatch();
@@ -27,6 +32,11 @@ export const TestInfo = ({ duration = "15" }) => {
   const handleDeleteQuestion = (id) => {
     dispatch(deleteTestQuestionById({ id, testInfoId }));
     closeModal();
+  };
+
+  const handleUpdateQuestion = (id) => {
+    dispatch(updateTestQuestionById(id));
+    handleNavigate();
   };
 
   const openModal = (id) => {
@@ -74,7 +84,9 @@ export const TestInfo = ({ duration = "15" }) => {
         Cell: ({ row }) => (
           <ActionsContainer>
             {row.original.isActive ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
-            <Icons.Note />
+            <IconButton onClick={() => handleUpdateQuestion(row.original.id)}>
+              <Icons.Note />
+            </IconButton>
             <IconButton onClick={() => openModal(row.original.id)}>
               <Icons.Trash />
             </IconButton>
@@ -110,7 +122,7 @@ export const TestInfo = ({ duration = "15" }) => {
       </ButtonContainer>
 
       <AdminTable columns={columns} data={testsById || []} />
-
+      {isLoading && <Loading />}
       {deleteModal && (
         <UiModal onClose={closeModal} open={deleteModal}>
           <Button onClick={() => handleDeleteQuestion(questionId)}>Yes</Button>

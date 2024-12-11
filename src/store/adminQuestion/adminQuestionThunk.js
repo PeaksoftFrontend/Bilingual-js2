@@ -78,3 +78,18 @@ export const deleteTestQuestionById = createAsyncThunk(
     }
   }
 );
+
+export const updateTestQuestionById = createAsyncThunk(
+  "questions/updateTestQuestionById",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.put(
+        `questions?questionId=${payload}`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
