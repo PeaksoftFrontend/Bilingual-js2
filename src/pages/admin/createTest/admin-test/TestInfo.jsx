@@ -7,7 +7,6 @@ import { AdminTable } from "../../../../components/UI/admin-table/AdminTable";
 import { styled } from "@mui/system";
 import { TestNotFound } from "../../../404/TestNotFound";
 import { useEffect, useMemo, useState } from "react";
-import { getTestByIdRequest } from "../../../../store/admin create test/adminCreatetestThunk";
 import { IconButton } from "@mui/material";
 import {
   deleteTestQuestionById,
@@ -15,11 +14,17 @@ import {
 } from "../../../../store/adminQuestion/adminQuestionThunk";
 import { UiModal } from "../../../../components/UI/modal/UiModal";
 import { Loading } from "../../../../components/UI/loading/Loading";
+import {
+  getTestByIdRequest,
+  getTestRequest,
+  questionEnablePutRequest,
+} from "../../../../store/admin create test/adminCreatetestThunk";
 
-export const TestInfo = ({ duration = "15" }) => {
+export const TestInfo = () => {
   const navigate = useNavigate();
   const { testInfoId } = useParams();
   const { tests, testsById } = useSelector((state) => state.test);
+  console.log("tests: ", tests);
   const { isLoading } = useSelector((state) => state.questions);
   const [deleteModal, setDeleteModal] = useState(false);
   const [questionId, setQuestionId] = useState(null);
@@ -43,6 +48,9 @@ export const TestInfo = ({ duration = "15" }) => {
     setDeleteModal(true);
     setQuestionId(id);
   };
+  useEffect(() => {
+    dispatch(getTestByIdRequest(testInfoId));
+  }, [dispatch]);
 
   const closeModal = () => {
     setDeleteModal(false);
@@ -50,16 +58,30 @@ export const TestInfo = ({ duration = "15" }) => {
   };
 
   useEffect(() => {
-    dispatch(getTestByIdRequest(testInfoId));
-  }, [dispatch, testInfoId]);
+    dispatch(getTestRequest());
+  }, [dispatch]);
+
+  const handleUpdateEnable = (testQuestionId, enable) => {
+    dispatch(
+      questionEnablePutRequest({ testQuestionId, testInfoId, enable: !enable })
+    );
+  };
 
   const test = tests?.find((item) => item.id === Number(testInfoId));
+  const totalDurationMinutes =
+    testsById?.reduce(
+      (total, testDuration) => total + testDuration.duration,
+      0
+    ) / 60;
 
   const columns = useMemo(
     () => [
       {
         Header: "№",
         accessor: "row_number",
+        Cell: ({ row }) => {
+          return <ActionsContainer>{row.index + 1}</ActionsContainer>;
+        },
       },
       {
         Header: "Name",
@@ -83,7 +105,23 @@ export const TestInfo = ({ duration = "15" }) => {
         accessor: "actions",
         Cell: ({ row }) => (
           <ActionsContainer>
-            {row.original.isActive ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
+            {row.original.enable ? (
+              <IconButton
+                onClick={() =>
+                  handleUpdateEnable(row.original.id, row.original.enable)
+                }
+              >
+                <Icons.SwitchOn />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={() =>
+                  handleUpdateEnable(row.original.id, row.original.enable)
+                }
+              >
+                <Icons.SwitchOff />
+              </IconButton>
+            )}
             <IconButton onClick={() => handleUpdateQuestion(row.original.id)}>
               <Icons.Note />
             </IconButton>
@@ -108,7 +146,7 @@ export const TestInfo = ({ duration = "15" }) => {
             <span>Short Description:</span> {test?.description}
           </StyledText>
           <StyledText>
-            <span>Duration:</span> {duration}
+            <span>Duration:</span> {Math.round(totalDurationMinutes)} min
           </StyledText>
         </StyledContainerText>
       ) : (
@@ -125,13 +163,72 @@ export const TestInfo = ({ duration = "15" }) => {
       {isLoading && <Loading />}
       {deleteModal && (
         <UiModal onClose={closeModal} open={deleteModal}>
-          <Button onClick={() => handleDeleteQuestion(questionId)}>Yes</Button>
-          <Button onClick={closeModal}>No</Button>
+          <ContainerModal>
+            <CloseIconContainer>
+              <Icons.closeModalicon onClick={closeModal} />
+            </CloseIconContainer>
+            <Icons.errorClose onClick={closeModal} />
+            <ContainerDescriptionModal>
+              <h2>Do you want delete ?</h2>
+              <p>You can’t restore this file </p>
+            </ContainerDescriptionModal>
+            <ContainerButtons>
+              <Button variant="outlined" onClick={closeModal}>
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => handleDeleteQuestion(questionId)}
+              >
+                Delete
+              </Button>
+            </ContainerButtons>
+          </ContainerModal>
         </UiModal>
       )}
     </ContentWrapper>
   );
 };
+
+const ContainerDescriptionModal = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "10px",
+  flexDirection: "column",
+  fontFamily: "DINNextRoundedLTW01-Regular",
+  fontSize: "16px",
+  fontWeight: "400",
+}));
+
+const ContainerModal = styled("div")(() => ({
+  position: "relative", // Добавлено
+  width: "510px",
+  height: "360px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "60px",
+}));
+
+const ContainerButtons = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "40px",
+  fontFamily: "DINNextRoundedLTW01-Regular",
+  fontSize: "16px",
+  fontWeight: "400",
+}));
+
+const CloseIconContainer = styled("div")(() => ({
+  position: "absolute",
+  top: "16px",
+  right: "16px",
+  cursor: "pointer",
+}));
 
 const StyledText = styled("div")(() => ({
   "& span": {
