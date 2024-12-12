@@ -2,13 +2,20 @@ import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { Duration } from "../../../components/UI/duration/Duration";
-import { UserTestWords } from "../../../utils/constants/selectWords";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/UI/button/Button";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
+import { useDispatch } from "react-redux";
 
-export const UserSelectRealWords = ({ onNext }) => {
-  const [words, setWords] = useState(UserTestWords);
+export const UserSelectRealWords = ({ onNext, currentQuestion }) => {
+  const [words, setWords] = useState(currentQuestion?.optionList);
   const [isAnySelected, setIsAnySelected] = useState(false);
+  const [selectedWordIds, setSelectedWordIds] = useState([]);
+  const [audioState, setAudioState] = useState({
+    currentAudio: null,
+    playingId: null,
+  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsAnySelected(words.some((word) => word.isChecked));
@@ -16,15 +23,56 @@ export const UserSelectRealWords = ({ onNext }) => {
 
   const handleCheckClick = (id) => {
     setWords((prevWords) =>
-      prevWords.map((word) =>
-        word.id === id ? { ...word, isChecked: !word.isChecked } : word
-      )
+      prevWords.map((word) => {
+        if (word.id === id) {
+          const isChecked = !word.isChecked;
+          setSelectedWordIds((prevSelected) =>
+            isChecked
+              ? [...prevSelected, id]
+              : prevSelected.filter((wordId) => wordId !== id)
+          );
+          return { ...word, isChecked };
+        }
+        return word;
+      })
     );
   };
+
+  const handleAudioSelector = () => {
+    const data = {
+      optionsId: selectedWordIds,
+      questionId: currentQuestion?.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
+  };
+
+  const handlePlayAudio = (audioUrl, wordId) => {
+    if (audioState.playingId === wordId) {
+      // Если это же аудио играет, остановим его
+      audioState.currentAudio.pause();
+      setAudioState({ currentAudio: null, playingId: null });
+    } else {
+      // Остановить текущее аудио, если оно существует
+      if (audioState.currentAudio) {
+        audioState.currentAudio.pause();
+      }
+
+      // Запустить новое аудио
+      const audio = new Audio(audioUrl);
+      audio
+        .play()
+        .catch((error) => console.error("Audio playback failed:", error));
+      setAudioState({ currentAudio: audio, playingId: wordId });
+    }
+  };
+
   return (
     <ContentWrapper>
       <MainContent>
-        <Duration time={5} onComplete={onNext} />
+        <Duration time={currentQuestion?.duration} onComplete={onNext} />
 
         <WrapperWords>
           <h1>Select the real English words in this list</h1>
@@ -33,7 +81,9 @@ export const UserSelectRealWords = ({ onNext }) => {
               <section key={word.id}>
                 <StyledWordContainer isChecked={word.isChecked}>
                   <ContainerWord>
-                    <Icons.VolumeUp />
+                    <Icons.VolumeUp
+                      onClick={() => handlePlayAudio(word.audio_url, word.id)}
+                    />
                     <h4>{word.title}</h4>
                   </ContainerWord>
 
@@ -48,14 +98,13 @@ export const UserSelectRealWords = ({ onNext }) => {
             ))}
           </ContainerWords>
         </WrapperWords>
-        <StyledButton disabled={!isAnySelected} onClick={onNext}>
+        <StyledButton disabled={!isAnySelected} onClick={handleAudioSelector}>
           next
         </StyledButton>
       </MainContent>
     </ContentWrapper>
   );
 };
-
 const StyledWordContainer = styled("div")(({ isChecked }) => ({
   display: "flex",
   alignItems: "center",

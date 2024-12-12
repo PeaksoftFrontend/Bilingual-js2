@@ -1,105 +1,92 @@
-import { useRef } from "react";
-import { useState } from "react";
-import { dataTests } from "../../../utils/constants/userTest";
+import { useRef, useState } from "react";
 import { Icons } from "../../../assets/icons";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { styled, TextareaAutosize } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
+import { useDispatch } from "react-redux";
 
-export const TypeHearTest = () => {
-  const [audioDataList, setAudioDataList] = useState(
-    dataTests.map((data) => ({
-      ...data,
-      isPlaying: false,
-      remainingPlays: data.numOfWords,
-      response: "",
-    }))
+export const TypeHearTest = ({ currentQuestion, onNext }) => {
+  const dispatch = useDispatch();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [remainingPlays, setRemainingPlays] = useState(
+    currentQuestion?.attempts
   );
+  const [response, setResponse] = useState("");
+  const audioRef = useRef(null);
 
-  const audioRefs = useRef([]);
-
-  const handlePlayAudio = (index) => {
-    setAudioDataList((prevData) =>
-      prevData.map((item, i) => {
-        if (i === index && audioRefs.current[index]) {
-          const audioRef = audioRefs.current[index];
-          if (item.isPlaying) {
-            audioRef.pause();
-            audioRef.currentTime = 0;
-            return { ...item, isPlaying: false };
-          } else if (item.remainingPlays > 0) {
-            audioRef.currentTime = 0;
-            audioRef.play();
-            return {
-              ...item,
-              isPlaying: true,
-              remainingPlays: item.remainingPlays - 1,
-            };
-          }
-        }
-        return item;
-      })
-    );
+  const handlePlayAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        setIsPlaying(false);
+      } else if (remainingPlays > 0) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+        setIsPlaying(true);
+        setRemainingPlays((prev) => prev - 1);
+      }
+    }
   };
 
-  const handleAudioEnd = (index) => {
-    setAudioDataList((prevData) =>
-      prevData.map((item, i) =>
-        i === index ? { ...item, isPlaying: false } : item
-      )
-    );
+  const handleAudioEnd = () => {
+    setIsPlaying(false);
   };
 
-  const handleInputChange = (index, value) => {
-    setAudioDataList((prevData) =>
-      prevData.map((item, i) =>
-        i === index ? { ...item, response: value } : item
-      )
-    );
+  const handleInputChange = (value) => {
+    setResponse(value);
   };
 
-  const isButtonDisabled = audioDataList.some((item) => !item.response.trim());
+  const handleSubmit = () => {
+    const data = {
+      statement: response.trim(),
+      questionId: currentQuestion?.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
+  };
 
   return (
     <StyledBackdrop>
       <ContentWrapper>
         <StyledContentWrapper>
-          <Duration time={120} />
+          <Duration time={currentQuestion?.duration} />
           <StyledTitle>Type the statement you hear</StyledTitle>
-          {audioDataList.map((item, index) => (
-            <StyledMain key={index}>
-              <StyledIconWrapper
-                className={item.isPlaying ? "playing" : ""}
-                onClick={() => handlePlayAudio(index)}
-              >
-                {item.isPlaying ? (
-                  <Icons.SoundOfHover />
-                ) : (
-                  <Icons.SoundOnHover />
-                )}
-              </StyledIconWrapper>
-              <audio
-                ref={(el) => (audioRefs.current[index] = el)}
-                src={item.audioData}
-                onEnded={() => handleAudioEnd(index)}
+          <StyledMain>
+            <StyledIconWrapper
+              className={isPlaying ? "playing" : ""}
+              onClick={handlePlayAudio}
+            >
+              {isPlaying ? <Icons.SoundOfHover /> : <Icons.SoundOnHover />}
+            </StyledIconWrapper>
+            <audio
+              ref={audioRef}
+              src={currentQuestion?.fileUrl}
+              onEnded={handleAudioEnd}
+            />
+            <StyledSecondContainer>
+              <StyledTextArea
+                aria-label="minimum height"
+                placeholder="Your response"
+                value={response}
+                onChange={(e) => handleInputChange(e.target.value)}
               />
-              <StyledSecondContainer>
-                <StyledTextArea
-                  aria-label="minimum height"
-                  placeholder="Your response"
-                  value={item.response}
-                  onChange={(e) => handleInputChange(index, e.target.value)}
-                />
-                <StyledSecondTitle>
-                  Number of replays left: {item.remainingPlays}
-                </StyledSecondTitle>
-              </StyledSecondContainer>
-            </StyledMain>
-          ))}
+              <StyledSecondTitle>
+                Number of replays left: {remainingPlays}
+              </StyledSecondTitle>
+            </StyledSecondContainer>
+          </StyledMain>
           <StyledWrapperContent>
             <hr />
-            <StyledBtn variant="text" disabled={isButtonDisabled}>
+            <StyledBtn
+              variant="text"
+              disabled={!response.trim()}
+              onClick={handleSubmit}
+            >
               Next
             </StyledBtn>
           </StyledWrapperContent>
@@ -158,7 +145,7 @@ const StyledBackdrop = styled("div")({
 });
 
 const StyledTextArea = styled(TextareaAutosize)({
-  fontАamily: "DINNextRoundedLTW01-Regular",
+  fontFamily: "DINNextRoundedLTW01-Regular",
   width: "439px",
   padding: "14.5px 20px",
   fontSize: "16px",

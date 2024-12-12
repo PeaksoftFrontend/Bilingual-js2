@@ -1,38 +1,51 @@
 import { styled } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
-import { userTest } from "../../../utils/constants/userTest";
 import { useNavigate } from "react-router-dom";
 import { TestNotFound } from "../../404/TestNotFound";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userTestGetRequest } from "../../../store/userTest/userTestThunk";
+import Sheet from "../../../assets/images/sheet.png";
 
 export const UserTestPage = () => {
+  const { userTest } = useSelector((state) => state.userTest);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleNavigate = (testId, state) => {
+    navigate(`${testId}/start-test`, state);
+  };
 
+  useEffect(() => {
+    dispatch(userTestGetRequest());
+  }, [dispatch]);
   return (
     <StyledDiv>
       {userTest.length > 0 ? (
-        userTest.map((item, index) => (
-          <ContentWrapper key={index}>
-            <StyledContainer>
-              <BlockImg>
-                <img src={item.img} alt="" />
-                <TextBlock>
-                  <StyledDuration>{item.duration} minutes</StyledDuration>
-                  <StyledTitle>{item.title}</StyledTitle>
-                  <StyledDescription>{item.description}</StyledDescription>
-                </TextBlock>
-              </BlockImg>
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  navigate("/main/test/start-test", { state: item })
-                }
-              >
-                try test
-              </Button>
-            </StyledContainer>
-          </ContentWrapper>
-        ))
+        userTest
+          .filter((item) => item.enable)
+          .map((item, index) => (
+            <ContentWrapper key={index}>
+              <StyledContainer>
+                <BlockImg>
+                  <img src={Sheet} alt={item.title} />
+                  <TextBlock>
+                    <StyledDuration>
+                      {Math.ceil(item.duration / 60)} minutes
+                    </StyledDuration>
+                    <StyledTitle>{item.title}</StyledTitle>
+                    <StyledDescription>{item.description}</StyledDescription>
+                  </TextBlock>
+                </BlockImg>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleNavigate(item.id, { state: item })}
+                >
+                  try test
+                </Button>
+              </StyledContainer>
+            </ContentWrapper>
+          ))
       ) : (
         <ContentWrapper>
           <TestNotFound />

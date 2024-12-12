@@ -4,15 +4,23 @@ import SearchInfo from "../../../assets/images/searchInfo.png";
 import { Icons } from "../../../assets/icons";
 import { styled } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userTestGetByIdRequest } from "../../../store/userTest/userTestThunk";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export const StartTest = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userTestGetByIdRequest(state.id));
+  }, [dispatch]);
 
   const handlerNavigate = (selectedId) => {
-    navigate(`/main/test/start-test/user-test/${selectedId}`, {
-      state: { id: selectedId },
-    });
+    console.log("selectedId: ", selectedId);
+    // test/:testId/start-test/user-test/:userTestId
+    navigate(`/main/test/${selectedId}/start-test/user-test`);
   };
 
   return (
@@ -28,7 +36,7 @@ export const StartTest = () => {
             </p>
             <p>
               <Icons.Time />
-              Practice takes just {state.duration} minutes
+              Practice takes just {Math.ceil(state?.duration / 60)} minutes
             </p>
             <p>
               <Icons.PhotoId />

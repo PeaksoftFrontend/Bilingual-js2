@@ -49,11 +49,11 @@ export const AppRoutes = () => {
           element: <TestPage />,
         },
         {
-          path: "test-page/test-info/:testInfoId",
+          path: "test-page/test-info/:testInfoId/",
           element: <TestInfo />,
         },
         {
-          path: "test-page/create-test",
+          path: "test-page/test-info/:testInfoId/create-test",
           element: <CreateTest />,
         },
         {
@@ -89,7 +89,7 @@ export const AppRoutes = () => {
           element: <UserTestPage />,
         },
         {
-          path: "test/start-test",
+          path: "test/:testId/start-test",
           element: <StartTest />,
         },
         {
@@ -105,7 +105,7 @@ export const AppRoutes = () => {
           element: <Highlight />,
         },
         {
-          path: "test/start-test/user-test/:userTestId",
+          path: "test/:testId/start-test/user-test/",
           element: <CollectUserTest />,
         },
       ],

@@ -1,22 +1,56 @@
 import { useState } from "react";
-import { Input } from "../../../components/UI/input/Input";
 import { Button } from "../../../components/UI/button/Button";
 import { styled } from "@mui/material";
+import { questionsPostRequest } from "../../../store/adminQuestion/adminQuestionThunk";
+import { useDispatch } from "react-redux";
+import { StyledInput } from "./EnglishWords";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const RecordStatement = () => {
+export const RecordStatement = ({
+  selectedValue,
+  title,
+  duration,
+  onReset,
+  setDuration,
+  setTitle,
+}) => {
   const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const { testInfoId } = useParams();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setValue(e.target.value);
+  };
+
+  const addOptionHandler = () => {
+    const [minutes, seconds] = duration.split(":").map(Number);
+    const totalDurationInSeconds = minutes * 60 + (seconds || 0);
+
+    const data = {
+      title,
+      duration: totalDurationInSeconds,
+      statement: value,
+    };
+
+    dispatch(
+      questionsPostRequest({ data, selectedValue, testInfoId, navigate })
+    );
+    setTitle("");
+    setDuration("15:00");
+    onReset();
   };
   return (
     <StyledDiv>
       <StyledLable>
         Statement
-        <Input onChange={handleChange} value={value} />
+        <StyledInput onChange={handleChange} value={value} />
       </StyledLable>
       <StyledWrappperBtn>
         <Button variant="outlined">GO BACK</Button>
-        <Button variant="sucsses">SAVE</Button>
+        <Button variant="sucsses" disabled={!value} onClick={addOptionHandler}>
+          SAVE
+        </Button>
       </StyledWrappperBtn>
     </StyledDiv>
   );

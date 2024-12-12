@@ -3,12 +3,18 @@ import { ContentWrapper } from "../content_wrapper/ContentWrapper";
 import { Select } from "../input/Select";
 import { selectOptions } from "../../../utils/constants/selectWords";
 import { Input } from "../input/Input";
-import { useState } from "react";
 
-export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
-  const [selectedValue, setSelectedValue] = useState("");
-  const [duration, setDuration] = useState("15:00");
-
+export const AdminForm = ({
+  children,
+  onSelectChange,
+  onTimeChange,
+  setSelectedValue,
+  selectedValue,
+  duration,
+  setDuration,
+  title,
+  setTitle,
+}) => {
   const handleSelectChange = (event) => {
     const value = event.target.value;
     setSelectedValue(value);
@@ -20,6 +26,9 @@ export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
     setDuration(value);
     onTimeChange(value);
   };
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
 
   return (
     <StyledAdminContainer>
@@ -27,7 +36,11 @@ export const AdminForm = ({ children, onSelectChange, onTimeChange }) => {
         <TitleBlock>
           <div>
             <p>Title</p>
-            <StyledInput placeholder="Select real English words" />
+            <StyledInput
+              placeholder="Select real English words"
+              value={title}
+              onChange={handleTitleChange}
+            />
           </div>
           <div>
             <TextBlock>

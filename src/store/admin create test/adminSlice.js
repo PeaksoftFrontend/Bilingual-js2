@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTestRequest, putSwitchRequest } from "./adminCreatetestThunk";
+import {
+  getTestByIdRequest,
+  getTestRequest,
+  putSwitchRequest,
+} from "./adminCreatetestThunk";
 
 const adminSlice = createSlice({
   name: "test",
   initialState: {
     tests: [],
+    testsById: [],
+    isLoading: false,
   },
   // reducers: {
   //   addTest: (state, action) => {
@@ -47,6 +53,17 @@ const adminSlice = createSlice({
     builder.addCase(putSwitchRequest.rejected, (state, action) => {
       state.error = action.payload;
     });
+    // Test get by ID
+    builder
+      .addCase(getTestByIdRequest.fulfilled, (state, action) => {
+        state.testsById = action.payload;
+      })
+      .addCase(getTestByIdRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTestByIdRequest.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 
