@@ -81,7 +81,7 @@ export const TestPage = () => {
                   aria-label={item.enable ? "Disable test" : "Enable test"}
                   onClick={(event) => isTrueHandler(event, item)}
                 >
-                  {item.enable ? <Icons.SwitchOff /> : <Icons.SwitchOn />}
+                  {item.enable ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
                 </IconButton>
                 <IconButton
                   aria-label="Edit test"

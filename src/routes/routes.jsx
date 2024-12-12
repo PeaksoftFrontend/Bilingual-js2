@@ -84,7 +84,7 @@ export const AppRoutes = () => {
           element: <UserTestPage />,
         },
         {
-          path: "test/start-test",
+          path: "test/:testId/start-test",
           element: <StartTest />,
         },
         {
@@ -100,7 +100,7 @@ export const AppRoutes = () => {
           element: <Highlight />,
         },
         {
-          path: "test/start-test/user-test/:userTestId",
+          path: "test/:testId/start-test/user-test/",
           element: <CollectUserTest />,
         },
       ],

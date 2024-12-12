@@ -45,7 +45,7 @@ export const Feedback = () => {
   return (
     <StyledCardWrapper>
       <TitleContainer>
-        <Typography variant="h1Bold">Check out each question type</Typography>
+        <Typography variant="h1Bold">Why people love Bilingual</Typography>
       </TitleContainer>
       <SliderContainer>
         <Slider

@@ -32,17 +32,6 @@ export const putTestRequest = createAsyncThunk(
     }
   }
 );
-export const putSwitchRequest = createAsyncThunk(
-  "test/putSwitchRequest",
-  async ({ id, action }, { rejectWithValue, dispatch }) => {
-    try {
-      await axiosInstance.put(`/tests/updateEnable?testId=${id}`, action);
-      dispatch(getTestRequest());
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
 
 export const deleteTestRequest = createAsyncThunk(
   "test/deleteTestRequest",
@@ -90,6 +79,28 @@ export const questionEnablePutRequest = createAsyncThunk(
     } catch (error) {
       console.error("Error: ", error.response || error.message);
       return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const putSwitchRequest = createAsyncThunk(
+  "test/putSwitchRequest",
+  async ({ id, action }, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await axiosInstance.put(
+        `/tests/updateEnable?testId=${id}`,
+        JSON.stringify(action),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      dispatch(getTestRequest());
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );

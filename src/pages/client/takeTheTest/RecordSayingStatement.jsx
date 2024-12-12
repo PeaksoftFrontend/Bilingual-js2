@@ -6,8 +6,12 @@ import { styled } from "@mui/material";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { Duration } from "../../../components/UI/duration/Duration";
 import { Button } from "../../../components/UI/button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { s3AudioPostRequest } from "../../../store/userTest/userTestThunk";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
+import { Loading } from "../../../components/UI/loading/Loading";
 
-export const RecordSayingStatement = ({ onNext }) => {
+export const RecordSayingStatement = ({ onNext, currentQuestion }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isRecorded, setIsRecorded] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -19,6 +23,10 @@ export const RecordSayingStatement = ({ onNext }) => {
   const canvasRef = useRef(null);
   const animationIdRef = useRef(null);
   const audioRef = useRef(null);
+  const dispatch = useDispatch();
+  const { audioUrl: audio_url, isLoading } = useSelector(
+    (state) => state.userTest
+  );
 
   const startRecording = async () => {
     setIsRecording(true);
@@ -60,6 +68,7 @@ export const RecordSayingStatement = ({ onNext }) => {
         };
 
         console.log("Записанный аудиофайл:", audioData);
+        dispatch(s3AudioPostRequest(wavBlob));
 
         audioContextRef.current.close();
       };
@@ -134,6 +143,17 @@ export const RecordSayingStatement = ({ onNext }) => {
     draw();
   };
 
+  const handleRespondNWords = () => {
+    const data = {
+      audioUrl: audio_url.link,
+      questionId: currentQuestion.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
+  };
+
   const startVisualizationForPlayback = () => {
     const audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
@@ -149,7 +169,8 @@ export const RecordSayingStatement = ({ onNext }) => {
 
   return (
     <ContentWrapper>
-      <Duration time={120} onComplete={onNext} />
+      {isLoading && <Loading />}
+      <Duration time={currentQuestion?.duration} onComplete={onNext} />
       <div style={styles.container}>
         <StyledSpeak>
           <h1 style={styles.h1}>Record yourself saying the statement below:</h1>
@@ -164,7 +185,7 @@ export const RecordSayingStatement = ({ onNext }) => {
             onClick={handleSpeakClick}
           >
             <img src={speakIcon} alt="Speak Icon" />
-            <StyledP>"My uncle is at work”.</StyledP>
+            <StyledP>"{currentQuestion?.statement}”.</StyledP>
           </div>
         </StyledSpeak>
         <hr style={styles.separator} />
@@ -210,7 +231,7 @@ export const RecordSayingStatement = ({ onNext }) => {
               style={styles.canvas}
               backgroundColor={"#ffffff"}
             />
-            <Button variant={"contained"} onClick={onNext}>
+            <Button variant={"contained"} onClick={handleRespondNWords}>
               next
             </Button>
           </StyledDiv2>
