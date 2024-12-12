@@ -2,52 +2,47 @@ export const selectOptions = [
   {
     id: "m1",
     label: "Select real English words",
-    value: "1",
+    value: "SELECT_REAL_ENGLISH_WORD",
   },
   {
     id: "m2",
     label: "Listen and select English word",
-    value: "2",
+    value: "LISTEN_AND_SELECT_ENGLISH_WORDS",
   },
   {
     id: "m3",
     label: "Type what you hear",
-    value: "3",
+    value: "TYPE_WHAT_YOU_HEAR",
   },
   {
     id: "m4",
     label: "Describe image",
-    value: "4",
+    value: "DESCRIBE_IMAGE",
   },
   {
     id: "m5",
     label: "Record saying statement",
-    value: "5",
+    value: "RECORD_SAYING_STATEMENT",
   },
   {
     id: "m6",
     label: "Respond in at least N words",
-    value: "6",
+    value: "RESPOND_AT_LEAST_N_WORDS",
   },
   {
     id: "m7",
     label: "Highlight the answer",
-    value: "7",
+    value: "HIGHLIGHT_THE_ANSWER",
   },
   {
     id: "m8",
     label: "Select the main idea",
-    value: "8",
+    value: "SELECT_THE_MAIN_IDEA",
   },
   {
     id: "m9",
     label: "Select best title",
-    value: "9",
-  },
-  {
-    id: "m10",
-    label: " Select main idea",
-    value: "10",
+    value: "SELECT_THE_BEST_TITLE",
   },
 ];
 

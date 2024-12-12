@@ -48,11 +48,11 @@ export const AppRoutes = () => {
           element: <TestPage />,
         },
         {
-          path: "test-page/test-info/:testInfoId",
+          path: "test-page/test-info/:testInfoId/",
           element: <TestInfo />,
         },
         {
-          path: "test-page/create-test",
+          path: "test-page/test-info/:testInfoId/create-test",
           element: <CreateTest />,
         },
         {

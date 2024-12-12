@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useTable } from "react-table";
 import {
   Paper,
@@ -10,92 +9,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Icons } from "../../../assets/icons";
 
-const ScoreCell = styled("span")(({ score }) => ({
-  color: score > 0 ? "green" : "red",
-  fontWeight: "bold",
-}));
-
-const StatusCell = styled("span")(({ status }) => ({
-  color: status === "Evaluated" ? "green" : "red",
-  fontWeight: "bold",
-}));
-
-export const AdminTable = ({ columns, data: initialData }) => {
-  const [data, setData] = useState(initialData);
-
-  const getTableType = () => {
-    if (columns.some((col) => col.accessor === "questionType")) {
-      return "TEST";
-    } else if (columns.some((col) => col.accessor === "userName")) {
-      return "USERINFO";
-    } else if (columns.some((col) => col.accessor === "question")) {
-      return "RESULT";
-    }
-    return null;
-  };
-
-  const tableType = getTableType();
-
-  const handleDeleteRow = (rowId) => {
-    setData((prevData) => prevData.filter((row) => row.id !== rowId));
-  };
-
-  const getIcons = (row) => {
-    const [isSwitched, setIsSwitched] = useState(row.original.icon);
-
-    const handleIconClick = () => {
-      setIsSwitched((prevState) => !prevState);
-    };
-
-    return (
-      <ActionsContainer>
-        {tableType === "TEST" && (
-          <div onClick={handleIconClick}>
-            {isSwitched ? <Icons.SwitchOn /> : <Icons.SwitchOff />}
-          </div>
-        )}
-        {tableType === "USERINFO" &&
-          (row.original.icon ? <Icons.Tick /> : <Icons.Eye />)}
-        {tableType === "RESULT" &&
-          (row.original.icon ? <Icons.Eye /> : <Icons.TickGreen />)}
-
-        <Icons.Trash onClick={() => handleDeleteRow(row.original.id)} />
-      </ActionsContainer>
-    );
-  };
-
-  const modifiedColumns = React.useMemo(
-    () => [
-      ...columns.map((col) => {
-        if (col.accessor === "score") {
-          return {
-            ...col,
-            Cell: ({ value }) => <ScoreCell score={value}>{value}</ScoreCell>,
-          };
-        }
-        if (col.accessor === "status") {
-          return {
-            ...col,
-            Cell: ({ value }) => (
-              <StatusCell status={value}>{value}</StatusCell>
-            ),
-          };
-        }
-        return col;
-      }),
-      {
-        accessor: "actions",
-        Cell: ({ row }) => getIcons(row),
-      },
-    ],
-    [columns, tableType]
-  );
-
+export const AdminTable = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
-      columns: modifiedColumns,
+      columns,
       data,
     });
 
@@ -103,13 +21,10 @@ export const AdminTable = ({ columns, data: initialData }) => {
     <StyledTableContainer component={Paper}>
       <StyledTable {...getTableProps()}>
         <TableHead>
-          {headerGroups.map((headerGroup, headerIndex) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()} key={headerIndex}>
-              {headerGroup.headers.map((column, columnIndex) => (
-                <StyledHeaderCell
-                  {...column.getHeaderProps()}
-                  key={columnIndex}
-                >
+          {headerGroups.map((headerGroup) => (
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <StyledHeaderCell {...column.getHeaderProps()}>
                   {column.render("Header")}
                 </StyledHeaderCell>
               ))}
@@ -117,16 +32,12 @@ export const AdminTable = ({ columns, data: initialData }) => {
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {rows.map((row, rowIndex) => {
+          {rows.map((row) => {
             prepareRow(row);
             return (
-              <StyledRow {...row.getRowProps()} key={rowIndex}>
-                {row.cells.map((cell, cellIndex) => (
-                  <StyledCell
-                    {...cell.getCellProps()}
-                    key={cellIndex}
-                    data-column={cell.column.id}
-                  >
+              <StyledRow {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <StyledCell {...cell.getCellProps()}>
                     {cell.render("Cell")}
                   </StyledCell>
                 ))}
@@ -174,17 +85,4 @@ const StyledCell = styled(TableCell)({
     borderTopRightRadius: "8px",
     borderBottomRightRadius: "8px",
   },
-
-  "&[data-column='name']": {
-    maxWidth: "150px",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-});
-
-const ActionsContainer = styled("div")({
-  display: "flex",
-  alignItems: "center",
-  gap: "22px",
 });
