@@ -6,16 +6,24 @@ import { Words } from "../takeTheTest/Words";
 import { Highlight } from "../takeTheTest/Highlight";
 import { CompletePractice } from "../takeTheTest/CompletePractice";
 import { RecordSayingStatement } from "../takeTheTest/RecordSayingStatement";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TypeHearTest } from "../takeTheTest/TypeHearTest";
 import { MainIdeaTest } from "../takeTheTest/MainIdeaTest";
 import { BestTitleTest } from "../takeTheTest/BestTitleTest";
+import { userTestGetByIdRequest } from "../../../store/userTest/userTestThunk";
+import { useParams } from "react-router-dom";
 
 export const CollectUserTest = () => {
   const { userTestById, userAnswer } = useSelector((state) => state.userTest);
   console.log("userAnswer: ", userAnswer);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const { testId } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userTestGetByIdRequest(testId));
+  }, [dispatch]);
 
   const renderComponent = (typeQuestion, currentQuestion, onNext) => {
     switch (typeQuestion) {

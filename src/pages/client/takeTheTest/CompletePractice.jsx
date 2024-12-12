@@ -2,10 +2,27 @@ import { styled } from "@mui/material";
 import { Icons } from "../../../assets/icons";
 import { Button } from "../../../components/UI/button/Button";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { userAnswerPostRequest } from "../../../store/userTest/userTestThunk";
+import { Snackbar } from "../../../components/UI/snackbar/SnackBar";
+import { useNavigate } from "react-router-dom";
 
 export const CompletePractice = () => {
+  const { userAnswer } = useSelector((state) => state.userTest);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleOptions = () => {
+    console.log("userAnswer: ", userAnswer);
+    dispatch(userAnswerPostRequest(userAnswer));
+  };
+  const handleNavigate = () => {
+    navigate("/main/test");
+  };
+
   return (
     <ContentWrapper>
+      <Snackbar />
       <StyledAllContent>
         <StyledWrapperContent>
           <StyledTitleSecond>Test is complete! </StyledTitleSecond>
@@ -20,8 +37,10 @@ export const CompletePractice = () => {
         </StyledWrapperMain>
         <hr />
         <StyledWrapperBtn>
-          <Button variant="outlined">try again</Button>
-          <Button>done</Button>
+          <Button variant="outlined" onClick={handleNavigate}>
+            try again
+          </Button>
+          <Button onClick={handleOptions}>done</Button>
         </StyledWrapperBtn>
       </StyledAllContent>
     </ContentWrapper>

@@ -22,28 +22,30 @@ export const UserTestPage = () => {
   return (
     <StyledDiv>
       {userTest.length > 0 ? (
-        userTest.map((item, index) => (
-          <ContentWrapper key={index}>
-            <StyledContainer>
-              <BlockImg>
-                <img src={Sheet} alt={item.title} />
-                <TextBlock>
-                  <StyledDuration>
-                    {Math.ceil(item.duration / 60)} minutes
-                  </StyledDuration>
-                  <StyledTitle>{item.title}</StyledTitle>
-                  <StyledDescription>{item.description}</StyledDescription>
-                </TextBlock>
-              </BlockImg>
-              <Button
-                variant="outlined"
-                onClick={() => handleNavigate(item.id, { state: item })}
-              >
-                try test
-              </Button>
-            </StyledContainer>
-          </ContentWrapper>
-        ))
+        userTest
+          .filter((item) => item.enable)
+          .map((item, index) => (
+            <ContentWrapper key={index}>
+              <StyledContainer>
+                <BlockImg>
+                  <img src={Sheet} alt={item.title} />
+                  <TextBlock>
+                    <StyledDuration>
+                      {Math.ceil(item.duration / 60)} minutes
+                    </StyledDuration>
+                    <StyledTitle>{item.title}</StyledTitle>
+                    <StyledDescription>{item.description}</StyledDescription>
+                  </TextBlock>
+                </BlockImg>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleNavigate(item.id, { state: item })}
+                >
+                  try test
+                </Button>
+              </StyledContainer>
+            </ContentWrapper>
+          ))
       ) : (
         <ContentWrapper>
           <TestNotFound />

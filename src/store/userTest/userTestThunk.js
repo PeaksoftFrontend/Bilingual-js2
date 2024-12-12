@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
+import { ShowSnackbar } from "../../components/UI/snackbar/SnackBar";
 
 export const userTestGetRequest = createAsyncThunk(
   "userTest/userTestGetRequest",
@@ -75,6 +76,22 @@ export const s3AudioDeleteRequest = createAsyncThunk(
 
       return data;
     } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const userAnswerPostRequest = createAsyncThunk(
+  "questions/userAnswerPostRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post("answer/", payload);
+      ShowSnackbar("You have successfully passed the test!", "success");
+
+      return data;
+    } catch (error) {
+      // ShowSnackbar(error.message, "error");
+      ShowSnackbar("This user have answer to this test", "error");
+
       return rejectWithValue(error.message);
     }
   }
