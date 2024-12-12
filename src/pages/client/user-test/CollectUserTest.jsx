@@ -86,7 +86,6 @@ export const CollectUserTest = () => {
       if (currentQuestion) {
         const { questionType } = currentQuestion;
         setSelectedComponent(
-          // renderComponent(questionType, duration, handleNext, id, optionList)
           renderComponent(questionType, currentQuestion, handleNext)
         );
       }

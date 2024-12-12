@@ -4,6 +4,7 @@ import {
   userTestGetByIdRequest,
   userTestGetRequest,
 } from "./userTestThunk";
+import { userAnswerPostRequest } from "./userTestThunk";
 
 const userTestSlice = createSlice({
   name: "userTest",
@@ -53,6 +54,15 @@ const userTestSlice = createSlice({
       })
       .addCase(s3AudioPostRequest.rejected, (state) => {
         state.isLoading = true;
+      });
+    builder
+      .addCase(userAnswerPostRequest.fulfilled, (state) => {
+        state.isLoading = false;
+        state.userAnswer = [];
+      })
+      .addCase(userAnswerPostRequest.rejected, (state) => {
+        state.isLoading = false;
+        state.userAnswer = [];
       });
   },
 });

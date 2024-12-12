@@ -13,7 +13,6 @@ export const CompletePractice = () => {
   const navigate = useNavigate();
 
   const handleOptions = () => {
-    console.log("userAnswer: ", userAnswer);
     dispatch(userAnswerPostRequest(userAnswer));
   };
   const handleNavigate = () => {

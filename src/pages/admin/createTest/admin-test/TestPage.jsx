@@ -20,6 +20,9 @@ export const TestPage = () => {
   const [testId, setTestId] = useState(null);
 
   const { tests, isLoading, error } = useSelector((state) => state.test);
+  console.log("tests: ", tests);
+  console.log("error: ", error);
+  console.log("isLoading: ", isLoading);
 
   useEffect(() => {
     dispatch(getTestRequest());
@@ -50,9 +53,6 @@ export const TestPage = () => {
     },
     [dispatch]
   );
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading tests. Please try again.</p>;
 
   return (
     <ContentWrapper>
