@@ -141,6 +141,7 @@ export const ListenEnglishWords = ({
       duration: totalDurationInSeconds,
       options: wordsWithoutId,
     };
+    console.log(data);
 
     dispatch(
       questionsPostRequest({ data, selectedValue, testInfoId, navigate })
@@ -151,7 +152,7 @@ export const ListenEnglishWords = ({
   };
   const saveWordsHandler = () => {
     const data = {
-      word: wordsValue,
+      title: wordsValue,
       isTrue: isTrueValue,
       audioUrl: audioLink,
       audioFileName: audioFileName,
@@ -190,7 +191,7 @@ export const ListenEnglishWords = ({
                     )}
                   </IconButton>
                 )}
-                <p>{word.word}</p>
+                <p>{word.title}</p>
               </TitleContent>
               <IconContent>
                 <div>

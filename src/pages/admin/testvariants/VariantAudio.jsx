@@ -95,7 +95,9 @@ export const VariantAudio = ({
       duration: totalDurationInSeconds,
       fileUrl: audioLink,
       correctAnswer: answer,
+      attempts: replays,
     };
+    console.log(data);
 
     dispatch(
       questionsPostRequest({ data, selectedValue, testInfoId, navigate })
