@@ -1,51 +1,57 @@
 import { useState } from "react";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { Duration } from "../../../components/UI/duration/Duration";
-import { dataMainIdea } from "../../../utils/constants/userTest";
 import { Button } from "../../../components/UI/button/Button";
 import { styled } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
 
-export const MainIdeaTest = ({ currentQuestion }) => {
+export const MainIdeaTest = ({ currentQuestion, onNext }) => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const dispatch = useDispatch();
 
   const handleSelect = (option) => {
     setSelectedOption(option);
+  };
+  const handleRespondNWords = () => {
+    const data = {
+      optionsId: [selectedOption],
+      questionId: currentQuestion.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
   };
 
   return (
     <ContentWrapper>
       <MainBlock>
-        <Duration time={currentQuestion.duration} />
+        <Duration time={currentQuestion?.duration} onComplete={onNext} />
         <Container>
           <StyledTextBlock>
             <StyledPassage>PASSAGE</StyledPassage>
-            <StyledText>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-              eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-              est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-              velit, sed quia non numquam eius modi tempora incidunt ut labore
-              et dolore magnam aliquam quaerat voluptatem.
-            </StyledText>
+            <StyledText>{currentQuestion?.passage}</StyledText>
           </StyledTextBlock>
           <StyledWrapper>
             <StyledTitle>Select the best title for the passage</StyledTitle>
             <StyledWrapperVariants>
-              {dataMainIdea.map((item, index) => (
+              {currentQuestion?.optionList?.map((item, index) => (
                 <ContainerVariant
                   key={index}
                   selected={selectedOption === item.title}
-                  onClick={() => handleSelect(item.title)}
+                  onClick={() => handleSelect(item.id)}
                 >
-                  <Checkbox selected={selectedOption === item.title} />
+                  <Checkbox selected={selectedOption === item.id} />
                   <span>{item.title}</span>
                 </ContainerVariant>
               ))}
             </StyledWrapperVariants>
-            <StyledBtn variant="text" disabled={!selectedOption}>
+            <StyledBtn
+              variant="text"
+              disabled={!selectedOption}
+              onClick={handleRespondNWords}
+            >
               Next
             </StyledBtn>
           </StyledWrapper>

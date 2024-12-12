@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userTestGetByIdRequest, userTestGetRequest } from "./userTestThunk";
+import {
+  s3AudioPostRequest,
+  userTestGetByIdRequest,
+  userTestGetRequest,
+} from "./userTestThunk";
 
 const userTestSlice = createSlice({
   name: "userTest",
@@ -8,6 +12,7 @@ const userTestSlice = createSlice({
     userTestById: [],
     isLoading: false,
     userAnswer: [],
+    audioUrl: "",
   },
   reducers: {
     userAnswerHandler: (state, action) => {
@@ -37,6 +42,17 @@ const userTestSlice = createSlice({
       })
       .addCase(userTestGetByIdRequest.rejected, (state) => {
         state.isLoading = false;
+      });
+    builder
+      .addCase(s3AudioPostRequest.fulfilled, (state, action) => {
+        state.audioUrl = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(s3AudioPostRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(s3AudioPostRequest.rejected, (state) => {
+        state.isLoading = true;
       });
   },
 });

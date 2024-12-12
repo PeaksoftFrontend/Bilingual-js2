@@ -41,3 +41,41 @@ export const userTestQuestionGetByIdRequest = createAsyncThunk(
     }
   }
 );
+
+export const s3AudioPostRequest = createAsyncThunk(
+  "questions/s3AudioPostRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        `s3file`,
+        {
+          multipartFile: payload,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const s3AudioDeleteRequest = createAsyncThunk(
+  "questions/s3AudioDeleteRequest",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.delete(
+        `s3file/delete?fileName=${payload}`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
