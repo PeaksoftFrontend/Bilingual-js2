@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 
 export const ListenSelect = () => {
   const { resultQuestion } = useSelector((state) => state.result);
+  console.log(resultQuestion);
+
   const [selectedIcons, setSelectedIcons] = useState(
     dataFour.question.reduce((acc, item) => {
       acc[item.id] = false;
@@ -67,25 +69,19 @@ export const ListenSelect = () => {
       </StyledWrapperTitlePosition>
       <StyledWrapperQuestionAll>
         <StyledWrapperQuestion>
-          {dataFour.question.map((item) => (
+          {resultQuestion.optionList.map((item, i) => (
             <StyledQuestion key={item.id}>
               <StyledWrapperQuestionss>
-                <span>{item.id}</span>
+                <span>{i + 1}</span>
                 <Icons.SoundSmall />
                 <StyledWrapperTitlPosition>
-                  {item.question}
+                  {item.title}
                 </StyledWrapperTitlPosition>
               </StyledWrapperQuestionss>
 
               <StyledIconsContainer>
-                <StyledWrapperIconPosition
-                  onClick={() => handleIconClick(item.id)}
-                >
-                  {selectedIcons[item.id] ? (
-                    <Icons.TickGreen />
-                  ) : (
-                    <Icons.EmptyTick />
-                  )}
+                <StyledWrapperIconPosition>
+                  {item.isTrue ? <Icons.TickGreen /> : <Icons.EmptyTick />}
                 </StyledWrapperIconPosition>
                 <Icons.Trash />
               </StyledIconsContainer>
@@ -95,11 +91,11 @@ export const ListenSelect = () => {
         <StyledWrapperQuestions>
           <h3>{dataFour.answer} </h3>
           <StyledWrapperQuestion>
-            {dataFour.usersAnswer.map((item) => (
+            {resultQuestion?.optionFromUser.map((item, i) => (
               <StyledQuestionSecond key={item.id}>
-                <span>{item.id}</span>
+                <span>{i + 1}</span>
                 <Icons.SoundSmall />
-                {item.question}
+                {item.title}
               </StyledQuestionSecond>
             ))}
           </StyledWrapperQuestion>

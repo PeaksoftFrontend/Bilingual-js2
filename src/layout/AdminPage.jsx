@@ -20,6 +20,6 @@ const StyledDiv = styled("div")(() => ({
   height: "100vh",
   display: "flex",
   flexDirection: "column",
-  gap: "48px",
+  // gap: "48px",
   backgroundColor: "#D7E1F8",
 }));

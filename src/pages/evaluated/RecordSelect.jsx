@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { styled } from "@mui/material";
 import { Button } from "../../components/UI/button/Button";
 import { Icons } from "../../assets/icons";
@@ -10,7 +10,21 @@ export const RecordSelect = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { resultQuestion } = useSelector((state) => state.result);
 
+  const audioRef = useRef(null); // Создаем реф для аудио
+
   const handleButtonClick = () => {
+    if (!audioRef.current) {
+      // Создаем аудио-объект, если его еще нет
+      audioRef.current = new Audio(resultQuestion?.audioFile);
+      audioRef.current.onended = () => setIsPlaying(false); // Останавливаем состояние при завершении
+    }
+
+    if (isPlaying) {
+      audioRef.current.pause(); // Ставим на паузу
+    } else {
+      audioRef.current.play(); // Воспроизводим
+    }
+
     setIsPlaying(!isPlaying);
   };
 
@@ -54,7 +68,6 @@ export const RecordSelect = () => {
         </StyledWrapperDes>
         <StyledWrapper>
           <h3>Evaluation</h3>
-
           <StyledTitle>Score:(1-10)</StyledTitle>
           <StyledInput type="number" />
         </StyledWrapper>
@@ -69,17 +82,18 @@ export const RecordSelect = () => {
             {isPlaying ? <Icons.PauseIcon /> : <Icons.PlayCircle />}
             <>{isPlaying ? "STOP RECORDED AUDIO" : "PLAY AUDIO"}</>
           </StyledButton>
-          <p>{dataSeven.correctAnswer}</p>
+          <p>Correct answer: "{resultQuestion?.statement}"</p>
         </StyledContainer>
       </StyledContainerAns>
-
       <StyledWrapperBtn>
         <Button variant="outlined">GO BACK</Button>
-        <Button variant="sucsses">SAVE</Button>
+        <Button variant="success">SAVE</Button>
       </StyledWrapperBtn>
     </StyledAll>
   );
 };
+
+// Стили остаются такими же
 const StyledAll = styled("div")({
   display: "flex",
   flexDirection: "column",
@@ -116,7 +130,7 @@ const StyledButton = styled(Button)(({ isPlaying }) => ({
   justifyContent: "space-evenly",
   gap: "7px",
   width: isPlaying ? "250px" : "180px",
-  height: isPlaying ? "50px" : "50px",
+  height: "50px",
 }));
 
 const StyledWrapper = styled("div")({
