@@ -12,6 +12,8 @@ import { MainIdeaTest } from "../takeTheTest/MainIdeaTest";
 import { BestTitleTest } from "../takeTheTest/BestTitleTest";
 import { userTestGetByIdRequest } from "../../../store/userTest/userTestThunk";
 import { useParams } from "react-router-dom";
+import NoTest from "../../../assets/images/notest.png";
+import { styled } from "@mui/material";
 
 export const CollectUserTest = () => {
   const { userTestById, userAnswer } = useSelector((state) => state.userTest);
@@ -93,8 +95,22 @@ export const CollectUserTest = () => {
   }, [currentQuestionIndex, userTestById]);
 
   if (!userTestById || userTestById.length === 0) {
-    return <p>Loading questions...</p>;
+    return (
+      <StyledNoTest>
+        <img src={NoTest} alt="" />
+      </StyledNoTest>
+    );
   }
 
   return <div>{selectedComponent}</div>;
 };
+
+export const StyledNoTest = styled("div")(() => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  "& img": {
+    width: "500px",
+  },
+}));
