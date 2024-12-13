@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export const EnglishWordsSelect = () => {
   const { resultQuestion } = useSelector((state) => state.result);
   const { testInfoId, testId } = useParams();
+  console.log("testInfoId: ", testInfoId);
   const navigate = useNavigate();
   console.log("resultQuestion: ", resultQuestion);
 
@@ -73,8 +74,8 @@ export const EnglishWordsSelect = () => {
             <h3>Evaluation</h3>
             <StyledTitle>
               Score:
-              <span style={{ color: dataThree.score > 5 && "green" }}>
-                {dataThree.score}
+              <span style={{ color: resultQuestion.score > 5 && "green" }}>
+                {resultQuestion?.score}
               </span>
             </StyledTitle>
           </StyledWrapperTitlePosition>

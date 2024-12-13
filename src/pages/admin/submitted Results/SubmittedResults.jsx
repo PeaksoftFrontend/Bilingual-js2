@@ -1,8 +1,6 @@
-// import { useNavigate } from "react-router-dom";
 import { IconButton, styled } from "@mui/material";
 import { AdminTable } from "../../../components/UI/admin-table/AdminTable";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
-import { userInfoData } from "../../../utils/constants/AdminTable";
 import { Icons } from "../../../assets/icons";
 import { useEffect, useState } from "react";
 import { UiModal } from "../../../components/UI/modal/UiModal";
@@ -19,7 +17,6 @@ export const SubmittedResults = () => {
   const [userId, setUserId] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const { result } = useSelector((state) => state.result);
-  console.log("result: ", result);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -122,8 +119,8 @@ export const SubmittedResults = () => {
     <ContentWrapper>
       <AdminTable
         columns={columns}
-        data={userInfoData}
-        // data={result}
+        // data={userInfoData}
+        data={result}
       />
 
       <UiModal open={openModal} onClose={closeModalHandler}>
