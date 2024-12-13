@@ -8,7 +8,7 @@ import { StyledInput, StyledTitle } from "./RecordSelect";
 import { dataTen } from "../../utils/constants/general";
 import { useSelector } from "react-redux";
 
-export const EvaluteMain = () => {
+export const EvaluteBest = () => {
   const { resultQuestion } = useSelector((state) => state.result);
   return (
     <>
@@ -102,6 +102,7 @@ const StyledWrapperAllContent = styled("div")({
 });
 
 const StyledWrapperTitle = styled("div")({
+  marginTop: "30px",
   display: "flex",
   justifyContent: "space-between",
 });

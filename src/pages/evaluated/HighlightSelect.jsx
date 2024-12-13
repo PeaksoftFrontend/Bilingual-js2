@@ -2,11 +2,27 @@ import { styled } from "@mui/material";
 import { Button } from "../../components/UI/button/Button";
 import { StyledInput, StyledTitle } from "./RecordSelect";
 import { dataNine } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const HighlightSelect = () => {
+  const { resultQuestion } = useSelector((state) => state.result);
   return (
     <>
       <StyledWrapperAllContent>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <StyledTitle>
+            User:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.fullName}
+            </span>
+          </StyledTitle>
+          <StyledTitle>
+            Test:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.testTitle}
+            </span>
+          </StyledTitle>
+        </div>
         <StyledWrapperTitle>
           <StyledContentTitle>
             <StyledContentTitleSecond>
@@ -122,7 +138,6 @@ const StyledContentTitle = styled("div")({
   gap: "40px",
 });
 const StyledContentTitleSecond = styled("div")({
-  marginTop: "50px",
   display: "flex",
   justifyContent: "space-between",
   flexDirection: "column",

@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-export const AdminTable = ({ columns, data }) => {
+export const AdminTable = ({ columns, data = [] }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,

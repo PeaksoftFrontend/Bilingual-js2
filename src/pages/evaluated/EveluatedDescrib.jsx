@@ -3,10 +3,26 @@ import { Button } from "../../components/UI/button/Button";
 import selectImage from "../../assets/images/ImageSelect.png";
 import { Input } from "../../components/UI/input/Input";
 import { dataSix } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const EveluatedDescrib = () => {
+  const { resultQuestion } = useSelector((state) => state.result);
   return (
     <StyledAll>
+      <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        <StyledTitle>
+          User:
+          <span style={{ color: "black", marginLeft: "5px" }}>
+            {resultQuestion?.fullName}
+          </span>
+        </StyledTitle>
+        <StyledTitle>
+          Test:
+          <span style={{ color: "black", marginLeft: "5px" }}>
+            {resultQuestion?.testTitle}
+          </span>
+        </StyledTitle>
+      </div>
       <StyledAllContainer>
         <StyledWrapperDes>
           <h3>Test Question</h3>
@@ -100,7 +116,7 @@ const StyledOverlayButton = styled(Button)({
 });
 
 const StyledAllContainer = styled("div")({
-  marginTop: "30px",
+  // marginTop: "30px",
   display: "flex",
   justifyContent: "space-between",
 });

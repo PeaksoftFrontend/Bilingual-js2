@@ -1,68 +1,96 @@
-import { useState } from "react";
 import { styled } from "@mui/material";
 import { Icons } from "../../assets/icons";
 import { Button } from "../../components/UI/button/Button";
 import { dataThree } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const EnglishWordsSelect = () => {
-  const [selectedIcons, setSelectedIcons] = useState(
-    dataThree.question.reduce((acc, item) => {
-      acc[item.id] = false;
-      return acc;
-    }, {})
-  );
+  const { resultQuestion } = useSelector((state) => state.result);
+  const { testInfoId, testId } = useParams();
+  const navigate = useNavigate();
+  console.log("resultQuestion: ", resultQuestion);
 
-  const handleIconClick = (id) => {
-    setSelectedIcons((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+  const formatDuration = (duration) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  };
+  const handleNavigate = () => {
+    navigate(
+      `/admin/submitted-results/result-info/${testInfoId}/testInfo/${testId}`
+    );
   };
 
   return (
     <>
       <StyledWrapperTitle>
-        <StyledWrapperDes>
-          <h3>{dataThree.testQuestions} </h3>
-          <StyledWrapperDesSecond>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <StyledTitle>
+            User:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.fullName}
+            </span>
+          </StyledTitle>
+          <StyledTitle>
+            Test:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.testTitle}
+            </span>
+          </StyledTitle>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <StyledWrapperDes>
+            <h3>{dataThree.testQuestions} </h3>
+            <StyledWrapperDesSecond>
+              <StyledTitle>
+                Question Title:
+                <span style={{ color: "black" }}>
+                  {resultQuestion?.questionTitle}
+                </span>
+              </StyledTitle>
+              <StyledTitle>
+                Duration (in minutes):
+                <span style={{ color: "black" }}>
+                  {formatDuration(resultQuestion.duration)}
+                </span>
+              </StyledTitle>
+              <StyledTitle>
+                Question Type:
+                <span style={{ color: "black" }}>
+                  {resultQuestion?.questionType ===
+                    "SELECT_REAL_ENGLISH_WORD" && "Select real English words"}
+                </span>
+              </StyledTitle>
+            </StyledWrapperDesSecond>
+          </StyledWrapperDes>
+          <StyledWrapperTitlePosition>
+            <h3>Evaluation</h3>
             <StyledTitle>
-              Question Title:{" "}
-              <span style={{ color: "black" }}>{dataThree.questionTitle}</span>
+              Score:
+              <span style={{ color: dataThree.score > 5 && "green" }}>
+                {dataThree.score}
+              </span>
             </StyledTitle>
-            <StyledTitle>
-              Duration (in minutes):
-              <span style={{ color: "black" }}>{dataThree.duration}</span>
-            </StyledTitle>
-            <StyledTitle>
-              Question Type:{" "}
-              <span style={{ color: "black" }}>{dataThree.questionType}</span>
-            </StyledTitle>
-          </StyledWrapperDesSecond>
-        </StyledWrapperDes>
+          </StyledWrapperTitlePosition>
+        </div>
       </StyledWrapperTitle>
-      <StyledWrapperTitlePosition>
-        <h3>Evaluation</h3>
-        <StyledTitle>
-          Score:{" "}
-          <span style={{ color: dataThree.score > 5 && "green" }}>
-            {dataThree.score}
-          </span>
-        </StyledTitle>
-      </StyledWrapperTitlePosition>
+
       <StyledWrapperQuestionAll>
         <StyledWrapperQuestion>
-          {dataThree.question.map((item) => (
+          {resultQuestion?.optionList?.map((item, i) => (
             <StyledQuestion key={item.id}>
               <StyledWrapperQuestionss>
-                <span>{item.id}</span>
-                {item.question}
+                <span>{i + 1}</span>
+                {item.title}
               </StyledWrapperQuestionss>
-              <div onClick={() => handleIconClick(item.id)}>
-                {selectedIcons[item.id] ? (
-                  <Icons.TickGreen />
-                ) : (
-                  <Icons.EmptyTick />
-                )}
+              <div>
+                {item.isTrue ? <Icons.TickGreen /> : <Icons.EmptyTick />}
               </div>
             </StyledQuestion>
           ))}
@@ -70,17 +98,19 @@ export const EnglishWordsSelect = () => {
         <StyledWrapperQuestions>
           <h3>{dataThree.answer} </h3>
           <StyledWrapperQuestion>
-            {dataThree.usersAnswer.map((item) => (
+            {resultQuestion?.optionFromUser?.map((item, i) => (
               <StyledQuestionSecond key={item.id}>
-                <span>{item.id}</span>
-                {item.question}
+                <span>{i + 1}</span>
+                {item.title}
               </StyledQuestionSecond>
             ))}
           </StyledWrapperQuestion>
         </StyledWrapperQuestions>
       </StyledWrapperQuestionAll>
       <StyledWrapperBtn>
-        <Button variant="outlined">GO BACK</Button>
+        <Button variant="outlined" onClick={handleNavigate}>
+          GO BACK
+        </Button>
         <Button variant="sucsses">SAVE</Button>
       </StyledWrapperBtn>
     </>
@@ -136,17 +166,17 @@ const StyledQuestion = styled("div")({
 });
 
 const StyledWrapperTitlePosition = styled("div")({
-  position: "relative",
-  left: "46rem",
-  bottom: "11rem",
+  // position: "relative",
+  // left: "46rem",
+  // bottom: "11rem",
 });
 const StyledWrapperTitle = styled("div")({
   display: "flex",
   flexDirection: "column",
-  gap: "30px",
+  gap: "25px",
 });
 const StyledWrapperDes = styled("div")({
-  marginTop: "45px",
+  marginBottom: "15px",
   display: "flex",
   flexDirection: "column",
   gap: "14px",

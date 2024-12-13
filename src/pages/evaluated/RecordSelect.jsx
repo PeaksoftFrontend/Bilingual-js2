@@ -4,9 +4,11 @@ import { Button } from "../../components/UI/button/Button";
 import { Icons } from "../../assets/icons";
 import { Input } from "../../components/UI/input/Input";
 import { dataSeven } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const RecordSelect = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { resultQuestion } = useSelector((state) => state.result);
 
   const handleButtonClick = () => {
     setIsPlaying(!isPlaying);
@@ -14,6 +16,20 @@ export const RecordSelect = () => {
 
   return (
     <StyledAll>
+      <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        <StyledTitle>
+          User:
+          <span style={{ color: "black", marginLeft: "5px" }}>
+            {resultQuestion?.fullName}
+          </span>
+        </StyledTitle>
+        <StyledTitle>
+          Test:
+          <span style={{ color: "black", marginLeft: "5px" }}>
+            {resultQuestion?.testTitle}
+          </span>
+        </StyledTitle>
+      </div>
       <StyledAllContainer>
         <StyledWrapperDes>
           <h3>{dataSeven.testQuestions}</h3>
@@ -37,7 +53,8 @@ export const RecordSelect = () => {
           </StyledWrapperDesSecond>
         </StyledWrapperDes>
         <StyledWrapper>
-          <h3>{dataSeven.evaluation}</h3>
+          <h3>Evaluation</h3>
+
           <StyledTitle>Score:(1-10)</StyledTitle>
           <StyledInput type="number" />
         </StyledWrapper>
@@ -126,7 +143,6 @@ export const StyledTitle = styled("h4")({
 });
 
 const StyledWrapperDes = styled("div")({
-  marginTop: "50px",
   display: "flex",
   flexDirection: "column",
   gap: "14px",
