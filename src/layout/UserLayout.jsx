@@ -23,14 +23,14 @@ const StyledDiv = styled("div")(() => ({
   backgroundColor: "#D7E1F8",
 }));
 
-const StyledAdminHeader = styled(AdminHeader)(() => ({
+export const StyledAdminHeader = styled(AdminHeader)(() => ({
   position: "fixed",
   top: 0,
   width: "100%",
   zIndex: 1,
 }));
 
-const ContentWrapper = styled("div")(() => ({
+export const ContentWrapper = styled("div")(() => ({
   marginTop: "0px",
   height: "calc(100vh - 80px)",
   overflowY: "auto",

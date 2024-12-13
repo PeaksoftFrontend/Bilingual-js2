@@ -13,7 +13,6 @@ import { NotFoundPage } from "../pages/404/NotFoundPage";
 import { TestPage } from "../pages/admin/createTest/admin-test/TestPage";
 import { AddNewTest } from "../pages/admin/createTest/admin-test/AddNewTest";
 import { TestInfo } from "../pages/admin/createTest/admin-test/TestInfo";
-// import { Words } from "../pages/client/user-test/Words";
 import { ResultPage } from "../pages/client/user-test/ResultPage";
 import { UserTestPage } from "../pages/client/user-test/UserTestPage";
 import { StartTest } from "../pages/client/user-test/StartTest";
