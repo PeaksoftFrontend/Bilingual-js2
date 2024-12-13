@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 
 export const TypeYouHear = () => {
   const { resultQuestion } = useSelector((state) => state.result);
+  console.log("hello", resultQuestion);
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleButtonClick = () => {
@@ -71,7 +73,7 @@ export const TypeYouHear = () => {
                 {isPlaying ? "STOP RECORDED AUDIO" : "PLAY AUDIO"}
               </StyledBtnContent>
             </StyledButton>
-            <p>{dataFife.correctAnswer}</p>
+            <p>Correct ansver:{resultQuestion.statement}</p>
           </StyledContainer>
         </StyledContainerAns>
 

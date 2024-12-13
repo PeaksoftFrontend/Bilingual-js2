@@ -11,6 +11,7 @@ export const EnglishWordsSelect = () => {
   console.log("testInfoId: ", testInfoId);
   const navigate = useNavigate();
   console.log("resultQuestion: ", resultQuestion);
+  console.log("hello");
 
   const formatDuration = (duration) => {
     const minutes = Math.floor(duration / 60);
