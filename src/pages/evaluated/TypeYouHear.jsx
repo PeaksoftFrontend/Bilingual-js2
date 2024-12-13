@@ -4,8 +4,10 @@ import { Icons } from "../../assets/icons";
 import { Button } from "../../components/UI/button/Button";
 import { Input } from "../../components/UI/input/Input";
 import { dataFife } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const TypeYouHear = () => {
+  const { resultQuestion } = useSelector((state) => state.result);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleButtonClick = () => {
@@ -15,6 +17,20 @@ export const TypeYouHear = () => {
   return (
     <>
       <StyledAllContainer>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <StyledTitle>
+            User:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.fullName}
+            </span>
+          </StyledTitle>
+          <StyledTitle>
+            Test:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.testTitle}
+            </span>
+          </StyledTitle>
+        </div>
         <StyledWrappersecond>
           <StyledWrapperDes>
             <h3>{dataFife.testQuestions}</h3>
@@ -145,7 +161,7 @@ const StyledTitle = styled("h4")({
 });
 
 const StyledWrapperDes = styled("div")({
-  marginTop: "25px",
+  // marginTop: "25px",
   display: "flex",
   flexDirection: "column",
   gap: "14px",

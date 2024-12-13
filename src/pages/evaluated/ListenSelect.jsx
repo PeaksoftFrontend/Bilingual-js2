@@ -3,8 +3,10 @@ import { styled } from "@mui/material";
 import { Icons } from "../../assets/icons";
 import { Button } from "../../components/UI/button/Button";
 import { dataFour } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const ListenSelect = () => {
+  const { resultQuestion } = useSelector((state) => state.result);
   const [selectedIcons, setSelectedIcons] = useState(
     dataFour.question.reduce((acc, item) => {
       acc[item.id] = false;
@@ -22,6 +24,20 @@ export const ListenSelect = () => {
   return (
     <>
       <StyledWrapperTitle>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <StyledTitle>
+            User:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.fullName}
+            </span>
+          </StyledTitle>
+          <StyledTitle>
+            Test:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.testTitle}
+            </span>
+          </StyledTitle>
+        </div>
         <StyledWrapperDes>
           <h3>{dataFour.testQuestions} </h3>
           <StyledWrapperDesSecond>
@@ -170,7 +186,7 @@ const StyledWrapperTitle = styled("div")({
   gap: "50px",
 });
 const StyledWrapperDes = styled("div")({
-  marginTop: "40px",
+  // marginTop: "40px",
   display: "flex",
   flexDirection: "column",
   gap: "14px",

@@ -15,5 +15,9 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const ContentWrapper = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+  return (
+    <StyledContainer style={{ overflow: "auto", maxHeight: "800px" }}>
+      {children}
+    </StyledContainer>
+  );
 };

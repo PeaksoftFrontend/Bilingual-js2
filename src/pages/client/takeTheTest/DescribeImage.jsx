@@ -1,25 +1,39 @@
 import { styled, TextareaAutosize } from "@mui/material";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { Duration } from "../../../components/UI/duration/Duration";
-import Img from "../../../assets/images/user5.png";
+// import Img from "../../../assets/images/user5.png";
 import { Button } from "../../../components/UI/button/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userAnswerHandler } from "../../../store/userTest/userTestSlice";
 
-export const DescribeImage = ({ onNext, currentQuestion }) => {
+export const DescribeImage = ({ currentQuestion, onNext }) => {
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
 
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
+
+  const handlerWordSelector = () => {
+    const data = {
+      statement: text,
+      questionId: currentQuestion.id,
+    };
+    console.log(data);
+
+    dispatch(userAnswerHandler(data));
+    onNext();
+  };
   return (
     <ContentWrapper>
       <MainContent>
-        <Duration time={currentQuestion.duraiton} onComplete={onNext} />
+        <Duration time={currentQuestion?.duraiton} onComplete={onNext} />
 
         <WrapperContent>
           <h1>Write one or more sentences that describe the image</h1>
           <ContainerImg>
-            <StyledImage src={Img} alt="" />
+            <StyledImage src={currentQuestion?.fileUrl} alt="" />
             <StyledTextArea
               placeholder="Your response"
               value={text}
@@ -27,7 +41,7 @@ export const DescribeImage = ({ onNext, currentQuestion }) => {
             />
           </ContainerImg>
         </WrapperContent>
-        <StyledButton disabled={!text} onClick={onNext}>
+        <StyledButton disabled={!text} onClick={handlerWordSelector}>
           next
         </StyledButton>
       </MainContent>

@@ -17,9 +17,11 @@ import { ResultPage } from "../pages/client/user-test/ResultPage";
 import { UserTestPage } from "../pages/client/user-test/UserTestPage";
 import { StartTest } from "../pages/client/user-test/StartTest";
 import { CollectUserTest } from "../pages/client/user-test/CollectUserTest";
+import { ResultInfo } from "../pages/admin/submitted Results/ResultInfo";
 import { TypeHearTest } from "../pages/client/takeTheTest/TypeHearTest";
 import { Highlight } from "../pages/client/takeTheTest/Highlight";
 import { CompletePractice } from "../pages/client/takeTheTest/CompletePractice";
+import { CollectUserAnswer } from "../pages/evaluated/CollectUserAnswer";
 
 export const AppRoutes = () => {
   const routes = createBrowserRouter([
@@ -59,8 +61,16 @@ export const AppRoutes = () => {
           element: <SubmittedResults />,
         },
         {
+          path: "submitted-results/result-info/:testInfoId/testInfo/:testId",
+          element: <ResultInfo />,
+        },
+        {
           path: "test-page/add-new-test",
           element: <AddNewTest />,
+        },
+        {
+          path: "submitted-results/result-info/:testInfoId/testInfo/:testId/userAnswer/:questionId",
+          element: <CollectUserAnswer />,
         },
       ],
     },

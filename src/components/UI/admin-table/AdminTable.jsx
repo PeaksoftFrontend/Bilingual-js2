@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-export const AdminTable = ({ columns, data }) => {
+export const AdminTable = ({ columns, data = [] }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
@@ -77,6 +77,7 @@ const StyledRow = styled(TableRow)({
 
 const StyledCell = styled(TableCell)({
   borderBottom: "none",
+  cursor: "pointer",
   "&:first-of-type": {
     borderTopLeftRadius: "8px",
     borderBottomLeftRadius: "8px",

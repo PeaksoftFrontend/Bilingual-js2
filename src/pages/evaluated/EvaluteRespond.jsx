@@ -2,12 +2,27 @@ import { styled } from "@mui/material";
 import { Input } from "../../components/UI/input/Input";
 import { Button } from "../../components/UI/button/Button";
 import { dataEight } from "../../utils/constants/general";
+import { useSelector } from "react-redux";
 
 export const EvaluteRespond = () => {
+  const { resultQuestion } = useSelector((state) => state.result);
   return (
     <>
       <StyledAllContainer>
-        {" "}
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <StyledTitle>
+            User:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.fullName}
+            </span>
+          </StyledTitle>
+          <StyledTitle>
+            Test:
+            <span style={{ color: "black", marginLeft: "5px" }}>
+              {resultQuestion?.testTitle}
+            </span>
+          </StyledTitle>
+        </div>
         <StyledWrapperTitle>
           <StyledWrapperDes>
             <h3>{dataEight.testQuestions} </h3>
@@ -104,7 +119,6 @@ const StyledWrapperDesSecond = styled("div")({
   gap: "6px",
 });
 const StyledWrapperTitle = styled("div")({
-  marginTop: "50px",
   display: "flex",
   justifyContent: "space-between",
 });

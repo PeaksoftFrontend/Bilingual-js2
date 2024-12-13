@@ -28,6 +28,8 @@ export const CollectUserTest = () => {
   }, [dispatch]);
 
   const renderComponent = (typeQuestion, currentQuestion, onNext) => {
+    console.log("Rendering component for type:", typeQuestion);
+
     switch (typeQuestion) {
       case "SELECT_REAL_ENGLISH_WORD":
         return (
