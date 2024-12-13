@@ -2,11 +2,12 @@ import { styled } from "@mui/material";
 import { Button } from "../../../components/UI/button/Button";
 import { ContentWrapper } from "../../../components/UI/content_wrapper/ContentWrapper";
 import { useNavigate } from "react-router-dom";
-import { TestNotFound } from "../../404/TestNotFound";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userTestGetRequest } from "../../../store/userTest/userTestThunk";
 import Sheet from "../../../assets/images/sheet.png";
+import { StyledNoTest } from "./CollectUserTest";
+import NoTest from "../../../assets/images/notest.png";
 
 export const UserTestPage = () => {
   const { userTest } = useSelector((state) => state.userTest);
@@ -47,9 +48,9 @@ export const UserTestPage = () => {
             </ContentWrapper>
           ))
       ) : (
-        <ContentWrapper>
-          <TestNotFound />
-        </ContentWrapper>
+        <StyledNoTest>
+          <img src={NoTest} alt="" />
+        </StyledNoTest>
       )}
     </StyledDiv>
   );
