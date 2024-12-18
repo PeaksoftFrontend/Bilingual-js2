@@ -172,7 +172,7 @@ const ContainerButtons = styled("div")(() => ({
   fontWeight: "400",
 }));
 const ContainerModal = styled("div")(() => ({
-  position: "relative", // Добавлено
+  position: "relative",
   width: "510px",
   height: "360px",
   display: "flex",
